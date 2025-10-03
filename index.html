@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MirrorFlow: Replique sus Operaciones de NinjaTrader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-bg {
+            background-color: #0a0a0a;
+            background-image:
+                radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 52% 99%, hsla(355, 98%, 71%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 10% 29%, hsla(256, 96%, 68%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.1) 0px, transparent 50%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1920&auto=format&fit=crop');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            filter: blur(4px);
+            transform: scale(1.1);
+            z-index: 0;
+        }
+        .cta-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3), 0 0 30px rgba(129, 140, 248, 0.2);
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.5), 0 0 45px rgba(129, 140, 248, 0.3);
+        }
+        .feature-card, .pricing-card, .faq-item, .ai-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #38bdf8;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="absolute top-0 left-0 right-0 z-10 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-tighter">Mirror<span class="gradient-text">Flow</span></h1>
+            <a href="#precio" class="hidden md:inline-block bg-sky-500/20 text-sky-400 border border-sky-500/30 text-sm font-semibold px-4 py-2 rounded-lg hover:bg-sky-500/30 transition-colors">Obtener Licencia</a>
+        </div>
+    </header>
+
+    <!-- Sección 1: Hero -->
+    <section class="relative hero-bg py-20 md:py-32 min-h-screen flex items-center">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-4 text-white">
+                Un Trade, <span class="gradient-text">Infinitas Posibilidades.</span>
+            </h1>
+            <p class="max-w-3xl mx-auto text-lg md:text-xl text-slate-300 mb-8">
+                Replica tus operaciones desde NinjaTrader a múltiples cuentas, cTrader y MetaTrader 5 con una velocidad y precisión inigualables.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#precio" class="w-full sm:w-auto cta-button bg-gradient-to-r from-sky-500 to-indigo-500 text-white font-bold py-3 px-8 rounded-lg text-lg">
+                    OBTENER MIRRORFLOW AHORA
+                </a>
+            </div>
+            <p class="mt-4 text-sm text-slate-400">Pago Único y Seguro | Licencia Vitalicia</p>
+        </div>
+    </section>
+
+    <!-- Sección 2: El Problema -->
+    <section class="py-16 sm:py-24 bg-black/50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">¿Cansado de la Locura de Gestionar Múltiples Cuentas?</h2>
+                <p class="text-lg text-slate-300">El trading es suficientemente difícil. Tu tecnología no debería añadir más fricción.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                <!-- Problema 1 -->
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-red-500/10 mb-4 border border-red-500/20">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </div>
+                    <h3 class="font-semibold text-white mb-2">Errores Costosos</h3>
+                    <p class="text-slate-400 text-sm">Un clic equivocado al operar manualmente en varias plataformas puede borrar las ganancias del día.</p>
+                </div>
+                <!-- Problema 2 -->
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-yellow-500/10 mb-4 border border-yellow-500/20">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7 7 7-7 7z"></path></svg>
+                    </div>
+                    <h3 class="font-semibold text-white mb-2">Pérdida de Oportunidades</h3>
+                    <p class="text-slate-400 text-sm">Mientras replicas una operación, el precio ideal en la tercera cuenta ya se ha escapado.</p>
+                </div>
+                <!-- Problema 3 -->
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-purple-500/10 mb-4 border border-purple-500/20">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v6l4 2"></path></svg>
+                    </div>
+                    <h3 class="font-semibold text-white mb-2">Estrés y Agotamiento</h3>
+                    <p class="text-slate-400 text-sm">La presión de mantener la consistencia en todas tus cuentas es un obstáculo para tu rendimiento.</p>
+                </div>
+                <!-- Problema 4 -->
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-500/10 mb-4 border border-blue-500/20">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                    </div>
+                    <h3 class="font-semibold text-white mb-2">Limitado a un Ecosistema</h3>
+                    <p class="text-slate-400 text-sm">Amas NinjaTrader, pero tus brokers de CFDs favoritos están en cTrader o MT5.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 3: La Solución -->
+    <section class="py-16 sm:py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4"><span class="gradient-text">MirrorFlow</span>: Tu Centro de Comando de Trading</h2>
+                <p class="text-lg text-slate-300 mb-12">Instálalo en tu NinjaTrader principal y observa cómo cada una de tus acciones se replica de forma instantánea y perfecta donde tú decidas.</p>
+                <h3 class="text-2xl font-bold">Opera una vez. Gana en todas partes.</h3>
+            </div>
+            
+            <!-- Diagrama visual -->
+            <div class="relative mt-12 flex flex-col items-center justify-center p-8">
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+                    <!-- Esclavas Izquierda -->
+                    <div class="flex flex-col gap-8 items-center">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-slate-800 p-3 rounded-full border border-slate-700">
+                                <svg height="40" width="40" viewBox="0 0 64 64" fill="#60a5fa"><path d="M45.7 13.5h-2.4c-1.2 0-2.3 1-2.3 2.3v15.9c0 1.2 1 2.3 2.3 2.3h2.4c1.2 0 2.3-1 2.3-2.3V15.7c-.1-1.2-1.1-2.2-2.3-2.2zm-12.8 5.7h-2.4c-1.2 0-2.3 1-2.3 2.3v10.2c0 1.2 1 2.3 2.3 2.3h2.4c1.2 0 2.3-1 2.3-2.3V21.5c0-1.2-1-2.3-2.3-2.3zm-12.8-5.7h-2.4c-1.2 0-2.3 1-2.3 2.3v22.8c0 1.2 1 2.3 2.3 2.3h2.4c1.2 0 2.3-1 2.3-2.3V15.7c0-1.2-1-2.3-2.3-2.3zM64 48.7c0 3.3-2.7 6-6 6H6c-3.3 0-6-2.7-6-6V9.3c0-3.3 2.7-6 6-6h52c3.3 0 6 2.7 6 6v39.4z"></path></svg>
+                            </div>
+                            <span class="font-semibold text-lg">cTrader</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="bg-slate-800 p-3 rounded-full border border-slate-700">
+                                <svg height="40" width="40" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="#a78bfa"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10A10.016 10.016 0 0012 2zm3.336 4.303l-1.92 5.344-3.87-3.87 5.79-1.474zM8.34 8.046l3.87 3.87-5.344 1.92 1.474-5.79zm3.66 7.957l1.92-5.344 3.87 3.87-5.79 1.474zm3.66-8.223l-1.474 5.79 1.92 5.344-3.87-3.87 3.424-7.264z" fill="#a78bfa"></path></svg>
+                            </div>
+                            <span class="font-semibold text-lg">Cuentas de Fondeo</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Centro -->
+                    <div class="relative flex-shrink-0">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-sky-600 to-indigo-600 rounded-full blur-xl opacity-60"></div>
+                        <div class="relative bg-slate-900 p-6 rounded-full border-2 border-slate-700 text-center">
+                            <h4 class="text-xl font-bold">NinjaTrader</h4>
+                            <p class="text-sm text-sky-400">MAESTRA</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Esclavas Derecha -->
+                    <div class="flex flex-col gap-8 items-center">
+                       <div class="flex items-center gap-4">
+                            <div class="bg-slate-800 p-3 rounded-full border border-slate-700">
+                                <svg height="40" width="40" viewBox="0 0 24 24" fill="#f472b6"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 3a7 7 0 100 14 7 7 0 000-14zm0 3c-.733 0-1.403.22-1.964.585l3.379 3.379A2.99 2.99 0 0014 11c0-.98-.47-1.84-1.2-2.363A2.986 2.986 0 0012 8zm-3.415 2.036L12 13.414l3.415-3.378A5 5 0 0115.586 17H8.414A5.002 5.002 0 014.2 11.2a5 5 0 014.385-1.164z"></path></svg>
+                            </div>
+                            <span class="font-semibold text-lg">MetaTrader 5</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="bg-slate-800 p-3 rounded-full border border-slate-700">
+                                <svg height="40" width="40" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="#a78bfa"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10A10.016 10.016 0 0012 2zm3.336 4.303l-1.92 5.344-3.87-3.87 5.79-1.474zM8.34 8.046l3.87 3.87-5.344 1.92 1.474-5.79zm3.66 7.957l1.92-5.344 3.87 3.87-5.79 1.474zm3.66-8.223l-1.474 5.79 1.92 5.344-3.87-3.87 3.424-7.264z" fill="#a78bfa"></path></svg>
+                            </div>
+                            <span class="font-semibold text-lg">NinjaTrader</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flechas (solo visible en pantallas grandes) -->
+                <div class="hidden md:block absolute top-1/2 left-0 right-0 -translate-y-1/2">
+                     <svg width="100%" height="100%" class="absolute top-0 left-0" style="opacity: 0.2;">
+                         <line x1="25%" y1="15%" x2="45%" y2="50%" stroke="#fff" stroke-width="2" stroke-dasharray="5 5"/>
+                         <line x1="25%" y1="85%" x2="45%" y2="50%" stroke="#fff" stroke-width="2" stroke-dasharray="5 5"/>
+                         <line x1="75%" y1="15%" x2="55%" y2="50%" stroke="#fff" stroke-width="2" stroke-dasharray="5 5"/>
+                         <line x1="75%" y1="85%" x2="55%" y2="50%" stroke="#fff" stroke-width="2" stroke-dasharray="5 5"/>
+                     </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 4: Características y Beneficios -->
+    <section class="py-16 sm:py-24 bg-black/50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Diseñado para Traders que Exigen Rendimiento</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                <!-- Característica 1 -->
+                <div class="feature-card p-8 rounded-xl">
+                    <h3 class="font-semibold text-lg text-white mb-2">Replicación Multi-Cuenta NT</h3>
+                    <p class="text-slate-300"><span class="text-sky-400 font-medium">Beneficio:</span> Consistencia absoluta y cero esfuerzo manual al gestionar múltiples cuentas de fondeo, clientes o personales.</p>
+                </div>
+                 <!-- Característica 2 -->
+                <div class="feature-card p-8 rounded-xl">
+                    <h3 class="font-semibold text-lg text-white mb-2">Conexión a CFDs (cTrader/MT5)</h3>
+                    <p class="text-slate-300"><span class="text-sky-400 font-medium">Beneficio:</span> Amplía tu alcance y diversifica tu operativa usando los gráficos de NinjaTrader en tus brokers de CFDs.</p>
+                </div>
+                <!-- Característica 3 -->
+                <div class="feature-card p-8 rounded-xl">
+                    <h3 class="font-semibold text-lg text-white mb-2">Ejecución de Ultra Baja Latencia</h3>
+                    <p class="text-slate-300"><span class="text-sky-400 font-medium">Beneficio:</span> Slippage mínimo entre cuentas. Nuestro motor optimizado para la velocidad captura cada tick.</p>
+                </div>
+                <!-- Característica 4 -->
+                <div class="feature-card p-8 rounded-xl">
+                    <h3 class="font-semibold text-lg text-white mb-2">Gestión de Riesgo Inteligente</h3>
+                    <p class="text-slate-300"><span class="text-sky-400 font-medium">Beneficio:</span> Control total y riesgo a medida, ajustando el lotaje por %, ratio fijo o valor predefinido para cada cuenta.</p>
+                </div>
+                <!-- Característica 5 -->
+                <div class="feature-card p-8 rounded-xl">
+                    <h3 class="font-semibold text-lg text-white mb-2">Instalación Sencilla en 5 Minutos</h3>
+                    <p class="text-slate-300"><span class="text-sky-400 font-medium">Beneficio:</span> Sin configuraciones complejas. Menos tiempo configurando, más tiempo operando.</p>
+                </div>
+                <!-- Característica 6 -->
+                <div class="feature-card p-8 rounded-xl">
+                    <h3 class="font-semibold text-lg text-white mb-2">Soporte Premium</h3>
+                    <p class="text-slate-300"><span class="text-sky-400 font-medium">Beneficio:</span> Acceso a nuestro equipo de soporte y guías de instalación para una experiencia sin contratiempos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección 5: ¿Para Quién es? -->
+    <section class="py-16 sm:py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Potencia Tu Estilo de Trading</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 mt-12 max-w-4xl mx-auto">
+                 <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-white mb-2 text-lg">Traders de Cuentas de Fondeo</h3>
+                    <p class="text-slate-400">Gestiona múltiples desafíos y cuentas financiadas simultáneamente. Pasa más pruebas y escala tu capital más rápido.</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-white mb-2 text-lg">Gestores de Cuentas</h3>
+                    <p class="text-slate-400">Ofrece un servicio premium ejecutando operaciones en todas las cuentas de tus clientes (MT5/cTrader) desde tu NinjaTrader central.</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-white mb-2 text-lg">Traders Minoristas Ambiciosos</h3>
+                    <p class="text-slate-400">Diversifica tus brokers y estrategias replicando tus operaciones de futuros en cuentas de CFDs para aprovechar diferentes mercados.</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-white mb-2 text-lg">Desarrolladores de Estrategias</h3>
+                    <p class="text-slate-400">Prueba y ejecuta tus algos de NinjaTrader en diferentes entornos (Futuros, CFDs) al mismo tiempo para validar su rendimiento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Gemini: AI Assistant -->
+    <section id="ai-assistant" class="py-16 sm:py-24 bg-black/50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Asistente de Trading Potenciado por <span class="gradient-text">IA</span></h2>
+                <p class="text-lg text-slate-300">Supera tus límites con herramientas inteligentes que te ayudan a crear estrategias y optimizar tu mentalidad.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 mt-12 max-w-6xl mx-auto">
+                <!-- AI Strategy Generator -->
+                <div class="ai-card rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold text-white mb-4">✨ Generador de Estrategias</h3>
+                    <p class="text-slate-400 mb-6">Describe tus preferencias y deja que nuestra IA cree un concepto de estrategia único para ti.</p>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="market" class="block text-sm font-medium text-slate-300">Mercado</label>
+                            <input type="text" id="market" class="mt-1 block w-full bg-slate-800 border border-slate-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm" placeholder="Ej: Futuros (ES, NQ), Forex (EURUSD)">
+                        </div>
+                        <div>
+                            <label for="style" class="block text-sm font-medium text-slate-300">Estilo de Trading</label>
+                            <input type="text" id="style" class="mt-1 block w-full bg-slate-800 border border-slate-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm" placeholder="Ej: Scalping, Intradía, Swing">
+                        </div>
+                        <div>
+                            <label for="indicator" class="block text-sm font-medium text-slate-300">Indicador Preferido</label>
+                            <input type="text" id="indicator" class="mt-1 block w-full bg-slate-800 border border-slate-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm" placeholder="Ej: MACD, RSI, Medias Móviles">
+                        </div>
+                    </div>
+                    <button id="generateStrategyBtn" class="mt-6 w-full cta-button bg-gradient-to-r from-sky-500/80 to-indigo-500/80 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
+                        Generar Estrategia
+                    </button>
+                    <div id="strategyResult" class="mt-6 p-4 bg-slate-900/50 rounded-lg border border-slate-800 text-sm prose prose-invert max-w-none prose-p:text-slate-300 prose-li:text-slate-300 hidden"></div>
+                </div>
+
+                <!-- AI Plan Optimizer -->
+                <div class="ai-card rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold text-white mb-4">✨ Optimizador de Plan de Trading</h3>
+                    <p class="text-slate-400 mb-6">¿Atascado en un problema? Describe tu desafío y recibe consejos prácticos de nuestra IA para mejorar.</p>
+                     <div class="space-y-4">
+                        <div>
+                            <label for="challenge" class="block text-sm font-medium text-slate-300">Describe tu principal desafío</label>
+                            <textarea id="challenge" rows="5" class="mt-1 block w-full bg-slate-800 border border-slate-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm" placeholder="Ej: No respeto mi stop loss, hago overtrading cuando pierdo, me cuesta pasar pruebas de fondeo..."></textarea>
+                        </div>
+                    </div>
+                    <button id="optimizePlanBtn" class="mt-6 w-full cta-button bg-gradient-to-r from-sky-500/80 to-indigo-500/80 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
+                        Obtener Consejos
+                    </button>
+                    <div id="planResult" class="mt-6 p-4 bg-slate-900/50 rounded-lg border border-slate-800 text-sm prose prose-invert max-w-none prose-p:text-slate-300 prose-li:text-slate-300 hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 6: Precio -->
+    <section id="precio" class="py-16 sm:py-24 bg-black/50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Una Inversión, Retornos Ilimitados</h2>
+            <p class="text-lg text-slate-300 mb-12 max-w-2xl mx-auto">Obtén acceso completo a todas las funcionalidades de MirrorFlow con un solo pago.</p>
+            <div class="max-w-md mx-auto">
+                <div class="pricing-card rounded-2xl p-8 text-left relative overflow-hidden">
+                    <div class="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-sky-500/10 rounded-full"></div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Licencia Vitalicia MirrorFlow</h3>
+                    <div class="my-6">
+                        <span class="text-5xl font-extrabold text-white">$29</span>
+                        <span class="text-lg text-slate-300">USD</span>
+                    </div>
+                    <p class="font-semibold mb-6 text-sky-400">Pago Único</p>
+                    <ul class="space-y-4 text-slate-300">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-sky-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            Replicación ilimitada de cuentas NinjaTrader
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-sky-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            Conexión a cTrader y MetaTrader 5
+                        </li>
+                        <li class="flex items-center gap-3">
+                             <svg class="w-5 h-5 text-sky-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            <span class="gradient-text font-semibold">✨ Asistente de Trading con IA</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                             <svg class="w-5 h-5 text-sky-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            Actualizaciones de por vida
+                        </li>
+                        <li class="flex items-center gap-3">
+                             <svg class="w-5 h-5 text-sky-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            Soporte Técnico Premium
+                        </li>
+                        <li class="flex items-center gap-3">
+                             <svg class="w-5 h-5 text-sky-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            Guías de instalación y videotutoriales
+                        </li>
+                    </ul>
+                    <a href="https://buy.stripe.com/test_7sYaEZ1TWaK4c9xa6H3gk01" class="mt-8 block w-full text-center cta-button bg-gradient-to-r from-sky-500 to-indigo-500 text-white font-bold py-3 px-8 rounded-lg text-lg">
+                        COMPRAR MI LICENCIA VITALICIA
+                    </a>
+                </div>
+                <p class="mt-4 text-sm text-slate-400">Transacción segura con Stripe | Acceso Inmediato</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 7: FAQ -->
+    <section class="py-16 sm:py-24">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-center mb-12">Preguntas Frecuentes</h2>
+            <div class="space-y-4">
+                 <details class="faq-item p-6 rounded-lg group">
+                    <summary class="flex justify-between items-center cursor-pointer font-semibold text-white">
+                        ¿Cómo funciona el Asistente de Trading con IA?
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <p class="mt-4 text-slate-300">Utilizamos la API de Gemini de Google para potenciar nuestras herramientas de IA. El Generador de Estrategias y el Optimizador de Planes envían tus indicaciones a un modelo de lenguaje avanzado para crear respuestas personalizadas y ayudarte en tu trading. No almacenamos tus datos de entrada.</p>
+                </details>
+                <details class="faq-item p-6 rounded-lg group">
+                    <summary class="flex justify-between items-center cursor-pointer font-semibold text-white">
+                        ¿La licencia es realmente para siempre?
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <p class="mt-4 text-slate-300">Sí, es un pago único que te da acceso a la versión actual y a todas las futuras actualizaciones de MirrorFlow sin costes adicionales, incluyendo las herramientas de IA.</p>
+                </details>
+                 <details class="faq-item p-6 rounded-lg group">
+                    <summary class="flex justify-between items-center cursor-pointer font-semibold text-white">
+                        ¿Es difícil de instalar?
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <p class="mt-4 text-slate-300">¡No! Está diseñado para ser fácil. Si sabes instalar un indicador en NinjaTrader, puedes instalar MirrorFlow. Además, tenemos guías paso a paso y soporte listo para ayudarte.</p>
+                </details>
+                 <details class="faq-item p-6 rounded-lg group">
+                    <summary class="flex justify-between items-center cursor-pointer font-semibold text-white">
+                        ¿Qué tan rápido es el replicador?
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <p class="mt-4 text-slate-300">La velocidad es una de nuestras prioridades. La replicación ocurre en milisegundos, sujeto a la latencia de tu conexión y la de tus brokers.</p>
+                </details>
+                 <details class="faq-item p-6 rounded-lg group">
+                    <summary class="flex justify-between items-center cursor-pointer font-semibold text-white">
+                        ¿Puedo replicar de MT5 a NinjaTrader?
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <p class="mt-4 text-slate-300">Actualmente, MirrorFlow replica <strong>desde</strong> NinjaTrader <strong>hacia</strong> otras plataformas. NinjaTrader siempre actúa como la cuenta maestra.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección 8: Llamada a la Acción Final -->
+    <section class="py-16 sm:py-24">
+        <div class="container mx-auto px-6 text-center">
+             <h2 class="text-3xl md:text-5xl font-extrabold tracking-tighter mb-4 text-white">
+                Tu Trading, Sincronizado y <span class="gradient-text">sin Límites.</span>
+            </h2>
+            <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-300 mb-8">
+                Deja de perder tiempo y oportunidades. Centraliza, optimiza y escala tu operativa hoy mismo.
+            </p>
+            <a href="#precio" class="inline-block cta-button bg-gradient-to-r from-sky-500 to-indigo-500 text-white font-bold py-3 px-8 rounded-lg text-lg">
+                EMPIEZA A REPLICAR CON MIRRORFLOW
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-800">
+        <div class="container mx-auto px-6 text-center text-slate-400 text-sm">
+            <p>&copy; 2025 MirrorFlow. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        const generateStrategyBtn = document.getElementById('generateStrategyBtn');
+        const optimizePlanBtn = document.getElementById('optimizePlanBtn');
+        const strategyResultDiv = document.getElementById('strategyResult');
+        const planResultDiv = document.getElementById('planResult');
+
+        const apiKey = ""; // API Key will be injected by the environment.
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        // Simple markdown to HTML converter
+        function simpleMarkdownToHtml(text) {
+            let html = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')     // Italic
+                .replace(/^(#{1,6})\s*(.*)$/gm, (match, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`) // Headers
+                .replace(/^\s*\n\*/gm, '<ul>\n*')
+                .replace(/^(\s*)\*(.*)$/gm, '$1<li>$2</li>')
+                .replace(/<\/li>\n<ul>/gm, '</li></ul>\n<ul>')
+                .replace(/<\/li>\s*\n(?!<(\/)?li>)/gm, '</li>\n</ul>')
+                .replace(/\n/g, '<br>'); // Newlines
+            return html;
+        }
+
+        async function callGemini(systemPrompt, userPrompt, button, resultDiv) {
+            button.disabled = true;
+            button.innerHTML = '<div class="spinner"></div><span class="ml-2">Generando...</span>';
+            resultDiv.classList.add('hidden');
+            resultDiv.innerHTML = '';
+            
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            let success = false;
+            let retries = 0;
+            const maxRetries = 5;
+
+            while (!success && retries < maxRetries) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const text = candidate.content.parts[0].text;
+                        resultDiv.innerHTML = simpleMarkdownToHtml(text);
+                        resultDiv.classList.remove('hidden');
+                        success = true;
+                    } else {
+                        throw new Error("Respuesta inválida de la API.");
+                    }
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    retries++;
+                    if (retries >= maxRetries) {
+                         resultDiv.innerHTML = '<p class="text-red-400">Error al contactar la IA. Por favor, inténtalo de nuevo más tarde.</p>';
+                         resultDiv.classList.remove('hidden');
+                    } else {
+                        const delay = Math.pow(2, retries) * 1000;
+                        await new Promise(res => setTimeout(res, delay));
+                    }
+                }
+            }
+
+            button.disabled = false;
+            button.innerHTML = button.id === 'generateStrategyBtn' ? 'Generar Estrategia' : 'Obtener Consejos';
+        }
+
+        generateStrategyBtn.addEventListener('click', () => {
+            const market = document.getElementById('market').value;
+            const style = document.getElementById('style').value;
+            const indicator = document.getElementById('indicator').value;
+
+            if (!market || !style || !indicator) {
+                alert('Por favor, completa todos los campos para generar la estrategia.');
+                return;
+            }
+
+            const systemPrompt = "Eres un asistente experto en estrategias de trading. Basado en las preferencias del usuario, genera un concepto de estrategia de trading conciso, accionable y único. Presenta la respuesta en español, usando markdown con puntos clave para Entrada, Salida, y Gestión de Riesgo.";
+            const userPrompt = `Crea un concepto de estrategia de trading con las siguientes características:\n- Mercado: ${market}\n- Estilo: ${style}\n- Indicador Principal: ${indicator}`;
+            
+            callGemini(systemPrompt, userPrompt, generateStrategyBtn, strategyResultDiv);
+        });
+
+        optimizePlanBtn.addEventListener('click', () => {
+            const challenge = document.getElementById('challenge').value;
+
+            if (!challenge) {
+                alert('Por favor, describe tu desafío para obtener consejos.');
+                return;
+            }
+
+            const systemPrompt = "Eres un coach experto y motivador en psicología y rendimiento de trading. Basado en el problema del usuario, proporciona de 3 a 5 consejos concretos y accionables en español para mejorar su plan de trading y disciplina. El tono debe ser de apoyo pero directo. Usa markdown para la lista de consejos.";
+            const userPrompt = `Mi principal desafío en el trading es: "${challenge}". Dame consejos prácticos para superarlo.`;
+
+            callGemini(systemPrompt, userPrompt, optimizePlanBtn, planResultDiv);
+        });
+    </script>
+
+</body>
+</html>
