@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- SEO Meta Tags -->
     <title>MirrorFlow: Replicador de Trades para NinjaTrader, cTrader y MT5</title>
-    <meta name="description" content="Replica tus trades de NinjaTrader a cTrader y MT5 al instante. MirrorFlow es el copiador de operaciones definitivo para traders de cuentas de fondeo. ¡Licencia vitalicia!">
-    <meta name="keywords" content="replicador de trades, trade copier, ninjatrader, ctrader, metatrader 5, mt5, cuentas de fondeo, copy trading, prop firms">
+    <meta name="description"
+        content="Replica tus trades de NinjaTrader a cTrader y MT5 al instante. MirrorFlow es el copiador de operaciones definitivo para traders de cuentas de fondeo. ¡Licencia vitalicia!">
+    <meta name="keywords"
+        content="replicador de trades, trade copier, ninjatrader, ctrader, metatrader 5, mt5, cuentas de fondeo, copy trading, prop firms">
     <meta name="author" content="MirrorFlow">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://mirrorflow.app/">
@@ -16,19 +19,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mirrorflow.app/">
     <meta property="og:title" content="MirrorFlow: Replicador de Trades Profesional">
-    <meta property="og:description" content="Gestiona múltiples cuentas de fondeo desde un solo monitor. NinjaTrader a cTrader y MT5 sin latencia.">
+    <meta property="og:description"
+        content="Gestiona múltiples cuentas de fondeo desde un solo monitor. NinjaTrader a cTrader y MT5 sin latencia.">
     <meta property="og:image" content="https://placehold.co/1200x630/0a0a0a/38bdf8?text=MirrorFlow+Trading">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://mirrorflow.app/">
     <meta property="twitter:title" content="MirrorFlow: Replicador de Trades Profesional">
-    <meta property="twitter:description" content="Gestiona múltiples cuentas de fondeo desde un solo monitor. NinjaTrader a cTrader y MT5 sin latencia.">
+    <meta property="twitter:description"
+        content="Gestiona múltiples cuentas de fondeo desde un solo monitor. NinjaTrader a cTrader y MT5 sin latencia.">
     <meta property="twitter:image" content="https://placehold.co/1200x630/0a0a0a/38bdf8?text=MirrorFlow+Trading">
 
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='fav-gradient' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2338bdf8'/%3E%3Cstop offset='100%25' stop-color='%23818cf8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='url(%23fav-gradient)'/%3E%3Ctext x='50' y='65' font-size='50' font-family='Inter, sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3EMF%3C/text%3E%3C/svg%3E">
-    
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='fav-gradient' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2338bdf8'/%3E%3Cstop offset='100%25' stop-color='%23818cf8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='url(%23fav-gradient)'/%3E%3Ctext x='50' y='65' font-size='50' font-family='Inter, sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3EMF%3C/text%3E%3C/svg%3E">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,11 +46,13 @@
             color: #e5e5e5;
             scroll-behavior: smooth;
         }
+
         .gradient-text {
             background: linear-gradient(90deg, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .hero-bg {
             background-color: #0a0a0a;
             background-image:
@@ -58,6 +66,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .hero-bg::before {
             content: '';
             position: absolute;
@@ -74,34 +83,42 @@
             transform: scale(1.05);
             z-index: 0;
         }
+
         .cta-button {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
         }
+
         .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
         }
+
         .whatsapp-button {
             transition: all 0.3s ease;
             box-shadow: 0 0 15px rgba(34, 197, 94, 0.25);
         }
+
         .whatsapp-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
         }
+
         .glass-panel {
             border: 1px solid rgba(255, 255, 255, 0.08);
             background: rgba(20, 20, 25, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-        details > summary {
+
+        details>summary {
             list-style: none;
         }
-        details > summary::-webkit-details-marker {
+
+        details>summary::-webkit-details-marker {
             display: none;
         }
+
         .spinner {
             border: 2px solid #f3f3f3;
             border-top: 2px solid #38bdf8;
@@ -110,18 +127,28 @@
             height: 20px;
             animation: spin 1s linear infinite;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        #countdown-timer > div {
+
+        #countdown-timer>div {
             background: rgba(30, 41, 59, 0.5);
             border-radius: 0.5rem;
             padding: 0.5rem 0.75rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         /* SVG Gradient definition accessible to all SVGs */
-        svg { overflow: visible; }
+        svg {
+            overflow: visible;
+        }
     </style>
 
     <!-- Schema.org for Google -->
@@ -148,33 +175,39 @@
     }
     </script>
 </head>
+
 <body class="antialiased">
 
     <!-- Global SVG Defs -->
     <svg width="0" height="0" style="position:absolute">
-      <defs>
-        <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:#38bdf8;"></stop>
-          <stop offset="100%" style="stop-color:#818cf8;"></stop>
-        </linearGradient>
-      </defs>
+        <defs>
+            <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#38bdf8;"></stop>
+                <stop offset="100%" style="stop-color:#818cf8;"></stop>
+            </linearGradient>
+        </defs>
     </svg>
 
     <!-- Header -->
     <header class="absolute top-0 left-0 right-0 z-50 p-6">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold tracking-tighter cursor-pointer" onclick="window.scrollTo(0,0)">Mirror<span class="gradient-text">Flow</span></h1>
-            <a href="#precio" class="hidden md:inline-block bg-sky-500/10 text-sky-400 border border-sky-500/20 text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-sky-500/20 transition-all hover:border-sky-500/40">Obtener Licencia</a>
+            <h1 class="text-2xl font-bold tracking-tighter cursor-pointer" onclick="window.scrollTo(0,0)">Mirror<span
+                    class="gradient-text">Flow</span></h1>
+            <a href="#precio"
+                class="hidden md:inline-block bg-sky-500/10 text-sky-400 border border-sky-500/20 text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-sky-500/20 transition-all hover:border-sky-500/40">Obtener
+                Licencia</a>
         </div>
     </header>
 
     <!-- Sección 1: Hero -->
     <section class="relative hero-bg py-24 md:py-32 min-h-screen flex items-center justify-center">
         <div class="container mx-auto px-6 text-center relative z-10 flex flex-col items-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs text-sky-400 font-medium mb-6 animate-fade-in-up">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs text-sky-400 font-medium mb-6 animate-fade-in-up">
                 <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
                 </span>
                 Nueva Versión 2025 Disponible
             </div>
@@ -182,12 +215,18 @@
                 Un Trade, <br class="hidden md:block" /> <span class="gradient-text">Infinitas Posibilidades.</span>
             </h1>
             <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-400 mb-10 leading-relaxed">
-                Replica tus operaciones desde NinjaTrader a múltiples cuentas, cTrader y MetaTrader 5 con una velocidad y precisión inigualables.
+                Replica tus operaciones desde NinjaTrader a múltiples cuentas, cTrader y MetaTrader 5 con una velocidad
+                y precisión inigualables.
             </p>
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto">
-                <a href="#precio" class="w-full sm:w-auto cta-button bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-bold py-4 px-8 rounded-xl text-lg flex items-center justify-center gap-2">
+                <a href="#precio"
+                    class="w-full sm:w-auto cta-button bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-bold py-4 px-8 rounded-xl text-lg flex items-center justify-center gap-2">
                     OBTENER MIRRORFLOW AHORA
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
                 </a>
             </div>
             <p class="mt-6 text-sm text-slate-500 font-medium">Pago Único y Seguro | Licencia Vitalicia</p>
@@ -198,41 +237,65 @@
     <section class="py-20 bg-slate-950">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">¿Cansado de la Locura de Gestionar Múltiples Cuentas?</h2>
-                <p class="text-lg text-slate-400">El trading es suficientemente difícil. Tu tecnología no debería añadir más fricción.</p>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">¿Cansado de la Locura de Gestionar
+                    Múltiples Cuentas?</h2>
+                <p class="text-lg text-slate-400">El trading es suficientemente difícil. Tu tecnología no debería añadir
+                    más fricción.</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Problema 1 -->
                 <div class="glass-panel p-6 rounded-2xl hover:bg-slate-900/80 transition-colors">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-red-500/10 mb-4 border border-red-500/20 text-red-400" aria-hidden="true">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-red-500/10 mb-4 border border-red-500/20 text-red-400"
+                        aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
                     </div>
                     <h3 class="font-semibold text-white mb-2">Errores Costosos</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Un clic equivocado al operar manualmente en varias plataformas puede borrar las ganancias del día.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">Un clic equivocado al operar manualmente en varias
+                        plataformas puede borrar las ganancias del día.</p>
                 </div>
                 <!-- Problema 2 -->
                 <div class="glass-panel p-6 rounded-2xl hover:bg-slate-900/80 transition-colors">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-yellow-500/10 mb-4 border border-yellow-500/20 text-yellow-400" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7 7 7-7 7z"></path></svg>
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-yellow-500/10 mb-4 border border-yellow-500/20 text-yellow-400"
+                        aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12 19-7-7 7-7 7 7-7 7z"></path>
+                        </svg>
                     </div>
                     <h3 class="font-semibold text-white mb-2">Pérdida de Oportunidades</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Mientras replicas una operación, el precio ideal en la tercera cuenta ya se ha escapado.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">Mientras replicas una operación, el precio ideal
+                        en la tercera cuenta ya se ha escapado.</p>
                 </div>
                 <!-- Problema 3 -->
                 <div class="glass-panel p-6 rounded-2xl hover:bg-slate-900/80 transition-colors">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-purple-500/10 mb-4 border border-purple-500/20 text-purple-400" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v6l4 2"></path></svg>
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-purple-500/10 mb-4 border border-purple-500/20 text-purple-400"
+                        aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                            <path d="M12 6v6l4 2"></path>
+                        </svg>
                     </div>
                     <h3 class="font-semibold text-white mb-2">Estrés y Agotamiento</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">La presión de mantener la consistencia en todas tus cuentas es un obstáculo para tu rendimiento.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">La presión de mantener la consistencia en todas
+                        tus cuentas es un obstáculo para tu rendimiento.</p>
                 </div>
                 <!-- Problema 4 -->
                 <div class="glass-panel p-6 rounded-2xl hover:bg-slate-900/80 transition-colors">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-500/10 mb-4 border border-blue-500/20 text-blue-400" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-500/10 mb-4 border border-blue-500/20 text-blue-400"
+                        aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 6L6 18M6 6l12 12"></path>
+                        </svg>
                     </div>
                     <h3 class="font-semibold text-white mb-2">Limitado a un Ecosistema</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Amas NinjaTrader, pero tus brokers de CFDs favoritos están en cTrader o MT5.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">Amas NinjaTrader, pero tus brokers de CFDs
+                        favoritos están en cTrader o MT5.</p>
                 </div>
             </div>
         </div>
@@ -242,83 +305,116 @@
     <section class="py-20 overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4"><span class="gradient-text">MirrorFlow</span>: Tu Centro de Comando</h2>
-                <p class="text-lg text-slate-300 mb-8">Instálalo en tu NinjaTrader principal y observa cómo cada una de tus acciones se replica de forma instantánea y perfecta donde tú decidas.</p>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4"><span
+                        class="gradient-text">MirrorFlow</span>: Tu Centro de Comando</h2>
+                <p class="text-lg text-slate-300 mb-8">Instálalo en tu NinjaTrader principal y observa cómo cada una de
+                    tus acciones se replica de forma instantánea y perfecta donde tú decidas.</p>
                 <h3 class="text-2xl font-bold text-white">Opera una vez. Gana en todas partes.</h3>
             </div>
-            
+
             <!-- Diagrama visual -->
-            <div role="img" aria-label="Diagrama de flujo de MirrorFlow" class="relative mt-16 flex flex-col items-center justify-center p-8">
+            <div role="img" aria-label="Diagrama de flujo de MirrorFlow"
+                class="relative mt-16 flex flex-col items-center justify-center p-8">
                 <!-- Flechas de fondo (solo desktop) -->
                 <div class="hidden md:block absolute top-1/2 left-0 right-0 -translate-y-1/2 z-0" aria-hidden="true">
-                     <svg width="100%" height="100%" class="absolute top-0 left-0" style="opacity: 0.15;">
-                         <!-- Líneas de conexión estilizadas -->
-                         <path d="M25% 15% C 35% 15%, 35% 50%, 45% 50%" stroke="#fff" stroke-width="2" fill="none" stroke-dasharray="8 4" />
-                         <path d="M25% 85% C 35% 85%, 35% 50%, 45% 50%" stroke="#fff" stroke-width="2" fill="none" stroke-dasharray="8 4" />
-                         <path d="M75% 15% C 65% 15%, 65% 50%, 55% 50%" stroke="#fff" stroke-width="2" fill="none" stroke-dasharray="8 4" />
-                         <path d="M75% 85% C 65% 85%, 65% 50%, 55% 50%" stroke="#fff" stroke-width="2" fill="none" stroke-dasharray="8 4" />
-                     </svg>
+                    <svg width="100%" height="100%" class="absolute top-0 left-0" style="opacity: 0.15;">
+                        <!-- Líneas de conexión estilizadas -->
+                        <path d="M25% 15% C 35% 15%, 35% 50%, 45% 50%" stroke="#fff" stroke-width="2" fill="none"
+                            stroke-dasharray="8 4" />
+                        <path d="M25% 85% C 35% 85%, 35% 50%, 45% 50%" stroke="#fff" stroke-width="2" fill="none"
+                            stroke-dasharray="8 4" />
+                        <path d="M75% 15% C 65% 15%, 65% 50%, 55% 50%" stroke="#fff" stroke-width="2" fill="none"
+                            stroke-dasharray="8 4" />
+                        <path d="M75% 85% C 65% 85%, 65% 50%, 55% 50%" stroke="#fff" stroke-width="2" fill="none"
+                            stroke-dasharray="8 4" />
+                    </svg>
                 </div>
 
                 <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 relative z-10">
                     <!-- Izquierda -->
                     <div class="flex flex-col gap-10 items-center md:items-end">
                         <div class="flex items-center gap-4 group">
-                            <span class="font-semibold text-lg text-slate-300 group-hover:text-white transition-colors text-right">cTrader</span>
-                            <div class="w-16 h-16 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center shadow-lg group-hover:border-red-500/50 transition-colors">
-                               <!-- Logo cTrader Corregido: Círculo Rojo solido con C blanca -->
-                               <svg role="img" aria-label="cTrader Logo" class="h-10 w-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                   <circle cx="12" cy="12" r="12" fill="#D32F2F"/>
-                                   <path d="M16.5 7.5C15.5 6.5 14 6 12.5 6C9.5 6 7 8.5 7 11.5C7 14.5 9.5 17 12.5 17C14 17 15.5 16.5 16.5 15.5" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                               </svg>
+                            <span
+                                class="font-semibold text-lg text-slate-300 group-hover:text-white transition-colors text-right">cTrader</span>
+                            <div
+                                class="w-16 h-16 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center shadow-lg group-hover:border-red-500/50 transition-colors">
+                                <!-- Logo cTrader Corregido: Círculo Rojo solido con C blanca -->
+                                <svg role="img" aria-label="cTrader Logo" class="h-10 w-10" viewBox="0 0 24 24"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="12" fill="#D32F2F" />
+                                    <path
+                                        d="M16.5 7.5C15.5 6.5 14 6 12.5 6C9.5 6 7 8.5 7 11.5C7 14.5 9.5 17 12.5 17C14 17 15.5 16.5 16.5 15.5"
+                                        stroke="white" stroke-width="2.5" stroke-linecap="round" />
+                                </svg>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 group">
-                            <span class="font-semibold text-lg text-slate-300 group-hover:text-white transition-colors text-right">Cuentas de Fondeo</span>
-                            <div class="w-16 h-16 bg-slate-900 p-3 rounded-full border border-slate-700 flex items-center justify-center shadow-lg group-hover:border-blue-500/50 transition-colors">
+                            <span
+                                class="font-semibold text-lg text-slate-300 group-hover:text-white transition-colors text-right">Cuentas
+                                de Fondeo</span>
+                            <div
+                                class="w-16 h-16 bg-slate-900 p-3 rounded-full border border-slate-700 flex items-center justify-center shadow-lg group-hover:border-blue-500/50 transition-colors">
                                 <!-- Logo Apex Trader Funding: Pico/Montaña estilizada -->
-                                <svg role="img" aria-label="Apex Trader Funding Logo" class="h-10 w-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 14L8 5L15 16H21" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M12 19L17 12" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <svg role="img" aria-label="Apex Trader Funding Logo" class="h-10 w-10"
+                                    viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 14L8 5L15 16H21" stroke="white" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M12 19L17 12" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Centro (Master) -->
                     <div class="relative flex-shrink-0">
-                        <div class="absolute -inset-4 bg-gradient-to-r from-sky-600 to-indigo-600 rounded-full blur-2xl opacity-40 animate-pulse"></div>
-                        <div class="relative bg-slate-950 p-8 rounded-full border-2 border-indigo-500/50 text-center shadow-2xl z-20">
+                        <div
+                            class="absolute -inset-4 bg-gradient-to-r from-sky-600 to-indigo-600 rounded-full blur-2xl opacity-40 animate-pulse">
+                        </div>
+                        <div
+                            class="relative bg-slate-950 p-8 rounded-full border-2 border-indigo-500/50 text-center shadow-2xl z-20">
                             <h4 class="text-2xl font-extrabold text-white">NinjaTrader</h4>
                             <p class="text-xs font-bold tracking-widest text-indigo-400 mt-1">MAESTRA</p>
                         </div>
                     </div>
-                    
+
                     <!-- Derecha -->
                     <div class="flex flex-col gap-10 items-center md:items-start">
-                       <div class="flex items-center gap-4 group">
-                            <div class="w-16 h-16 bg-slate-900 p-2 rounded-full border border-slate-700 flex items-center justify-center shadow-lg group-hover:border-blue-500/50 transition-colors">
+                        <div class="flex items-center gap-4 group">
+                            <div
+                                class="w-16 h-16 bg-slate-900 p-2 rounded-full border border-slate-700 flex items-center justify-center shadow-lg group-hover:border-blue-500/50 transition-colors">
                                 <!-- Logo MetaTrader 5 Corregido: 5 en centro, circulo tricolor alrededor -->
-                                <svg role="img" aria-label="MetaTrader 5 Logo" class="h-12 w-12" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <svg role="img" aria-label="MetaTrader 5 Logo" class="h-12 w-12" viewBox="0 0 100 100"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <!-- Número 5 central -->
-                                    <text x="50" y="68" font-family="Arial, sans-serif" font-weight="bold" font-size="50" fill="white" text-anchor="middle">5</text>
+                                    <text x="50" y="68" font-family="Arial, sans-serif" font-weight="bold"
+                                        font-size="50" fill="white" text-anchor="middle">5</text>
                                     <!-- Arcos alrededor -->
-                                    <path d="M50 10 A 40 40 0 0 1 85 30" stroke="#4CAF50" stroke-width="8" fill="none" stroke-linecap="round"/>
-                                    <path d="M85 30 A 40 40 0 0 1 50 90" stroke="#2196F3" stroke-width="8" fill="none" stroke-linecap="round"/>
-                                    <path d="M50 90 A 40 40 0 0 1 15 30" stroke="#FFC107" stroke-width="8" fill="none" stroke-linecap="round"/>
-                                    <path d="M15 30 A 40 40 0 0 1 50 10" stroke="#FFC107" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.5"/> <!-- Closing faint loop -->
+                                    <path d="M50 10 A 40 40 0 0 1 85 30" stroke="#4CAF50" stroke-width="8" fill="none"
+                                        stroke-linecap="round" />
+                                    <path d="M85 30 A 40 40 0 0 1 50 90" stroke="#2196F3" stroke-width="8" fill="none"
+                                        stroke-linecap="round" />
+                                    <path d="M50 90 A 40 40 0 0 1 15 30" stroke="#FFC107" stroke-width="8" fill="none"
+                                        stroke-linecap="round" />
+                                    <path d="M15 30 A 40 40 0 0 1 50 10" stroke="#FFC107" stroke-width="8" fill="none"
+                                        stroke-linecap="round" opacity="0.5" /> <!-- Closing faint loop -->
                                 </svg>
                             </div>
-                            <span class="font-semibold text-lg text-slate-300 group-hover:text-white transition-colors">MetaTrader 5</span>
+                            <span
+                                class="font-semibold text-lg text-slate-300 group-hover:text-white transition-colors">MetaTrader
+                                5</span>
                         </div>
                         <div class="flex items-center gap-4 group">
-                            <div class="w-16 h-16 bg-slate-900 p-3 rounded-full border border-slate-700 flex items-center justify-center shadow-lg group-hover:border-orange-500/50 transition-colors">
+                            <div
+                                class="w-16 h-16 bg-slate-900 p-3 rounded-full border border-slate-700 flex items-center justify-center shadow-lg group-hover:border-orange-500/50 transition-colors">
                                 <!-- Logo NinjaTrader Corregido: N naranja estilizada -->
-                                <svg role="img" aria-label="NinjaTrader Logo" class="h-10 w-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4 4H10L14 10V4H20V20H14L10 14V20H4V4Z" fill="#FF5722"/>
+                                <svg role="img" aria-label="NinjaTrader Logo" class="h-10 w-10" viewBox="0 0 24 24"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 4H10L14 10V4H20V20H14L10 14V20H4V4Z" fill="#FF5722" />
                                 </svg>
                             </div>
-                            <span class="font-semibold text-lg text-slate-300 group-hover:text-white transition-colors">NinjaTrader</span>
+                            <span
+                                class="font-semibold text-lg text-slate-300 group-hover:text-white transition-colors">NinjaTrader</span>
                         </div>
                     </div>
                 </div>
@@ -331,18 +427,17 @@
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">Míralo en Acción</h2>
-                <p class="text-lg text-slate-400">Descubre lo fácil que es instalar y configurar MirrorFlow en menos de 5 minutos.</p>
+                <p class="text-lg text-slate-400">Descubre lo fácil que es instalar y configurar MirrorFlow en menos de
+                    5 minutos.</p>
             </div>
             <div class="max-w-4xl mx-auto">
-                <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 group">
-                    <iframe 
-                        class="absolute top-0 left-0 w-full h-full"
-                        src="https://www.youtube.com/embed/UMefCrea1CM?rel=0&modestbranding=1" 
-                        title="Tutorial de Instalación MirrorFlow" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen
-                        loading="lazy">
+                <div
+                    class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 group">
+                    <iframe class="absolute top-0 left-0 w-full h-full"
+                        src="https://www.youtube.com/embed/UMefCrea1CM?rel=0&modestbranding=1"
+                        title="Tutorial de Instalación MirrorFlow" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen loading="lazy">
                     </iframe>
                 </div>
             </div>
@@ -353,43 +448,56 @@
     <section class="py-20 bg-black/50">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Diseñado para Traders que Exigen Rendimiento</h2>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Diseñado para Traders que Exigen
+                    Rendimiento</h2>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Característica 1 -->
                 <div class="glass-panel p-8 rounded-xl hover:bg-slate-900/60 transition-all duration-300">
                     <h3 class="font-bold text-lg text-white mb-3">Replicación Multi-Cuenta NT</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed"><span class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Consistencia absoluta y cero esfuerzo manual al gestionar múltiples cuentas de fondeo.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed"><span
+                            class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Consistencia absoluta y cero
+                        esfuerzo manual al gestionar múltiples cuentas de fondeo.</p>
                 </div>
-                 <!-- Característica 2 -->
+                <!-- Característica 2 -->
                 <div class="glass-panel p-8 rounded-xl hover:bg-slate-900/60 transition-all duration-300">
                     <h3 class="font-bold text-lg text-white mb-3">Conexión a CFDs (cTrader/MT5)</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed"><span class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Amplía tu alcance y diversifica tu operativa usando los gráficos de NinjaTrader.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed"><span
+                            class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Amplía tu alcance y
+                        diversifica tu operativa usando los gráficos de NinjaTrader.</p>
                 </div>
                 <!-- Característica 3 -->
                 <div class="glass-panel p-8 rounded-xl hover:bg-slate-900/60 transition-all duration-300">
                     <h3 class="font-bold text-lg text-white mb-3">Ejecución de Ultra Baja Latencia</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed"><span class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Slippage mínimo. Nuestro motor optimizado captura cada tick del mercado.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed"><span
+                            class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Slippage mínimo. Nuestro
+                        motor optimizado captura cada tick del mercado.</p>
                 </div>
                 <!-- Característica 4 -->
                 <div class="glass-panel p-8 rounded-xl hover:bg-slate-900/60 transition-all duration-300">
                     <h3 class="font-bold text-lg text-white mb-3">Gestión de Riesgo Inteligente</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed"><span class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Control total. Ajusta el lotaje por %, ratio fijo o valor predefinido independientemente.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed"><span
+                            class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Control total. Ajusta el
+                        lotaje por %, ratio fijo o valor predefinido independientemente.</p>
                 </div>
                 <!-- Característica 5 -->
                 <div class="glass-panel p-8 rounded-xl hover:bg-slate-900/60 transition-all duration-300">
                     <h3 class="font-bold text-lg text-white mb-3">Instalación Sencilla en 5 Minutos</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed"><span class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Sin configuraciones complejas. Menos tiempo configurando, más tiempo operando.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed"><span
+                            class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Sin configuraciones
+                        complejas. Menos tiempo configurando, más tiempo operando.</p>
                 </div>
                 <!-- Característica 6 -->
                 <div class="glass-panel p-8 rounded-xl hover:bg-slate-900/60 transition-all duration-300">
                     <h3 class="font-bold text-lg text-white mb-3">Soporte Premium</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed"><span class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Acceso directo a nuestro equipo y guías paso a paso para asegurar tu éxito.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed"><span
+                            class="text-sky-400 font-semibold block mb-1">Beneficio:</span> Acceso directo a nuestro
+                        equipo y guías paso a paso para asegurar tu éxito.</p>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Sección 5: ¿Para Quién es? -->
     <section class="py-20">
         <div class="container mx-auto px-6">
@@ -397,21 +505,29 @@
                 <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Potencia Tu Estilo de Trading</h2>
             </div>
             <div class="grid md:grid-cols-2 gap-8 mt-12 max-w-4xl mx-auto">
-                 <div class="bg-slate-900/40 p-8 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
+                <div
+                    class="bg-slate-900/40 p-8 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
                     <h3 class="font-bold text-white mb-3 text-xl">Traders de Cuentas de Fondeo</h3>
-                    <p class="text-slate-400">Gestiona múltiples desafíos y cuentas financiadas simultáneamente. Pasa más pruebas y escala tu capital más rápido.</p>
+                    <p class="text-slate-400">Gestiona múltiples desafíos y cuentas financiadas simultáneamente. Pasa
+                        más pruebas y escala tu capital más rápido.</p>
                 </div>
-                <div class="bg-slate-900/40 p-8 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
+                <div
+                    class="bg-slate-900/40 p-8 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
                     <h3 class="font-bold text-white mb-3 text-xl">Gestores de Cuentas</h3>
-                    <p class="text-slate-400">Ofrece un servicio premium ejecutando operaciones en todas las cuentas de tus clientes (MT5/cTrader) desde tu NinjaTrader central.</p>
+                    <p class="text-slate-400">Ofrece un servicio premium ejecutando operaciones en todas las cuentas de
+                        tus clientes (MT5/cTrader) desde tu NinjaTrader central.</p>
                 </div>
-                <div class="bg-slate-900/40 p-8 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
+                <div
+                    class="bg-slate-900/40 p-8 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
                     <h3 class="font-bold text-white mb-3 text-xl">Traders Minoristas Ambiciosos</h3>
-                    <p class="text-slate-400">Diversifica tus brokers y estrategias replicando tus operaciones de futuros en cuentas de CFDs para aprovechar diferentes mercados.</p>
+                    <p class="text-slate-400">Diversifica tus brokers y estrategias replicando tus operaciones de
+                        futuros en cuentas de CFDs para aprovechar diferentes mercados.</p>
                 </div>
-                <div class="bg-slate-900/40 p-8 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
+                <div
+                    class="bg-slate-900/40 p-8 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
                     <h3 class="font-bold text-white mb-3 text-xl">Desarrolladores de Estrategias</h3>
-                    <p class="text-slate-400">Prueba y ejecuta tus algos de NinjaTrader en diferentes entornos (Futuros, CFDs) al mismo tiempo para validar su rendimiento.</p>
+                    <p class="text-slate-400">Prueba y ejecuta tus algos de NinjaTrader en diferentes entornos (Futuros,
+                        CFDs) al mismo tiempo para validar su rendimiento.</p>
                 </div>
             </div>
         </div>
@@ -427,54 +543,84 @@
 
         <div class="container mx-auto px-6 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Asistente de Trading Potenciado por <span class="gradient-text">IA</span></h2>
-                <p class="text-lg text-slate-300">Supera tus límites con herramientas inteligentes que te ayudan a crear estrategias y optimizar tu mentalidad.</p>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Asistente de Trading Potenciado por <span
+                        class="gradient-text">IA</span></h2>
+                <p class="text-lg text-slate-300">Supera tus límites con herramientas inteligentes que te ayudan a crear
+                    estrategias y optimizar tu mentalidad.</p>
             </div>
             <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 <!-- AI Strategy Generator -->
                 <div class="glass-panel p-8 rounded-2xl shadow-xl">
                     <h3 class="flex items-center gap-3 text-2xl font-bold text-white mb-4">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="url(#icon-gradient)" aria-hidden="true"><path d="M12 2c-3.87 0-7 3.13-7 7 0 2.5 1.33 4.67 3.32 5.85.34.2.55.54.55.92V17h6v-1.23c0-.38.21-.72.55-.92C17.67 13.67 19 11.5 19 9c0-3.87-3.13-7-7-7zm-3 17h6v2H9v-2z"></path></svg>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="url(#icon-gradient)" aria-hidden="true">
+                            <path
+                                d="M12 2c-3.87 0-7 3.13-7 7 0 2.5 1.33 4.67 3.32 5.85.34.2.55.54.55.92V17h6v-1.23c0-.38.21-.72.55-.92C17.67 13.67 19 11.5 19 9c0-3.87-3.13-7-7-7zm-3 17h6v2H9v-2z">
+                            </path>
+                        </svg>
                         <span>Generador de Estrategias</span>
                     </h3>
-                    <p class="text-slate-400 mb-6 text-sm">Describe tus preferencias y deja que nuestra IA cree un concepto de estrategia único para ti.</p>
+                    <p class="text-slate-400 mb-6 text-sm">Describe tus preferencias y deja que nuestra IA cree un
+                        concepto de estrategia único para ti.</p>
                     <div class="space-y-4">
                         <div>
-                            <label for="market" class="block text-xs uppercase tracking-wider font-semibold text-slate-500 mb-1">Mercado</label>
-                            <input type="text" id="market" class="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-all placeholder-slate-600 text-sm" placeholder="Ej: Futuros (ES, NQ), Forex (EURUSD)">
+                            <label for="market"
+                                class="block text-xs uppercase tracking-wider font-semibold text-slate-500 mb-1">Mercado</label>
+                            <input type="text" id="market"
+                                class="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-all placeholder-slate-600 text-sm"
+                                placeholder="Ej: Futuros (ES, NQ), Forex (EURUSD)">
                         </div>
                         <div>
-                            <label for="style" class="block text-xs uppercase tracking-wider font-semibold text-slate-500 mb-1">Estilo</label>
-                            <input type="text" id="style" class="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-all placeholder-slate-600 text-sm" placeholder="Ej: Scalping, Intradía, Swing">
+                            <label for="style"
+                                class="block text-xs uppercase tracking-wider font-semibold text-slate-500 mb-1">Estilo</label>
+                            <input type="text" id="style"
+                                class="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-all placeholder-slate-600 text-sm"
+                                placeholder="Ej: Scalping, Intradía, Swing">
                         </div>
                         <div>
-                            <label for="indicator" class="block text-xs uppercase tracking-wider font-semibold text-slate-500 mb-1">Indicador Preferido</label>
-                            <input type="text" id="indicator" class="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-all placeholder-slate-600 text-sm" placeholder="Ej: MACD, RSI, Medias Móviles">
+                            <label for="indicator"
+                                class="block text-xs uppercase tracking-wider font-semibold text-slate-500 mb-1">Indicador
+                                Preferido</label>
+                            <input type="text" id="indicator"
+                                class="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-all placeholder-slate-600 text-sm"
+                                placeholder="Ej: MACD, RSI, Medias Móviles">
                         </div>
                     </div>
-                    <button id="generateStrategyBtn" class="mt-8 w-full cta-button bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center transition-all">
+                    <button id="generateStrategyBtn"
+                        class="mt-8 w-full cta-button bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center transition-all">
                         Generar Estrategia
                     </button>
-                    <div id="strategyResult" class="mt-6 p-4 bg-slate-950/80 rounded-lg border border-slate-800 text-sm prose prose-invert max-w-none prose-p:text-slate-300 prose-li:text-slate-300 hidden"></div>
+                    <div id="strategyResult"
+                        class="mt-6 p-4 bg-slate-950/80 rounded-lg border border-slate-800 text-sm prose prose-invert max-w-none prose-p:text-slate-300 prose-li:text-slate-300 hidden">
+                    </div>
                 </div>
 
                 <!-- AI Plan Optimizer -->
                 <div class="glass-panel p-8 rounded-2xl shadow-xl">
                     <h3 class="flex items-center gap-3 text-2xl font-bold text-white mb-4">
-                       <svg width="28" height="28" viewBox="0 0 24 24" fill="url(#icon-gradient)" aria-hidden="true"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"></path></svg>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="url(#icon-gradient)" aria-hidden="true">
+                            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"></path>
+                        </svg>
                         <span>Optimizador de Plan</span>
                     </h3>
-                    <p class="text-slate-400 mb-6 text-sm">¿Atascado en un problema? Describe tu desafío y recibe consejos prácticos de nuestra IA.</p>
-                     <div class="space-y-4">
+                    <p class="text-slate-400 mb-6 text-sm">¿Atascado en un problema? Describe tu desafío y recibe
+                        consejos prácticos de nuestra IA.</p>
+                    <div class="space-y-4">
                         <div>
-                            <label for="challenge" class="block text-xs uppercase tracking-wider font-semibold text-slate-500 mb-1">Tu Desafío Principal</label>
-                            <textarea id="challenge" rows="8" class="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-all placeholder-slate-600 text-sm resize-none" placeholder="Ej: No respeto mi stop loss, hago overtrading cuando pierdo, me cuesta pasar pruebas de fondeo..."></textarea>
+                            <label for="challenge"
+                                class="block text-xs uppercase tracking-wider font-semibold text-slate-500 mb-1">Tu
+                                Desafío Principal</label>
+                            <textarea id="challenge" rows="8"
+                                class="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-all placeholder-slate-600 text-sm resize-none"
+                                placeholder="Ej: No respeto mi stop loss, hago overtrading cuando pierdo, me cuesta pasar pruebas de fondeo..."></textarea>
                         </div>
                     </div>
-                    <button id="optimizePlanBtn" class="mt-8 w-full cta-button bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center transition-all">
+                    <button id="optimizePlanBtn"
+                        class="mt-8 w-full cta-button bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center transition-all">
                         Obtener Consejos
                     </button>
-                    <div id="planResult" class="mt-6 p-4 bg-slate-950/80 rounded-lg border border-slate-800 text-sm prose prose-invert max-w-none prose-p:text-slate-300 prose-li:text-slate-300 hidden"></div>
+                    <div id="planResult"
+                        class="mt-6 p-4 bg-slate-950/80 rounded-lg border border-slate-800 text-sm prose prose-invert max-w-none prose-p:text-slate-300 prose-li:text-slate-300 hidden">
+                    </div>
                 </div>
             </div>
         </div>
@@ -484,10 +630,13 @@
     <section id="precio" class="py-20 bg-black/50">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Una Inversión, Retornos Ilimitados</h2>
-            <p class="text-lg text-slate-300 mb-16 max-w-2xl mx-auto">Obtén acceso completo a todas las funcionalidades de MirrorFlow con un solo pago.</p>
+            <p class="text-lg text-slate-300 mb-16 max-w-2xl mx-auto">Obtén acceso completo a todas las funcionalidades
+                de MirrorFlow con un solo pago.</p>
             <div class="max-w-lg mx-auto">
-                <div class="pricing-card rounded-3xl p-10 text-center relative overflow-hidden shadow-2xl border border-sky-500/20">
-                    <div class="absolute top-0 right-0 -mt-16 -mr-16 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl"></div>
+                <div
+                    class="pricing-card rounded-3xl p-10 text-center relative overflow-hidden shadow-2xl border border-sky-500/20">
+                    <div class="absolute top-0 right-0 -mt-16 -mr-16 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl">
+                    </div>
                     <div class="relative z-10">
                         <h3 class="text-2xl font-bold text-white mb-2">Licencia Vitalicia</h3>
                         <div class="my-6 flex items-center justify-center gap-4">
@@ -497,15 +646,17 @@
                                 <span class="text-sm font-bold text-sky-400 uppercase tracking-wide">USD / Único</span>
                             </div>
                         </div>
-                        
-                        <div class="inline-flex items-center gap-2 bg-sky-500/10 text-sky-300 font-semibold px-4 py-1.5 rounded-full text-sm mb-8 border border-sky-500/20">
+
+                        <div
+                            class="inline-flex items-center gap-2 bg-sky-500/10 text-sky-300 font-semibold px-4 py-1.5 rounded-full text-sm mb-8 border border-sky-500/20">
                             <span class="relative flex h-2 w-2">
-                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                              <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
                             </span>
                             <span>¡Oferta de Lanzamiento!</span>
                         </div>
-                        
+
                         <!-- Countdown Timer -->
                         <div id="countdown-timer" class="grid grid-cols-4 gap-2 mb-10">
                             <div class="flex flex-col items-center">
@@ -528,27 +679,53 @@
 
                         <ul class="space-y-4 text-slate-300 text-left mb-10 text-sm">
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
                                 <span>Replicación <strong>ilimitada</strong> de cuentas NinjaTrader</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
                                 <span>Conexión a <strong>cTrader</strong> y <strong>MetaTrader 5</strong></span>
                             </li>
                             <li class="flex items-start gap-3">
-                                 <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
                                 <span class="gradient-text font-bold">✨ Asistente de Trading con IA incluido</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                 <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
                                 <span>Actualizaciones y Soporte <strong>de por vida</strong></span>
                             </li>
                         </ul>
-                        <a href="https://www.paypal.com/donate/?hosted_button_id=VE3GHQJ87YJXS" class="block w-full text-center cta-button bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-bold py-4 px-8 rounded-xl text-lg hover:shadow-sky-500/25">
+                        <a href="https://www.paypal.com/ncp/payment/FY69UCSPBXDJE"
+                            class="block w-full text-center cta-button bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-bold py-4 px-8 rounded-xl text-lg hover:shadow-sky-500/25">
                             COMPRAR AHORA
                         </a>
-                         <p class="mt-4 text-xs text-slate-500 flex items-center justify-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg>
+                        <p class="mt-4 text-xs text-slate-500 flex items-center justify-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             Pago 100% Seguro vía PayPal
                         </p>
                     </div>
@@ -562,46 +739,86 @@
         <div class="container mx-auto px-6 max-w-3xl">
             <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-center mb-12">Preguntas Frecuentes</h2>
             <div class="space-y-4">
-                 <details class="faq-item p-6 rounded-2xl group border border-slate-800 open:bg-slate-900/50 transition-all">
-                    <summary class="flex justify-between items-center cursor-pointer font-semibold text-white select-none">
+                <details
+                    class="faq-item p-6 rounded-2xl group border border-slate-800 open:bg-slate-900/50 transition-all">
+                    <summary
+                        class="flex justify-between items-center cursor-pointer font-semibold text-white select-none">
                         ¿Cómo funciona el Asistente con IA?
-                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
                     </summary>
-                    <p class="mt-4 text-slate-400 leading-relaxed text-sm">Utilizamos la API de Gemini de Google para potenciar nuestras herramientas. El Generador de Estrategias y el Optimizador analizan tus inputs para darte respuestas personalizadas. No almacenamos tus datos sensibles.</p>
+                    <p class="mt-4 text-slate-400 leading-relaxed text-sm">Utilizamos la API de Gemini de Google para
+                        potenciar nuestras herramientas. El Generador de Estrategias y el Optimizador analizan tus
+                        inputs para darte respuestas personalizadas. No almacenamos tus datos sensibles.</p>
                 </details>
-                <details class="faq-item p-6 rounded-2xl group border border-slate-800 open:bg-slate-900/50 transition-all">
-                    <summary class="flex justify-between items-center cursor-pointer font-semibold text-white select-none">
+                <details
+                    class="faq-item p-6 rounded-2xl group border border-slate-800 open:bg-slate-900/50 transition-all">
+                    <summary
+                        class="flex justify-between items-center cursor-pointer font-semibold text-white select-none">
                         ¿La licencia es realmente vitalicia?
-                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
                     </summary>
-                    <p class="mt-4 text-slate-400 leading-relaxed text-sm">Sí, es un pago único. Tendrás acceso a la versión actual y a todas las futuras actualizaciones de MirrorFlow sin costes adicionales ocultos.</p>
+                    <p class="mt-4 text-slate-400 leading-relaxed text-sm">Sí, es un pago único. Tendrás acceso a la
+                        versión actual y a todas las futuras actualizaciones de MirrorFlow sin costes adicionales
+                        ocultos.</p>
                 </details>
-                 <details class="faq-item p-6 rounded-2xl group border border-slate-800 open:bg-slate-900/50 transition-all">
-                    <summary class="flex justify-between items-center cursor-pointer font-semibold text-white select-none">
+                <details
+                    class="faq-item p-6 rounded-2xl group border border-slate-800 open:bg-slate-900/50 transition-all">
+                    <summary
+                        class="flex justify-between items-center cursor-pointer font-semibold text-white select-none">
                         ¿Es difícil de instalar?
-                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
                     </summary>
-                    <p class="mt-4 text-slate-400 leading-relaxed text-sm">¡Para nada! Si sabes instalar un indicador en NinjaTrader, puedes instalar MirrorFlow. Incluimos un video tutorial paso a paso y soporte listo para ayudarte.</p>
+                    <p class="mt-4 text-slate-400 leading-relaxed text-sm">¡Para nada! Si sabes instalar un indicador en
+                        NinjaTrader, puedes instalar MirrorFlow. Incluimos un video tutorial paso a paso y soporte listo
+                        para ayudarte.</p>
                 </details>
-                 <details class="faq-item p-6 rounded-2xl group border border-slate-800 open:bg-slate-900/50 transition-all">
-                    <summary class="flex justify-between items-center cursor-pointer font-semibold text-white select-none">
+                <details
+                    class="faq-item p-6 rounded-2xl group border border-slate-800 open:bg-slate-900/50 transition-all">
+                    <summary
+                        class="flex justify-between items-center cursor-pointer font-semibold text-white select-none">
                         ¿Qué tan rápido es el replicador?
-                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
                     </summary>
-                    <p class="mt-4 text-slate-400 leading-relaxed text-sm">La replicación ocurre en milisegundos. Hemos optimizado el código para que sea ultraligero y rápido, minimizando el slippage.</p>
+                    <p class="mt-4 text-slate-400 leading-relaxed text-sm">La replicación ocurre en milisegundos. Hemos
+                        optimizado el código para que sea ultraligero y rápido, minimizando el slippage.</p>
                 </details>
             </div>
         </div>
     </section>
-    
+
     <!-- Sección de Contacto WhatsApp -->
     <section class="pb-24">
         <div class="container mx-auto px-6 max-w-4xl">
-            <div class="contact-card text-center rounded-3xl p-10 md:p-16 border border-slate-800 bg-gradient-to-b from-slate-900 to-black">
-                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white mb-4">¿Aún tienes dudas antes de comprar?</h2>
-                <p class="text-slate-400 max-w-xl mx-auto mb-10">Habla directamente con nosotros. Estamos aquí para asegurarnos de que MirrorFlow es perfecto para ti.</p>
-                <a href="https://wa.me/573147438447?text=Hola,%20tengo%20una%20pregunta%20sobre%20MirrorFlow." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 px-8 rounded-full text-lg whatsapp-button transition-all transform hover:-translate-y-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.357 1.846 6.166l-1.132 4.135 4.274-1.118z"/></svg>
+            <div
+                class="contact-card text-center rounded-3xl p-10 md:p-16 border border-slate-800 bg-gradient-to-b from-slate-900 to-black">
+                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white mb-4">¿Aún tienes dudas antes de
+                    comprar?</h2>
+                <p class="text-slate-400 max-w-xl mx-auto mb-10">Habla directamente con nosotros. Estamos aquí para
+                    asegurarnos de que MirrorFlow es perfecto para ti.</p>
+                <a href="https://wa.me/573147438447?text=Hola,%20tengo%20una%20pregunta%20sobre%20MirrorFlow."
+                    target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 px-8 rounded-full text-lg whatsapp-button transition-all transform hover:-translate-y-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.357 1.846 6.166l-1.132 4.135 4.274-1.118z" />
+                    </svg>
                     <span>Chatear en WhatsApp</span>
                 </a>
             </div>
@@ -611,13 +828,14 @@
     <!-- Sección 8: Llamada a la Acción Final -->
     <section class="py-20 border-t border-slate-900 bg-slate-950">
         <div class="container mx-auto px-6 text-center">
-             <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-6 text-white">
+            <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-6 text-white">
                 Tu Trading, <span class="gradient-text">Sin Límites.</span>
             </h2>
             <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-400 mb-10">
                 Deja de perder tiempo y oportunidades. Centraliza, optimiza y escala tu operativa hoy mismo.
             </p>
-            <a href="#precio" class="inline-block cta-button bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-bold py-4 px-10 rounded-full text-lg">
+            <a href="#precio"
+                class="inline-block cta-button bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-bold py-4 px-10 rounded-full text-lg">
                 EMPIEZA A REPLICAR AHORA
             </a>
         </div>
@@ -633,7 +851,7 @@
             </div>
         </div>
     </footer>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const generateStrategyBtn = document.getElementById('generateStrategyBtn');
@@ -662,7 +880,7 @@
                 button.innerHTML = '<div class="spinner inline-block mr-2"></div> Generando...';
                 resultDiv.classList.add('hidden');
                 resultDiv.innerHTML = '';
-                
+
                 const payload = { systemPrompt, userPrompt };
 
                 try {
@@ -675,7 +893,7 @@
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
                     const result = await response.json();
-                    
+
                     if (result.text) {
                         resultDiv.innerHTML = simpleMarkdownToHtml(result.text);
                         resultDiv.classList.remove('hidden');
@@ -707,7 +925,7 @@
 
                     const systemPrompt = "Eres un experto en trading. Genera una estrategia concisa (Entrada, Salida, Riesgo) en español y markdown.";
                     const userPrompt = `Estrategia para: Mercado ${market}, Estilo ${style}, Indicador ${indicator}`;
-                    
+
                     callGemini(systemPrompt, userPrompt, generateStrategyBtn, strategyResultDiv);
                 });
             }
@@ -727,7 +945,7 @@
                     callGemini(systemPrompt, userPrompt, optimizePlanBtn, planResultDiv);
                 });
             }
-            
+
             // Persistent Countdown Timer
             const countdownTimer = () => {
                 let countdownDate;
@@ -751,11 +969,11 @@
 
                     if (distance < 0) {
                         // Oferta terminada - reiniciar para demo perpetua o mostrar mensaje
-                         // Opción A: Reiniciar (Loop infinito para nuevos visitantes simulados)
-                         const newDate = new Date(); 
-                         newDate.setDate(newDate.getDate() + 2); // Reinicia a 2 días
-                         localStorage.setItem('mirrorflow_offer_end', newDate.getTime());
-                         return; 
+                        // Opción A: Reiniciar (Loop infinito para nuevos visitantes simulados)
+                        const newDate = new Date();
+                        newDate.setDate(newDate.getDate() + 2); // Reinicia a 2 días
+                        localStorage.setItem('mirrorflow_offer_end', newDate.getTime());
+                        return;
                     }
 
                     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -777,4 +995,5 @@
         });
     </script>
 </body>
+
 </html>
