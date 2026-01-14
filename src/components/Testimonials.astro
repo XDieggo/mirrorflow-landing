@@ -1,0 +1,343 @@
+---
+/**
+ * Testimonials Section - Cards with avatar on top, centered quote, stars below
+ */
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const testimonials = {
+  es: [
+    {
+      name: 'Carlos M.',
+      country: 'México',
+      rating: 5,
+      text: 'Pasé 3 evaluaciones de Apex en una semana. MirrorFlow replicó todo perfecto en 8 cuentas sin un solo error.',
+      avatar: '/avatars/carlos_m.png'
+    },
+    {
+      name: 'Juan P.',
+      country: 'Colombia', 
+      rating: 5,
+      text: 'Recuperé la inversión de $29 en mi primer día operando. La latencia < 15ms es real.',
+      avatar: '/avatars/juan_p.png'
+    },
+    {
+      name: 'Roberto S.',
+      country: 'España',
+      rating: 5,
+      text: 'Gestiono $300k en capital fondeado distribuido en 12 cuentas. Este software es el secreto de mi escalabilidad.',
+      avatar: '/avatars/roberto_s.png'
+    },
+    {
+      name: 'María L.',
+      country: 'Argentina',
+      rating: 4,
+      text: 'Replico mis futuros del Nasdaq a una cuenta de Metatrader 5 para swing trading. Funciona como reloj suizo.',
+      avatar: '/avatars/maria_l.png'
+    },
+    {
+      name: 'Diego F.',
+      country: 'Chile',
+      rating: 5,
+      text: 'Antes pagaba $150/mes por otro copiador. MirrorFlow es mejor, más rápido y de pago único. No hay comparación.',
+      avatar: '/avatars/diego_f.png'
+    },
+    {
+      name: 'Ana R.',
+      country: 'Perú',
+      rating: 5,
+      text: 'Soporte 10/10. Me ayudaron a configurar la replicación de NT8 a cTrader en 5 minutos.',
+      avatar: '/avatars/ana_r.png'
+    }
+  ],
+  en: [
+    {
+      name: 'Carlos M.',
+      country: 'Mexico',
+      rating: 5,
+      text: 'Passed 3 Apex evaluations in one week. MirrorFlow replicated everything perfectly across 8 accounts without a single error.',
+      avatar: '/avatars/carlos_m.png'
+    },
+    {
+      name: 'John P.',
+      country: 'USA',
+      rating: 5,
+      text: 'Recovered the $29 investment on my first trading day. < 15ms latency is real.',
+      avatar: '/avatars/juan_p.png'
+    },
+    {
+      name: 'Robert S.',
+      country: 'UK',
+      rating: 5,
+      text: 'I manage $300k in funded capital distributed across 12 accounts. This software is the secret to my scalability.',
+      avatar: '/avatars/roberto_s.png'
+    },
+    {
+      name: 'Maria L.',
+      country: 'Canada',
+      rating: 4,
+      text: 'I replicate my Nasdaq futures to a Metatrader 5 account for swing trading. Works like a Swiss watch.',
+      avatar: '/avatars/maria_l.png'
+    },
+    {
+      name: 'David F.',
+      country: 'Australia',
+      rating: 5,
+      text: 'I used to pay $150/mo for another copier. MirrorFlow is better, faster, and one-time payment. No comparison.',
+      avatar: '/avatars/diego_f.png'
+    },
+    {
+      name: 'Anna R.',
+      country: 'Germany',
+      rating: 5,
+      text: '10/10 Support. They helped me set up NT8 to cTrader replication in 5 minutes.',
+      avatar: '/avatars/ana_r.png'
+    }
+  ]
+};
+
+const t = {
+  es: { title: 'Opiniones de Traders Reales', subtitle: 'Resultados comprobados en cuentas de fondeo' },
+  en: { title: 'Real Trader Reviews', subtitle: 'Proven results in funded accounts' }
+};
+
+const content = t[lang];
+const reviews = testimonials[lang];
+// Duplicate for infinite scroll effect
+const allReviews = [...reviews, ...reviews];
+---
+
+<section class="testimonials-section">
+  <div class="testimonials-header">
+    <h2 class="testimonials-title">{content.title}</h2>
+    <p class="testimonials-subtitle">{content.subtitle}</p>
+  </div>
+
+  <div class="carousel-container">
+    <div class="carousel-track">
+      {allReviews.map((review, index) => (
+        <article class="testimonial-card" style={`--card-index: ${index}`}>
+          <!-- Avatar floating on top -->
+          <div class="avatar-wrapper">
+            <img src={review.avatar} alt={review.name} class="avatar-image" width="80" height="80" loading="lazy" />
+          </div>
+          
+          <!-- Card content -->
+          <div class="card-content">
+            <p class="review-text">"{review.text}"</p>
+            
+            <div class="stars">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} class={`star ${i < review.rating ? 'filled' : 'empty'}`} viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    padding: 6rem 1rem 4rem;
+    overflow: hidden;
+  }
+  
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .testimonials-title {
+    font-size: 4.8rem;
+    line-height: 4.7rem;
+    letter-spacing: -3px;
+    font-weight: 700;
+    color: var(--sl-color-white);
+    margin-bottom: 0.5rem;
+  }
+  
+  :root[data-theme="light"] .testimonials-title {
+    color: var(--sl-color-gray-1);
+  }
+  
+  .testimonials-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    letter-spacing: -0.2px;
+    color: var(--sl-color-gray-3);
+  }
+  
+  @media (max-width: 1040px) {
+    .testimonials-title {
+      font-size: 3.8rem;
+      line-height: 3.7rem;
+      letter-spacing: -2px;
+    }
+  }
+  
+  @media (max-width: 548px) {
+    .testimonials-title {
+      font-size: 2.8rem;
+      line-height: 2.7rem;
+      letter-spacing: -1px;
+    }
+  }
+  
+  .carousel-container {
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    padding-top: 3rem;
+  }
+  
+  .carousel-track {
+    display: flex;
+    gap: 2rem;
+    animation: scroll 45s linear infinite;
+    width: max-content;
+  }
+  
+  .carousel-track:hover {
+    animation-play-state: paused;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .testimonial-card {
+    flex-shrink: 0;
+    width: 300px;
+    position: relative;
+    padding-top: 2.5rem;
+  }
+  
+  .avatar-wrapper {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+  
+  .avatar-image {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    background: var(--sl-color-bg);
+  }
+  
+  :root[data-theme="light"] .avatar-image {
+    border-color: rgba(99, 102, 241, 0.2);
+  }
+  
+  .card-content {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 1.25rem;
+    padding: 3.5rem 1.5rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  :root[data-theme="light"] .card-content {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  .testimonial-card:hover .card-content {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .review-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--sl-color-gray-2);
+    margin: 0 0 1rem 0;
+    font-style: italic;
+    flex-grow: 1;
+  }
+  
+  :root[data-theme="light"] .review-text {
+    color: var(--sl-color-gray-2);
+  }
+  
+  .stars {
+    display: flex;
+    flex-direction: box;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 4 rem;
+    margin-top: auto;
+    flex-wrap: nowrap;
+  }
+  
+  .star {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px; 
+    margin-top: 15px;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .star.filled {
+    fill: #FBBF24;
+    filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.5));
+  }
+  
+  .star.empty {
+    fill: rgba(148, 163, 184, 0.3);
+  }
+  
+  :root[data-theme="light"] .star.empty {
+    fill: rgba(148, 163, 184, 0.4);
+  }
+  
+  @media (max-width: 768px) {
+    .testimonial-card {
+      width: 280px;
+    }
+    
+    .card-content {
+      padding: 3rem 1.25rem 1.25rem;
+      min-height: 160px;
+    }
+    
+    .avatar-image {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+</style>

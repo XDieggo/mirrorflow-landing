@@ -1,0 +1,289 @@
+---
+/**
+ * FeaturesCarousel - Premium Infinite Scroll Features Section
+ * Single row, auto-scrolling, glassmorphism design
+ */
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const features = {
+  es: [
+    {
+      icon: '🛡️',
+      title: 'Cero Errores Costosos',
+      description: 'Elimina clics equivocados. Un trade, todas las cuentas replicadas.',
+      color: '#22C55E'
+    },
+    {
+      icon: '⚡',
+      title: 'Latencia <15ms',
+      description: 'Captura cada tick. Sin slippage en mercados volátiles.',
+      color: '#38BDF8'
+    },
+    {
+      icon: '🔗',
+      title: 'Futuros → CFDs',
+      description: 'Opera futuros en NT8, replica en cTrader y MT5.',
+      color: '#818CF8'
+    },
+    {
+      icon: '💎',
+      title: 'Solo $29 - De Por Vida',
+      description: 'Sin mensualidades. Sin renovaciones. Tuyo para siempre.',
+      color: '#FFD97B'
+    },
+    {
+      icon: '⚙️',
+      title: 'Lotaje Personalizado',
+      description: 'Ajusta el tamaño por cuenta. Controla tu riesgo real.',
+      color: '#F97316'
+    },
+    {
+      icon: '🚀',
+      title: 'Listo en 5 Minutos',
+      description: 'Descarga, instala, configura. Empieza a replicar hoy.',
+      color: '#10B981'
+    },
+    {
+      icon: '📂',
+      title: 'Cuentas Ilimitadas',
+      description: 'Replica a NT8, cTrader y MT5 sin restricciones.',
+      color: '#6366F1'
+    },
+    {
+      icon: '💬',
+      title: 'Soporte Real 24/7',
+      description: 'WhatsApp directo. Respuesta garantizada en <24h.',
+      color: '#EC4899'
+    }
+  ],
+  en: [
+    {
+      icon: '🛡️',
+      title: 'Zero Costly Errors',
+      description: 'Eliminate misclicks. One trade, all accounts replicated.',
+      color: '#22C55E'
+    },
+    {
+      icon: '⚡',
+      title: '<15ms Latency',
+      description: 'Capture every tick. No slippage in volatile markets.',
+      color: '#38BDF8'
+    },
+    {
+      icon: '🔗',
+      title: 'Futures → CFDs',
+      description: 'Trade futures on NT8, replicate to cTrader & MT5.',
+      color: '#818CF8'
+    },
+    {
+      icon: '💎',
+      title: 'Only $29 - Lifetime',
+      description: 'No monthly fees. No renewals. Yours forever.',
+      color: '#FFD97B'
+    },
+    {
+      icon: '⚙️',
+      title: 'Custom Lot Sizing',
+      description: 'Adjust size per account. Control your real risk.',
+      color: '#F97316'
+    },
+    {
+      icon: '🚀',
+      title: 'Ready in 5 Minutes',
+      description: 'Download, install, configure. Start replicating today.',
+      color: '#10B981'
+    },
+    {
+      icon: '📂',
+      title: 'Unlimited Accounts',
+      description: 'Replicate to NT8, cTrader & MT5 with no limits.',
+      color: '#6366F1'
+    },
+    {
+      icon: '💬',
+      title: 'Real 24/7 Support',
+      description: 'Direct WhatsApp. Guaranteed response in <24h.',
+      color: '#EC4899'
+    }
+  ]
+};
+
+const items = features[lang];
+// Duplicate for infinite scroll effect
+const allItems = [...items, ...items];
+---
+
+<section class="features-section">
+  <div class="carousel-container">
+    <div class="carousel-track">
+      {allItems.map((feature, index) => (
+        <article class="feature-card" style={`--accent-color: ${feature.color}; --card-index: ${index}`}>
+          <div class="feature-icon" style={`--glow-color: ${feature.color}`}>
+            <span class="icon-emoji">{feature.icon}</span>
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">{feature.title}</h3>
+            <p class="feature-description">{feature.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features-section {
+    padding: 2rem 0;
+    overflow: hidden;
+  }
+  
+  .carousel-container {
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 5%,
+      black 95%,
+      transparent
+    );
+  }
+  
+  .carousel-track {
+    display: flex;
+    gap: 1.25rem;
+    animation: scroll-features 35s linear infinite;
+    width: max-content;
+  }
+  
+  .carousel-track:hover {
+    animation-play-state: paused;
+  }
+  
+  @keyframes scroll-features {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .feature-card {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    min-width: 260px;
+    max-width: 280px;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+  }
+  
+  :root[data-theme="light"] .feature-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    border-color: var(--accent-color);
+    box-shadow: 
+      0 8px 30px rgba(0, 0, 0, 0.15),
+      0 0 20px color-mix(in srgb, var(--accent-color) 30%, transparent);
+  }
+  
+  .feature-icon {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--glow-color) 15%, transparent),
+      color-mix(in srgb, var(--glow-color) 5%, transparent)
+    );
+    box-shadow: 0 0 15px color-mix(in srgb, var(--glow-color) 25%, transparent);
+    transition: all 0.3s ease;
+  }
+  
+  .feature-card:hover .feature-icon {
+    box-shadow: 0 0 25px color-mix(in srgb, var(--glow-color) 50%, transparent);
+    transform: scale(1.1);
+  }
+  
+  .icon-emoji {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  
+  .feature-content {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .feature-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--sl-color-white);
+    margin: 0 0 0.25rem 0;
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  :root[data-theme="light"] .feature-title {
+    color: var(--sl-color-gray-1);
+  }
+  
+  .feature-description {
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-3);
+    margin: 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .feature-card {
+      min-width: 230px;
+      max-width: 250px;
+      padding: 0.875rem 1.25rem;
+    }
+    
+    .feature-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    
+    .icon-emoji {
+      font-size: 1.25rem;
+    }
+    
+    .feature-title {
+      font-size: 0.875rem;
+    }
+    
+    .feature-description {
+      font-size: 0.75rem;
+    }
+  }
+</style>

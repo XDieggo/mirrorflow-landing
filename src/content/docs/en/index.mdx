@@ -1,0 +1,155 @@
+---
+title: MirrorFlow - Trade Copier for NinjaTrader 8
+description: Copy your trades from NinjaTrader 8 to cTrader and MT5 instantly. The ultimate trade copier for prop firm traders. Lifetime license $29 USD.
+template: splash
+hero:
+  title: |
+    One Trade, <span class="light-text">Infinite Possibilities</span>
+  tagline: Replicate your trades from NinjaTrader 8 to multiple accounts, cTrader and MetaTrader 5 with unmatched speed and precision.
+---
+
+import Section from "~/components/Section.astro";
+import FeaturesCarousel from "~/components/FeaturesCarousel.astro";
+import Card from "~/components/user-components/NewCard.astro";
+import Grid from "~/components/user-components/Grid.astro";
+import CommandCenter from "~/components/CommandCenter.astro";
+import CountdownPricing from "~/components/CountdownPricing.astro";
+import Testimonials from "~/components/Testimonials.astro";
+import WhatsAppButton from "~/components/WhatsAppButton.astro";
+
+<Section title="Why Choose <span class='light-text'>MirrorFlow?</span>" description="Stop losing money and time trading manually on multiple accounts.">
+
+<FeaturesCarousel lang="en" />
+
+</Section>
+
+import TargetAudience from "~/components/TargetAudience.astro";
+
+<Section title="Who is <span class='light-text'>MirrorFlow</span> for?" description="Designed for serious traders who want to scale their results.">
+
+<TargetAudience lang="en" />
+
+</Section>
+
+<CommandCenter lang="en" />
+
+import HeroTabs from "~/components/HeroTabs.astro";
+import HeroTabsItem from "~/components/HeroTabsItem.astro";
+
+<Section
+  title="Set Up MirrorFlow <span class='light-text'>in 3 Simple Steps</span>"
+  description="Quick installation. No technical knowledge needed. Start replicating in minutes."
+>
+  <HeroTabs>
+    <HeroTabsItem
+      title="Install the Add-On"
+      subtitle="Download and install MirrorFlow on your master NinjaTrader 8."
+      number={1}
+      image="src/assets/step-1.jpg"
+      imageAlt="Step 1: Installation"
+    />
+    <HeroTabsItem
+      title="Connect Your Accounts"
+      subtitle="Configure destination accounts: other NT8s, cTrader or MT5."
+      number={2}
+      image="src/assets/step-2.jpg"
+      imageAlt="Step 2: Configuration"
+    />
+    <HeroTabsItem
+      title="Trade and Replicate!"
+      subtitle="Execute a trade and watch it replicate instantly."
+      number={3}
+      image="src/assets/step-3.jpg"
+      imageAlt="Step 3: Trading"
+    />
+  </HeroTabs>
+</Section>
+
+<Testimonials lang="en" />
+
+<CountdownPricing lang="en" />
+
+import AccordionContainer from "~/components/AccordionContainer.astro";
+import Accordion from "~/components/Accordion.astro";
+
+<Section
+  title="Frequently Asked <span class='light-text'>Questions</span>"
+  description="Answers to common questions before buying."
+>
+
+<AccordionContainer tabList={
+  [
+    {
+      type: 'basic',
+      title: 'About the Product',
+      subtitle:'What it is and how it works.',
+      icon: "rocket"
+    },
+    {
+      type: 'setting',
+      title: 'Installation',
+      subtitle:'Setup and requirements.',
+      icon: "settings"
+    },
+    {
+      type: 'help',
+      title: 'Purchase',
+      subtitle:'License and support.',
+      icon: "support"
+    }
+  ]
+}>
+
+<Accordion
+  question="How fast does it replicate trades?"
+  answer="Replication happens in milliseconds. Optimized to minimize slippage even in volatile markets."
+  type="basic"
+/>
+<Accordion
+  question="How many accounts can I connect?"
+  answer="No limit. Replicate to as many NinjaTrader 8, cTrader and MT5 accounts as you need."
+  type="basic"
+/>
+<Accordion
+  question="Does it work with prop firm accounts?"
+  answer="Yes. Perfect for Apex, FTMO, Topstep, MyForexFunds and any other prop firm."
+  type="basic"
+/>
+
+<Accordion
+  question="Do I need technical knowledge?"
+  answer="No. If you can install an indicator in NinjaTrader 8, you can install MirrorFlow. Video tutorial included."
+  type="setting"
+/>
+<Accordion
+  question="Do I need a VPS or server?"
+  answer="No. It runs directly on your computer where you have NinjaTrader 8."
+  type="setting"
+/>
+<Accordion
+  question="Which platforms are compatible?"
+  answer="NinjaTrader 8 (master account), cTrader and MetaTrader 5 (destination accounts)."
+  type="setting"
+/>
+
+<Accordion
+  question="Is the license really lifetime?"
+  answer="Yes. One-time payment of $29 USD until January 31, includes all future updates."
+  type="help"
+/>
+<Accordion
+  question="Is there a refund guarantee?"
+  answer="Due to the digital nature, no refunds. Contact us via WhatsApp before buying if you have questions."
+  type="help"
+/>
+<Accordion
+  question="How do I get support?"
+  answer="Direct WhatsApp support. We respond within 24 hours."
+  type="help"
+/>
+
+</AccordionContainer>
+
+</Section>
+
+<WhatsAppButton lang="en" />

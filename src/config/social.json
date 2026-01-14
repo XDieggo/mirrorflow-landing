@@ -1,0 +1,24 @@
+{
+  "main": [
+    {
+      "icon": "instagram",
+      "label": "Instagram",
+      "href": "https://www.instagram.com/Replicador_MirrorFlow/"
+    },
+    {
+      "icon": "facebook",
+      "label": "Facebook",
+      "href": "https://www.facebook.com/profile.php?id=61577387714129"
+    },
+    {
+      "icon": "tiktok",
+      "label": "TikTok",
+      "href": "https://www.tiktok.com/@replicador_mirrorflow"
+    },
+    {
+      "icon": "youtube",
+      "label": "YouTube",
+      "href": "https://www.youtube.com/@Replicador_MirrorFlow"
+    }
+  ]
+}

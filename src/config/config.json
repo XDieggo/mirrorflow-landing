@@ -1,0 +1,29 @@
+{
+  "site": {
+    "title": "MirrorFlow",
+    "logo": "",
+    "logo_darkmode": "",
+    "logo_width": "0",
+    "logo_height": "0",
+    "logo_text": "MirrorFlow"
+  },
+  "settings": {
+    "search": false,
+    "theme_switcher": true
+  },
+  "params": {
+    "footer_contact": {
+      "enable": true,
+      "action": "https://wa.me/573147438447?text=Hola,%20quiero%20información%20sobre%20MirrorFlow"
+    },
+    "copyright": "© 2026 MirrorFlow. Todos los derechos reservados."
+  },
+  "navigation_button": {
+    "enable": true,
+    "label": "Obtener Licencia",
+    "translations": {
+      "en": "Obtain a License"
+    },
+    "link": "https://www.paypal.com/ncp/payment/FY69UCSPBXDJE"
+  }
+}

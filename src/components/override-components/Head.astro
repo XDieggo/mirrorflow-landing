@@ -1,0 +1,171 @@
+---
+import { AstroFont } from "astro-font";
+import theme from "@/config/theme.json";
+const { head } = Astro.locals.starlightRoute;
+
+// font families
+const pf = theme.fonts.font_family.primary;
+// @ts-ignore
+const sf = theme.fonts.font_family.secondary ;
+
+let fontPrimary, fontSecondary;
+if (theme.fonts.font_family.primary) {
+  fontPrimary = theme.fonts.font_family.primary
+    .replace(/\+/g, " ")
+    .replace(/:[ital,]*[ital@]*[wght@]*[0-9,;.]+/gi, "");
+}
+// @ts-ignore
+if (theme.fonts.font_family.secondary) {
+// @ts-ignore
+  fontSecondary = theme.fonts.font_family.secondary
+    .replace(/\+/g, " ")
+    .replace(/:[ital,]*[ital@]*[wght@]*[0-9,;.]+/gi, "");
+}
+
+// Get current language
+const currentLang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
+const canonicalURL = new URL(Astro.url.pathname, 'https://mirrorflow.app');
+
+---
+
+{head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+
+<!-- Favicon Configuration -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
+<meta name="theme-color" content="#38bdf8" />
+<meta name="msapplication-TileColor" content="#0a0a0a" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- hreflang for SEO -->
+<link rel="alternate" hreflang="es" href="https://mirrorflow.app/" />
+<link rel="alternate" hreflang="en" href="https://mirrorflow.app/en/" />
+<link rel="alternate" hreflang="x-default" href="https://mirrorflow.app/" />
+
+<!-- Schema.org SoftwareApplication -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "MirrorFlow",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Windows",
+      "description": currentLang === 'es' 
+        ? "Replica operaciones de trading desde NinjaTrader 8 a múltiples cuentas, cTrader y MetaTrader 5 con ultra baja latencia."
+        : "Replicate trades from NinjaTrader 8 to multiple accounts, cTrader and MetaTrader 5 with ultra low latency.",
+      "offers": {
+        "@type": "Offer",
+        "price": "29.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "124"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Qué tan rápido replica las operaciones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La replicación ocurre en milisegundos. Optimizado para minimizar slippage incluso en mercados volátiles."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuántas cuentas puedo conectar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sin límite. Replica a tantas cuentas de NinjaTrader 8, cTrader y MetaTrader 5 como necesites."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Funciona con cuentas de fondeo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Perfecto para Apex, FTMO, Topstep, MyForexFunds y cualquier otra prop firm."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Necesito VPS o servidor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Funciona directamente en tu computadora donde tienes NinjaTrader 8."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué plataformas son compatibles?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NinjaTrader 8 (cuenta maestra), cTrader y MetaTrader 5 (cuentas seguidoras)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿La licencia es realmente vitalicia?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Pago único de $29 USD, incluye todas las actualizaciones futuras."
+          }
+        }
+      ]
+    }
+  ]
+})} />
+
+<!-- google font css -->
+    <AstroFont
+      config={[
+        {
+          src: [],
+          preload: false,
+          display: "swap",
+          name: fontPrimary!,
+          fallback: "sans-serif",
+          cssVariable: "font-primary",
+          googleFontsURL: `https://fonts.googleapis.com/css2?family=${pf}&display=swap`,
+        },
+        {
+          src: [],
+          preload: false,
+          display: "swap",
+          name: fontSecondary!,
+          fallback: "sans-serif",
+          cssVariable: "font-secondary",
+          googleFontsURL: `https://fonts.googleapis.com/css2?family=${sf}&display=swap`,
+        },
+      ]}
+    />
+
+<!-- Auto language detection (client-side) -->
+<script is:inline>
+  (function() {
+    // Only redirect on first visit
+    if (sessionStorage.getItem('langRedirect')) return;
+    sessionStorage.setItem('langRedirect', 'true');
+    
+    const path = window.location.pathname;
+    const isEnglishPage = path.startsWith('/en');
+    const browserLang = navigator.language || navigator.userLanguage;
+    const prefersEnglish = browserLang.startsWith('en');
+    
+    // If user prefers English but is on Spanish page, redirect
+    if (prefersEnglish && !isEnglishPage && path === '/') {
+      window.location.href = '/en/';
+    }
+    // If user prefers Spanish but is on English page, redirect
+    else if (!prefersEnglish && isEnglishPage) {
+      window.location.href = '/';
+    }
+  })();
+</script>

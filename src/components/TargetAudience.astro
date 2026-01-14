@@ -1,0 +1,170 @@
+---
+/**
+ * TargetAudience - Compact horizontal section showing who MirrorFlow is for
+ */
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const audiences = {
+  es: [
+    {
+      emoji: '🏆',
+      title: 'Traders de Fondeo',
+      hook: 'Pasa más evaluaciones, escala más rápido',
+      description: 'Gestiona 5, 10 o 20 desafíos desde una sola cuenta maestra. Multiplica tus oportunidades de fondeo.',
+      color: '#22C55E'
+    },
+    {
+      emoji: '📈',
+      title: 'Gestores de Cuentas',
+      hook: 'Ofrece un servicio premium a tus clientes',
+      description: 'Ejecuta en tu NT8 central y replica a todas las cuentas de tus clientes en MT5/cTrader automáticamente.',
+      color: '#38BDF8'
+    },
+    {
+      emoji: '💼',
+      title: 'Traders Particulares',
+      hook: 'Diversifica brokers sin esfuerzo extra',
+      description: 'Opera futuros en NT8 y replica a CFDs para aprovechar diferentes spreads y mercados 24/5.',
+      color: '#818CF8'
+    }
+  ],
+  en: [
+    {
+      emoji: '🏆',
+      title: 'Prop Firm Traders',
+      hook: 'Pass more challenges, scale faster',
+      description: 'Manage 5, 10 or 20 challenges from a single master account. Multiply your funding opportunities.',
+      color: '#22C55E'
+    },
+    {
+      emoji: '📈',
+      title: 'Account Managers',
+      hook: 'Offer premium service to your clients',
+      description: 'Execute on your central NT8 and replicate to all client accounts on MT5/cTrader automatically.',
+      color: '#38BDF8'
+    },
+    {
+      emoji: '💼',
+      title: 'Retail Traders',
+      hook: 'Diversify brokers with zero extra effort',
+      description: 'Trade futures on NT8 and replicate to CFDs for different spreads and 24/5 markets.',
+      color: '#818CF8'
+    }
+  ]
+};
+
+const items = audiences[lang];
+---
+
+<section class="target-audience-section">
+  <div class="audience-container">
+    {items.map((item) => (
+      <article class="audience-card" style={`--accent-color: ${item.color}`}>
+        <div class="audience-emoji">{item.emoji}</div>
+        <h3 class="audience-title">{item.title}</h3>
+        <p class="audience-hook">{item.hook}</p>
+        <p class="audience-description">{item.description}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .target-audience-section {
+    padding: 2rem 1rem;
+  }
+  
+  .audience-container {
+    max-width: 72rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 900px) {
+    .audience-container {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+    }
+  }
+  
+  .audience-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  :root[data-theme="light"] .audience-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+  
+  .audience-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .audience-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-color);
+    box-shadow: 
+      0 12px 40px rgba(0, 0, 0, 0.15),
+      0 0 30px color-mix(in srgb, var(--accent-color) 20%, transparent);
+  }
+  
+  .audience-card:hover::before {
+    opacity: 1;
+  }
+  
+  .audience-emoji {
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  }
+  
+  .audience-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--sl-color-white);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.5px;
+  }
+  
+  :root[data-theme="light"] .audience-title {
+    color: var(--sl-color-gray-1);
+  }
+  
+  .audience-hook {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin: 0 0 0.75rem 0;
+  }
+  
+  .audience-description {
+    font-size: 0.875rem;
+    color: var(--sl-color-gray-3);
+    margin: 0;
+    line-height: 1.6;
+  }
+</style>

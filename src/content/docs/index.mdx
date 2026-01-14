@@ -1,0 +1,155 @@
+---
+title: MirrorFlow - Replicador de Trades para NinjaTrader 8
+description: Replica tus trades de NinjaTrader 8 a cTrader y MT5 al instante. El copiador de operaciones definitivo para traders de cuentas de fondeo. Licencia vitalicia $29 USD.
+template: splash
+hero:
+  title: |
+    ¿Cansado de Operar <span class="light-text">Cuenta por Cuenta?</span>
+  tagline: MirrorFlow replica tus entradas de NinjaTrader 8 a múltiples cuentas de fondeo, cTrader y MetaTrader 5 instantáneamente. Un Trade. Infinitas Cuentas.
+---
+
+import Section from "~/components/Section.astro";
+import FeaturesCarousel from "~/components/FeaturesCarousel.astro";
+import Card from "~/components/user-components/NewCard.astro";
+import Grid from "~/components/user-components/Grid.astro";
+import CommandCenter from "~/components/CommandCenter.astro";
+import CountdownPricing from "~/components/CountdownPricing.astro";
+import Testimonials from "~/components/Testimonials.astro";
+import WhatsAppButton from "~/components/WhatsAppButton.astro";
+
+<Section title="¿Por qué elegir <span class='light-text'>MirrorFlow?</span>" description="Deja de Perder Dinero y Tiempo al operar manualmente múltiples cuentas es lento, estresante y propenso a errores.">
+
+<FeaturesCarousel lang="es" />
+
+</Section>
+
+import TargetAudience from "~/components/TargetAudience.astro";
+
+<Section title="¿Para quién es <span class='light-text'>MirrorFlow?</span>" description="Diseñado para traders serios que quieren escalar sus resultados.">
+
+<TargetAudience lang="es" />
+
+</Section>
+
+<CommandCenter lang="es" />
+
+import HeroTabs from "~/components/HeroTabs.astro";
+import HeroTabsItem from "~/components/HeroTabsItem.astro";
+
+<Section
+  title="Configura MirrorFlow <span class='light-text'>en 3 simples pasos</span>"
+  description="Instalación rápida. Sin conocimientos técnicos. Empieza a replicar en minutos."
+>
+  <HeroTabs>
+    <HeroTabsItem
+      title="Instala el Add-On"
+      subtitle="Descarga e instala MirrorFlow en tu NinjaTrader 8 maestro."
+      number={1}
+      image="src/assets/step-1.jpg"
+      imageAlt="Paso 1: Instalación"
+    />
+    <HeroTabsItem
+      title="Conecta tus Cuentas"
+      subtitle="Configura las cuentas destino: otras NT8, cTrader o MT5."
+      number={2}
+      image="src/assets/step-2.jpg"
+      imageAlt="Paso 2: Configuración"
+    />
+    <HeroTabsItem
+      title="¡Opera y Replica!"
+      subtitle="Ejecuta una operación y observa cómo se replica instantáneamente."
+      number={3}
+      image="src/assets/step-3.jpg"
+      imageAlt="Paso 3: Trading"
+    />
+  </HeroTabs>
+</Section>
+
+<Testimonials lang="es" />
+
+<CountdownPricing lang="es" />
+
+import AccordionContainer from "~/components/AccordionContainer.astro";
+import Accordion from "~/components/Accordion.astro";
+
+<Section
+  title="Preguntas <span class='light-text'>Frecuentes</span>"
+  description="Respuestas a las dudas más comunes antes de comprar."
+>
+
+<AccordionContainer tabList={
+  [
+    {
+      type: 'basic',
+      title: 'Sobre el Producto',
+      subtitle:'Qué es y cómo funciona.',
+      icon: "rocket"
+    },
+    {
+      type: 'setting',
+      title: 'Instalación',
+      subtitle:'Configuración y requisitos.',
+      icon: "settings"
+    },
+    {
+      type: 'help',
+      title: 'Compra',
+      subtitle:'Licencia y soporte.',
+      icon: "support"
+    }
+  ]
+}>
+
+<Accordion
+  question="¿Qué tan rápido replica las operaciones?"
+  answer="La replicación ocurre en milisegundos. Optimizado para minimizar slippage incluso en mercados volátiles."
+  type="basic"
+/>
+<Accordion
+  question="¿Cuántas cuentas puedo conectar?"
+  answer="Sin límite. Replica a tantas cuentas de NinjaTrader 8, cTrader y MT5 como necesites."
+  type="basic"
+/>
+<Accordion
+  question="¿Funciona con cuentas de fondeo (prop firms)?"
+  answer="Sí. Perfecto para Apex, FTMO, Topstep, MyForexFunds y cualquier otra prop firm."
+  type="basic"
+/>
+
+<Accordion
+  question="¿Necesito conocimientos técnicos?"
+  answer="No. Si sabes instalar un indicador en NinjaTrader 8, puedes instalar MirrorFlow. Incluye video tutorial."
+  type="setting"
+/>
+<Accordion
+  question="¿Necesito VPS o servidor?"
+  answer="No. Funciona directamente en tu computadora donde tienes NinjaTrader 8."
+  type="setting"
+/>
+<Accordion
+  question="¿Qué plataformas son compatibles?"
+  answer="NinjaTrader 8 (cuenta maestra), cTrader y MetaTrader 5 (cuentas destino)."
+  type="setting"
+/>
+
+<Accordion
+  question="¿La licencia es realmente vitalicia?"
+  answer="Sí. Pago único de $29 USD hasta el 31 de enero, incluye todas las actualizaciones futuras."
+  type="help"
+/>
+<Accordion
+  question="¿Hay garantía de devolución?"
+  answer="Debido a la naturaleza digital, no hay reembolsos. Contáctanos por WhatsApp antes de comprar si tienes dudas."
+  type="help"
+/>
+<Accordion
+  question="¿Cómo obtengo soporte?"
+  answer="Soporte directo por WhatsApp. Respondemos en menos de 24 horas."
+  type="help"
+/>
+
+</AccordionContainer>
+
+</Section>
+
+<WhatsAppButton lang="es" />

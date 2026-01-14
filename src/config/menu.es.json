@@ -1,0 +1,18 @@
+{
+    "main": [],
+    "footer": {
+        "legal": {
+            "title": "Legal",
+            "links": [
+                {
+                    "name": "Política de Privacidad",
+                    "url": "/privacy-policy"
+                },
+                {
+                    "name": "Términos y Condiciones",
+                    "url": "/terms-conditions"
+                }
+            ]
+        }
+    }
+}

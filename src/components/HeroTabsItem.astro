@@ -1,0 +1,47 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  number: number;
+  image: string;
+  imageAlt: string;
+  isActive?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  number,
+  image,
+  imageAlt,
+  isActive = false,
+} = Astro.props;
+
+// Convert src/assets paths to public paths for JS cloning compatibility
+const publicImage = image.includes('step-1') ? '/steps/step1.jpg' 
+                  : image.includes('step-2') ? '/steps/step2.jpg'
+                  : image.includes('step-3') ? '/steps/step3.jpg'
+                  : image;
+---
+
+<div class="hero-tab-item">
+  <div class="hero-tab-nav" data-active={isActive}>
+    <button class="tab-button" data-tab={number}>
+      <span class="tab-number">{number}</span>
+      <div class="tab-content">
+        <h3 class="tab-title">{title}</h3>
+        <p class="tab-subtitle">{subtitle}</p>
+      </div>
+    </button>
+  </div>
+
+  <div class="hero-tab-content" data-panel={number} data-active={isActive}>
+    <img
+      src={publicImage}
+      alt={imageAlt}
+      class="tab-image"
+      loading="lazy"
+      style="max-width: 800px; width: 100%; height: auto; object-fit: contain; border-radius: 12px; margin: 0 auto; display: block;"
+    />
+  </div>
+</div>

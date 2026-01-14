@@ -1,0 +1,10 @@
+{
+  "root": {
+    "label": "Español",
+    "lang": "es"
+  },
+  "en": {
+    "label": "English",
+    "lang": "en"
+  }
+}

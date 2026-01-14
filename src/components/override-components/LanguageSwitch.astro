@@ -1,0 +1,59 @@
+---
+/**
+ * Language Switch Toggle - Pill-style toggle similar to ThemeSwitch
+ */
+const locale = Astro.currentLocale || "es";
+---
+
+<div class="language-switch">
+  <a 
+    href="/" 
+    class:list={["lang-option", { active: locale === "es" }]}
+    aria-label="Español"
+  >
+    ES
+  </a>
+  <a 
+    href="/en/" 
+    class:list={["lang-option", { active: locale === "en" }]}
+    aria-label="English"
+  >
+    EN
+  </a>
+</div>
+
+<style>
+  .language-switch {
+    display: flex;
+    align-items: center;
+    background: color-mix(in srgb, var(--sl-color-gray-5) 30%, transparent);
+    border-radius: 9999px;
+    padding: 4px;
+    gap: 2px;
+  }
+  
+  .lang-option {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--sl-color-gray-3);
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .lang-option:hover {
+    color: var(--sl-color-text);
+  }
+  
+  .lang-option.active {
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    color: white;
+    box-shadow: 0 2px 8px rgba(129, 140, 248, 0.3);
+  }
+  
+  :root[data-theme="light"] .language-switch {
+    background: color-mix(in srgb, var(--sl-color-gray-5) 50%, transparent);
+  }
+</style>

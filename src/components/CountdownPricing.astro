@@ -1,0 +1,582 @@
+---
+/**
+ * Countdown Pricing Section - Creates urgency with countdown to price increase
+ * Launch price: $29 until Jan 31, 2026 → $49 after
+ * Full light/dark theme support
+ */
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const translations = {
+  es: {
+    title: 'Oferta de Lanzamiento',
+    subtitle: 'Licencia Vitalicia • Pago Único',
+    currentPrice: '$29',
+    futurePrice: '$49',
+    currency: 'USD',
+    oneTime: 'Pago único',
+    lifetime: 'Licencia Vitalicia',
+    afterDate: '⚠️ Después del 31 de enero el precio sube a',
+    hurry: '¡No te quedes fuera!',
+    cta: 'Comprar Ahora',
+    securePayment: 'Pago seguro con PayPal',
+    features: [
+      'Replicación ilimitada de cuentas',
+      'Conexión a cTrader y MT5',
+      'Actualizaciones de por vida',
+      'Soporte premium por WhatsApp',
+      'Instalación en 5 minutos',
+      'Sin suscripciones mensuales'
+    ],
+    countdown: {
+      days: 'Días',
+      hours: 'Horas',
+      mins: 'Min',
+      secs: 'Seg'
+    }
+  },
+  en: {
+    title: 'Launch Price',
+    subtitle: 'Limited time offer',
+    currentPrice: '$29',
+    futurePrice: '$49',
+    currency: 'USD',
+    oneTime: 'One-time payment',
+    lifetime: 'Lifetime License',
+    afterDate: '⚠️ After January 31 the price goes up to',
+    hurry: "Don't miss out!",
+    cta: 'Buy Now',
+    securePayment: 'Secure payment with PayPal',
+    features: [
+      'Unlimited account replication',
+      'Connection to cTrader and MT5',
+      'Lifetime updates',
+      'Premium WhatsApp support',
+      '5-minute installation',
+      'No monthly subscriptions'
+    ],
+    countdown: {
+      days: 'Days',
+      hours: 'Hours',
+      mins: 'Min',
+      secs: 'Sec'
+    }
+  }
+};
+
+const t = translations[lang];
+
+// Format numbers
+const currentPrice = t.currentPrice;
+const futurePrice = t.futurePrice;
+const ctaText = lang === 'es' ? 'Asegurar Mi Licencia' : 'Secure My License';
+const guarantee = lang === 'es' ? 'Garantía de 30 días' : '30-Day Guarantee';
+---
+
+<section id="pricing" class="pricing-section">
+  <div class="pricing-container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <h2 class="section-title-pricing">{t.title}<span class="light-text">{t.subtitle}</span></h2>
+    </div>
+    
+    <div class="pricing-card">
+      <!-- Glow effects -->
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+
+      <div class="card-content">
+        <!-- Price Display -->
+        <div class="price-display">
+          <span class="price-current">{t.currentPrice}</span>
+          <div class="price-details">
+            <span class="price-old">{t.futurePrice}</span>
+            <span class="price-currency">{t.currency}</span>
+          </div>
+        </div>
+
+        <p class="price-info">{t.oneTime} • {t.lifetime}</p>
+
+        <!-- Urgency Badge -->
+        <div class="urgency-badge">
+          <span class="pulse-dot">
+            <span class="pulse-ring"></span>
+            <span class="pulse-core"></span>
+          </span>
+          <span>{t.hurry}</span>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div id="countdown-timer" class="countdown-grid">
+          <div class="countdown-item">
+            <span id="days" class="countdown-value">00</span>
+            <span class="countdown-label">{t.countdown.days}</span>
+          </div>
+          <div class="countdown-item">
+            <span id="hours" class="countdown-value">00</span>
+            <span class="countdown-label">{t.countdown.hours}</span>
+          </div>
+          <div class="countdown-item">
+            <span id="minutes" class="countdown-value">00</span>
+            <span class="countdown-label">{t.countdown.mins}</span>
+          </div>
+          <div class="countdown-item">
+            <span id="seconds" class="countdown-value">00</span>
+            <span class="countdown-label">{t.countdown.secs}</span>
+          </div>
+        </div>
+
+        <!-- Enhanced urgency message -->
+        <div class="after-date-warning">
+          <p class="after-date">{t.afterDate} <span class="future-price">{t.futurePrice} {t.currency}</span></p>
+        </div>
+
+        <!-- Features List -->
+        <ul class="features-list">
+          {t.features.map((feature) => (
+            <li>
+              <svg class="check-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+
+        <!-- CTA Button -->
+        <a href="https://www.paypal.com/ncp/payment/FY69UCSPBXDJE" class="cta-button">
+          {ctaText}
+        </a>
+
+        <p class="secure-payment">
+          <svg class="lock-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          {t.securePayment}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing-section {
+    padding: 5rem 1rem;
+  }
+  
+  .pricing-container {
+    max-width: 56rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .section-header {
+    margin-bottom: 3rem;
+  }
+  
+  .section-title-pricing {
+    font-size: 4.8rem;
+    line-height: 4.7rem;
+    letter-spacing: -3px;
+    font-weight: 700;
+    color: var(--sl-color-white);
+    margin: 0;
+  }
+  
+  :root[data-theme="light"] .section-title-pricing {
+    color: var(--sl-color-gray-1);
+  }
+  
+  .section-title-pricing .light-text {
+    display: block;
+    color: var(--sl-color-gray-3);
+  }
+  
+  @media (max-width: 1040px) {
+    .section-title-pricing {
+      font-size: 3.8rem;
+      line-height: 3.7rem;
+      letter-spacing: -2px;
+    }
+  }
+  
+  @media (max-width: 548px) {
+    .section-title-pricing {
+      font-size: 2.8rem;
+      line-height: 2.7rem;
+      letter-spacing: -1px;
+    }
+  }
+  
+  .pricing-card {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    max-width: 36rem;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  :root[data-theme="light"] .pricing-card {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (min-width: 768px) {
+    .pricing-card {
+      padding: 3rem;
+    }
+  }
+  
+  .glow {
+    position: absolute;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    filter: blur(60px);
+  }
+  
+  .glow-1 {
+    top: -5rem;
+    right: -5rem;
+    background: rgba(56, 189, 248, 0.2);
+  }
+  
+  .glow-2 {
+    bottom: -5rem;
+    left: -5rem;
+    background: rgba(129, 140, 248, 0.2);
+  }
+  
+  :root[data-theme="light"] .glow-1 {
+    background: rgba(56, 189, 248, 0.1);
+  }
+  
+  :root[data-theme="light"] .glow-2 {
+    background: rgba(129, 140, 248, 0.1);
+  }
+  
+  .card-content {
+    position: relative;
+    z-index: 10;
+  }
+  
+  .price-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .price-current {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--sl-color-white);
+  }
+  
+  :root[data-theme="light"] .price-current {
+    color: var(--sl-color-gray-1);
+  }
+  
+  @media (min-width: 768px) {
+    .price-current {
+      font-size: 4.5rem;
+    }
+  }
+  
+  .price-details {
+    text-align: left;
+  }
+  
+  .price-old {
+    font-size: 1.5rem;
+    color: var(--sl-color-gray-4);
+    text-decoration: line-through;
+  }
+  
+  .price-currency {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #38bdf8;
+  }
+  
+  .price-info {
+    font-size: 1.125rem;
+    color: var(--sl-color-gray-2);
+    margin-bottom: 0.5rem;
+  }
+  
+  .urgency-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  
+  :root[data-theme="light"] .urgency-badge {
+    background: rgba(239, 68, 68, 0.08);
+    color: #dc2626;
+  }
+  
+  .pulse-dot {
+    position: relative;
+    display: inline-flex;
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+  
+  .pulse-ring {
+    position: absolute;
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #ef4444;
+    opacity: 0.75;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  
+  .pulse-core {
+    position: relative;
+    display: inline-flex;
+    border-radius: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: #ef4444;
+  }
+  
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .countdown-item {
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 0.75rem;
+    padding: 0.75rem 0.5rem;
+    min-width: 0;
+  }
+  
+  :root[data-theme="light"] .countdown-item {
+    background: rgba(241, 245, 249, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .countdown-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: ui-monospace, monospace;
+    color: var(--sl-color-white);
+  }
+  
+  :root[data-theme="light"] .countdown-value {
+    color: var(--sl-color-gray-1);
+  }
+  
+  @media (min-width: 768px) {
+    .countdown-value {
+      font-size: 1.75rem;
+    }
+  }
+  
+  .countdown-label {
+    font-size: 0.65rem;
+    color: var(--sl-color-gray-4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Enhanced urgency warning */
+  .after-date-warning {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(249, 115, 22, 0.15));
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 0.75rem;
+    padding: 0.875rem 1rem;
+    margin-bottom: 1.5rem;
+    animation: urgency-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes urgency-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 15px 2px rgba(239, 68, 68, 0.2);
+    }
+  }
+  
+  :root[data-theme="light"] .after-date-warning {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(249, 115, 22, 0.1));
+  }
+  
+  .after-date {
+    font-size: 0.95rem;
+    color: #ef4444;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  :root[data-theme="light"] .after-date {
+    color: #dc2626;
+  }
+  
+  .future-price {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.15);
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+  }
+  
+  :root[data-theme="light"] .future-price {
+    color: #dc2626;
+  }
+  
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .features-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--sl-color-gray-2);
+  }
+  
+  .check-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #22c55e;
+    flex-shrink: 0;
+  }
+  
+  .cta-button {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    color: white;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-size: 1.125rem;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+  }
+  
+  .secure-payment {
+    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--sl-color-gray-2);
+    transition: all 0.3s ease;
+  }
+
+  :root[data-theme="light"] .secure-payment {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .secure-payment:hover {
+    border-color: #22c55e;
+    color: var(--sl-color-white);
+  }
+
+  :root[data-theme="light"] .secure-payment:hover {
+    color: var(--sl-color-gray-1);
+  }
+
+  .lock-icon {
+    width: 1rem;
+    height: 1rem;
+    color: #22c55e;
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    // Countdown to January 31, 2026 at 23:59:59
+    const endDate = new Date('2026-01-31T23:59:59').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = endDate - now;
+
+      if (distance < 0) {
+        // Offer expired
+        const timer = document.getElementById('countdown-timer');
+        if (timer) {
+          timer.innerHTML = '<p style="grid-column: span 4; color: #ef4444; font-weight: bold;">¡Oferta expirada!</p>';
+        }
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
+
+      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+</script>

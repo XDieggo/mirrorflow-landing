@@ -1,0 +1,523 @@
+---
+/**
+ * Command Center Hub Diagram - Visual representation of MirrorFlow's multi-platform connectivity
+ * Symmetric 3-1-3 layout with platform letters, 6 connection lines, and MirrorFlow logo
+ */
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const translations = {
+  es: {
+    title: 'Tu Centro de Mando',
+    subtitle: 'Un trade en NinjaTrader 8. Replicación instantánea a todas tus cuentas.',
+    master: 'CUENTA MAESTRA',
+    tagline: 'Ejecuta aquí',
+    platforms: {
+      ctrader: { name: 'cTrader', desc: 'Spreads ajustados', letter: 'C', color: '#EF4444' },
+      mt5: { name: 'MetaTrader', desc: 'Cuentas CFDs globales', letter: 'M', color: '#22C55E' },
+      nt8: { name: 'NinjaTrader', desc: 'Múltiples Cuentas NT8', letter: 'N', color: '#F97316' },
+      quantower: { name: 'Quantower', desc: 'En desarrollo', letter: 'Q', color: '#14B8A6' },
+      funding: { name: 'Prop Firms', desc: 'Apex, FTMO, Topstep', letter: 'P', color: '#2297c5ff' },
+      future: { name: 'Próximamente', desc: 'Más plataformas', letter: '?', color: '#A855F7' }
+    }
+  },
+  en: {
+    title: 'Your Command Center',
+    subtitle: 'One trade on NinjaTrader 8. Instant replication to all your accounts.',
+    master: 'MASTER ACCOUNT',
+    tagline: 'Execute here',
+    platforms: {
+      ctrader: { name: 'cTrader', desc: 'Tight spreads', letter: 'C', color: '#EF4444' },
+      mt5: { name: 'MetaTrader', desc: 'Global CFDs Accounts', letter: 'M', color: '#22C55E' },
+      nt8: { name: 'NinjaTrader', desc: 'NT8 Multiple Accounts', letter: 'N', color: '#F97316' },
+      quantower: { name: 'Quantower', desc: 'In development', letter: 'Q', color: '#14B8A6' },
+      funding: { name: 'Prop Firms', desc: 'Apex, FTMO, Topstep', letter: 'P', color: '#2297c5ff' },
+      future: { name: 'Coming Soon', desc: 'More platforms', letter: '?', color: '#A855F7' }
+    }
+  }
+};
+
+const t = translations[lang];
+---
+
+<section class="command-center-section">
+  <div class="command-center-container">
+    <h2 class="command-title">
+      {t.title}
+    </h2>
+    <p class="command-subtitle">{t.subtitle}</p>
+
+    <div class="hub-diagram">
+      <!-- Connection Lines SVG - 6 lines with animated dots -->
+      <svg class="connection-lines" viewBox="0 0 700 420" preserveAspectRatio="xMidYMid meet">
+        <!-- Left side connections: NinjaTrader (orange), cTrader (red), Prop Firms (blue) -->
+        <line x1="350" y1="210" x2="140" y2="70" stroke="url(#lineGradientOrange)" stroke-width="2" class="connection-line"/>
+        <line x1="350" y1="210" x2="140" y2="210" stroke="url(#lineGradientRed)" stroke-width="2" class="connection-line"/>
+        <line x1="350" y1="210" x2="140" y2="350" stroke="url(#lineGradientBlue)" stroke-width="2" class="connection-line"/>
+        
+        <!-- Right side connections: MetaTrader (green), Quantower (teal), Próximamente (purple) -->
+        <line x1="350" y1="210" x2="560" y2="70" stroke="url(#lineGradientGreen)" stroke-width="2" class="connection-line"/>
+        <line x1="350" y1="210" x2="560" y2="210" stroke="url(#lineGradientTeal)" stroke-width="2" class="connection-line future-line"/>
+        <line x1="350" y1="210" x2="560" y2="350" stroke="url(#lineGradientPurple)" stroke-width="2" class="connection-line future-line"/>
+        
+        <!-- Animated pulse dots matching card colors -->
+        <circle r="6" fill="#F97316" class="pulse-dot">
+          <animateMotion dur="2s" repeatCount="indefinite" path="M350,210 L140,70"/>
+        </circle>
+        <circle r="6" fill="#EF4444" class="pulse-dot">
+          <animateMotion dur="2.3s" repeatCount="indefinite" path="M350,210 L140,210"/>
+        </circle>
+        <circle r="6" fill="#2297c5" class="pulse-dot">
+          <animateMotion dur="2.6s" repeatCount="indefinite" path="M350,210 L140,350"/>
+        </circle>
+        <circle r="6" fill="#22C55E" class="pulse-dot">
+          <animateMotion dur="2.1s" repeatCount="indefinite" path="M350,210 L560,70"/>
+        </circle>
+        <circle r="6" fill="#14B8A6" class="pulse-dot">
+          <animateMotion dur="2.4s" repeatCount="indefinite" path="M350,210 L560,210"/>
+        </circle>
+        <circle r="6" fill="#A855F7" class="pulse-dot">
+          <animateMotion dur="2.7s" repeatCount="indefinite" path="M350,210 L560,350"/>
+        </circle>
+        
+        <defs>
+          <!-- Left gradients -->
+          <linearGradient id="lineGradientOrange" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" style="stop-color:#F97316;stop-opacity:0.7" />
+            <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:0.7" />
+          </linearGradient>
+          <linearGradient id="lineGradientRed" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" style="stop-color:#EF4444;stop-opacity:0.7" />
+            <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:0.7" />
+          </linearGradient>
+          <linearGradient id="lineGradientBlue" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" style="stop-color:#2297c5;stop-opacity:0.7" />
+            <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:0.7" />
+          </linearGradient>
+          <!-- Right gradients -->
+          <linearGradient id="lineGradientGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:0.7" />
+            <stop offset="100%" style="stop-color:#22C55E;stop-opacity:0.7" />
+          </linearGradient>
+          <linearGradient id="lineGradientTeal" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:0.5" />
+            <stop offset="100%" style="stop-color:#14B8A6;stop-opacity:0.5" />
+          </linearGradient>
+          <linearGradient id="lineGradientPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:0.5" />
+            <stop offset="100%" style="stop-color:#A855F7;stop-opacity:0.5" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div class="platform-grid">
+        <!-- Left Platforms (aligned right) -->
+        <div class="platforms-column left-column">
+          <!-- NinjaTrader -->
+          <div class="platform-card nt8-secondary">
+            <div class="platform-letter-wrapper" style="--platform-color: #F97316">
+              <span class="platform-letter">N</span>
+            </div>
+            <div class="platform-info">
+              <span class="platform-name">{t.platforms.nt8.name}</span>
+              <span class="platform-desc">{t.platforms.nt8.desc}</span>
+            </div>
+          </div>
+          
+          <!-- cTrader -->
+          <div class="platform-card ctrader">
+            <div class="platform-letter-wrapper" style="--platform-color: #EF4444">
+              <span class="platform-letter">C</span>
+            </div>
+            <div class="platform-info">
+              <span class="platform-name">{t.platforms.ctrader.name}</span>
+              <span class="platform-desc">{t.platforms.ctrader.desc}</span>
+            </div>
+          </div>
+          
+          <!-- Prop Firms -->
+          <div class="platform-card funding">
+            <div class="platform-letter-wrapper" style="--platform-color: #2297c5ff">
+              <span class="platform-letter">P</span>
+            </div>
+            <div class="platform-info">
+              <span class="platform-name">{t.platforms.funding.name}</span>
+              <span class="platform-desc">{t.platforms.funding.desc}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center (Master) with MirrorFlow Logo -->
+        <div class="master-container">
+          <div class="master-glow"></div>
+          <div class="master-card">
+            <div class="master-icon">
+              <img src="/mirrorflow-logo.png" alt="MirrorFlow" class="master-logo" />
+            </div>
+            <h3 class="master-title">NinjaTrader 8</h3>
+            <p class="master-badge">{t.master}</p>
+            <p class="master-tagline">{t.tagline}</p>
+          </div>
+        </div>
+
+        <!-- Right Platforms (aligned left) -->
+        <div class="platforms-column right-column">
+          <!-- MetaTrader -->
+          <div class="platform-card mt5">
+            <div class="platform-letter-wrapper" style="--platform-color: #22C55E">
+              <span class="platform-letter">M</span>
+            </div>
+            <div class="platform-info">
+              <span class="platform-name">{t.platforms.mt5.name}</span>
+              <span class="platform-desc">{t.platforms.mt5.desc}</span>
+            </div>
+          </div>
+          
+          <!-- Quantower -->
+          <div class="platform-card future quantower">
+            <div class="platform-letter-wrapper future-letter" style="--platform-color: #14B8A6">
+              <span class="platform-letter">Q</span>
+            </div>
+            <div class="platform-info">
+              <span class="platform-name">{t.platforms.quantower.name}</span>
+              <span class="platform-desc">{t.platforms.quantower.desc}</span>
+            </div>
+          </div>
+          
+          <!-- Future Platform -->
+          <div class="platform-card future">
+            <div class="platform-letter-wrapper future-letter" style="--platform-color: #A855F7">
+              <span class="platform-letter">?</span>
+            </div>
+            <div class="platform-info">
+              <span class="platform-name">{t.platforms.future.name}</span>
+              <span class="platform-desc">{t.platforms.future.desc}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .command-center-section {
+    padding: 5rem 1rem;
+  }
+  
+  .command-center-container {
+    max-width: 72rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .command-title {
+    font-size: 4.8rem;
+    line-height: 4.7rem;
+    letter-spacing: -3px;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--sl-color-white);
+  }
+  
+  :root[data-theme="light"] .command-title {
+    color: var(--sl-color-gray-1);
+  }
+  
+  .command-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    color: var(--sl-color-gray-3);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  @media (max-width: 1040px) {
+    .command-title {
+      font-size: 3.8rem;
+      line-height: 3.7rem;
+      letter-spacing: -2px;
+    }
+  }
+  
+  @media (max-width: 548px) {
+    .command-title {
+      font-size: 2.8rem;
+      line-height: 2.7rem;
+      letter-spacing: -1px;
+    }
+    .command-subtitle {
+      font-size: 1rem;
+    }
+  }
+  
+  .hub-diagram {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    min-height: 450px;
+  }
+  
+  .connection-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  .connection-line {
+    opacity: 0.7;
+  }
+  
+  .future-line {
+    stroke-dasharray: 8 4;
+    opacity: 0.5;
+  }
+  
+  :root[data-theme="light"] .connection-line {
+    opacity: 0.6;
+  }
+  
+  .platform-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 950px;
+  }
+  
+  @media (max-width: 900px) {
+    .platform-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .connection-lines {
+      display: none;
+    }
+    
+    .platforms-column {
+      flex-direction: row !important;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: stretch !important;
+    }
+    
+    .left-column, .right-column {
+      align-items: center !important;
+    }
+    
+    .platform-card {
+      width: auto !important;
+      min-width: 160px;
+    }
+  }
+  
+  .platforms-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .left-column {
+    align-items: flex-end;
+  }
+  
+  .right-column {
+    align-items: flex-start;
+  }
+  
+  .platform-card {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 185px;
+  }
+  
+  :root[data-theme="light"] .platform-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+  
+  .platform-card:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+  
+  .platform-card.ctrader:hover {
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+  
+  .platform-card.funding:hover {
+    border-color: rgba(41, 151, 224, 0.5);
+  }
+  
+  .platform-card.mt5:hover {
+    border-color: rgba(34, 197, 94, 0.5);
+  }
+  
+  .platform-card.nt8-secondary:hover {
+    border-color: rgba(249, 115, 22, 0.5);
+  }
+  
+  .platform-card.future {
+    border-style: dashed;
+    opacity: 0.75;
+  }
+  
+  .platform-card.future:hover {
+    border-color: rgba(187, 70, 255, 1);
+  }
+  
+  .platform-card.future.quantower:hover {
+    border-color: rgba(20, 184, 166, 0.5);
+  }
+  
+  .platform-letter-wrapper {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: color-mix(in srgb, var(--platform-color) 15%, transparent);
+    border-radius: 0.625rem;
+    border: 2px solid color-mix(in srgb, var(--platform-color) 40%, transparent);
+  }
+  
+  .platform-letter {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--platform-color);
+    line-height: 1;
+  }
+  
+  .future-letter {
+    opacity: 0.7;
+  }
+  
+  .platform-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  
+  .platform-name {
+    font-weight: 700;
+    color: var(--sl-color-white);
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+  
+  :root[data-theme="light"] .platform-name {
+    color: var(--sl-color-gray-1);
+  }
+  
+  .platform-desc {
+    font-size: 0.7rem;
+    color: var(--sl-color-gray-4);
+    line-height: 1.3;
+  }
+  
+  /* Master Card */
+  .master-container {
+    position: relative;
+  }
+  
+  .master-glow {
+    position: absolute;
+    inset: -2rem;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    border-radius: 9999px;
+    filter: blur(50px);
+    opacity: 0.35;
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 0.25;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.45;
+      transform: scale(1.08);
+    }
+  }
+  
+  .master-card {
+    position: relative;
+    background: rgba(15, 23, 42, 0.95);
+    padding: 2rem 2.5rem;
+    border-radius: 1.5rem;
+    border: 2px solid rgba(99, 102, 241, 0.4);
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+  }
+  
+  :root[data-theme="light"] .master-card {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .master-icon {
+    width: 5rem;
+    height: 5rem;
+    margin: 0 auto 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .master-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .master-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--sl-color-white);
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+  
+  :root[data-theme="light"] .master-title {
+    color: var(--sl-color-gray-1);
+  }
+  
+  .master-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #6366f1;
+    margin: 0.25rem 0 0.5rem 0;
+  }
+  
+  .master-tagline {
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-3);
+    margin: 0;
+    font-style: italic;
+  }
+</style>
