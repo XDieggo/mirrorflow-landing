@@ -127,6 +127,10 @@ const allReviews = [...reviews, ...reviews];
           
           <!-- Card content -->
           <div class="card-content">
+            <div class="reviewer-info">
+              <span class="reviewer-name">{review.name}</span>
+              <span class="reviewer-country">{review.country}</span>
+            </div>
             <p class="review-text">"{review.text}"</p>
             
             <div class="stars">
@@ -290,6 +294,30 @@ const allReviews = [...reviews, ...reviews];
   :root[data-theme="light"] .review-text {
     color: var(--sl-color-gray-2);
   }
+  
+  .reviewer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .reviewer-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--sl-color-white);
+  }
+  
+  :root[data-theme="light"] .reviewer-name {
+    color: var(--sl-color-gray-1);
+  }
+  
+  .reviewer-country {
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-4);
+  }
+
   
   .stars {
     display: flex;
