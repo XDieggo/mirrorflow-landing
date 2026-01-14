@@ -14,7 +14,7 @@ MirrorFlow respects your privacy. This policy describes how we collect and use y
 
 ### 1.1 Purchase Information
 - Name and email (for license delivery)
-- Payment information processed by PayPal (we do not store card data)
+- Payment information processed by MercadoPago (we do not store card data)
 
 ### 1.2 Technical Information
 - Installation data for license activation
@@ -34,7 +34,7 @@ We use your information to:
 ## 3. Data Sharing
 
 **We do not sell or share your personal information** with third parties, except:
-- PayPal for payment processing
+- MercadoPago for payment processing
 - When required by law
 
 ## 4. Security
