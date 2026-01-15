@@ -40,10 +40,12 @@ const { title, description, enable, fill_button, outline_button } =
 }
 
 <style>
-  /* Ensure background image is visible in light mode */
+  /* Light mode styling */
   :global([data-theme="light"]) .cta-container {
-    background-blend-mode: multiply;
-    background-color: #f9fafb; /* Light background color */
+    background: url("/src/assets/cta-bg-light.png") no-repeat center;
+    background-size: cover;
+    padding: 1rem;
+    position: relative;
   }
 
   /* Dark mode styling */
@@ -55,8 +57,13 @@ const { title, description, enable, fill_button, outline_button } =
   }
 
   /* Make description text more readable on dark CTA background */
-  .cta-container :global(.section-description) {
+  :global([data-theme="dark"]) .cta-container :global(.section-description) {
     color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  /* Make description text readable on light CTA background */
+  :global([data-theme="light"]) .cta-container :global(.section-description) {
+    color: rgba(30, 41, 59, 0.85) !important;
   }
 
 </style>
