@@ -30,10 +30,16 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://mirrorflow.app');
 
 {head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
 
-<!-- Favicon Configuration -->
-<link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
+<!-- Favicon Configuration (Enhanced for Google) -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/mirrorflow-logo.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
 <meta name="theme-color" content="#38bdf8" />
 <meta name="msapplication-TileColor" content="#0a0a0a" />
+<meta name="msapplication-TileImage" content="/mirrorflow-logo.png" />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
