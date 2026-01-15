@@ -38,6 +38,38 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://mirrorflow.app');
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
+<!-- SEO Meta Tags -->
+<meta name="robots" content="index, follow" />
+<meta name="author" content="MirrorFlow" />
+<meta name="keywords" content={currentLang === 'es' 
+  ? "replicador de trades, trade copier, ninjatrader 8, ctrader, metatrader 5, mt5, cuentas de fondeo, copy trading, prop firms, apex, ftmo, topstep"
+  : "trade copier, trade replication, ninjatrader 8, ctrader, metatrader 5, mt5, funded accounts, prop firms, copy trading, apex, ftmo"} />
+
+<!-- Open Graph / Facebook / WhatsApp -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
+<meta property="og:site_name" content="MirrorFlow" />
+<meta property="og:title" content={currentLang === 'es' 
+  ? "MirrorFlow: Replicador de Trades para NinjaTrader 8"
+  : "MirrorFlow: Trade Copier for NinjaTrader 8"} />
+<meta property="og:description" content={currentLang === 'es'
+  ? "Replica tus trades de NinjaTrader 8 a cTrader y MT5 al instante. Licencia vitalicia $29 USD."
+  : "Replicate your NinjaTrader 8 trades to cTrader and MT5 instantly. Lifetime license $29 USD."} />
+<meta property="og:image" content="https://mirrorflow.app/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={currentLang === 'es' 
+  ? "MirrorFlow: Replicador de Trades para NinjaTrader 8"
+  : "MirrorFlow: Trade Copier for NinjaTrader 8"} />
+<meta name="twitter:description" content={currentLang === 'es'
+  ? "Replica tus trades de NinjaTrader 8 a cTrader y MT5 al instante. Licencia vitalicia $29 USD."
+  : "Replicate your NinjaTrader 8 trades to cTrader and MT5 instantly. Lifetime license $29 USD."} />
+<meta name="twitter:image" content="https://mirrorflow.app/og-image.png" />
+
 <!-- hreflang for SEO -->
 <link rel="alternate" hreflang="es" href="https://mirrorflow.app/" />
 <link rel="alternate" hreflang="en" href="https://mirrorflow.app/en/" />
@@ -59,7 +91,8 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://mirrorflow.app');
         "@type": "Offer",
         "price": "29.00",
         "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "priceValidUntil": "2026-01-31"
       },
       "aggregateRating": {
         "@type": "AggregateRating",
