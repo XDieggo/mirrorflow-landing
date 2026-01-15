@@ -75,80 +75,266 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://mirrorflow.app');
 <link rel="alternate" hreflang="en" href="https://mirrorflow.app/en/" />
 <link rel="alternate" hreflang="x-default" href="https://mirrorflow.app/" />
 
-<!-- Schema.org SoftwareApplication -->
+<!-- Schema.org Complete SEO -->
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Organization",
+      "@id": "https://mirrorflow.app/#organization",
+      "name": "MirrorFlow",
+      "url": "https://mirrorflow.app",
+      "logo": "https://mirrorflow.app/favicon.ico",
+      "sameAs": [
+        "https://wa.me/573147438447"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+57-314-743-8447",
+        "contactType": "customer support",
+        "availableLanguage": ["Spanish", "English"]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mirrorflow.app/#website",
+      "url": "https://mirrorflow.app",
+      "name": "MirrorFlow",
+      "publisher": {"@id": "https://mirrorflow.app/#organization"},
+      "inLanguage": ["es", "en"]
+    },
+    {
       "@type": "SoftwareApplication",
+      "@id": "https://mirrorflow.app/#software",
       "name": "MirrorFlow",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Windows",
       "description": currentLang === 'es' 
-        ? "Replica operaciones de trading desde NinjaTrader 8 a múltiples cuentas, cTrader y MetaTrader 5 con ultra baja latencia."
-        : "Replicate trades from NinjaTrader 8 to multiple accounts, cTrader and MetaTrader 5 with ultra low latency.",
+        ? "Replica operaciones de trading desde NinjaTrader 8 a múltiples cuentas, cTrader y MetaTrader 5 con ultra baja latencia. Ideal para cuentas de fondeo."
+        : "Replicate trades from NinjaTrader 8 to multiple accounts, cTrader and MetaTrader 5 with ultra low latency. Perfect for funded accounts.",
       "offers": {
         "@type": "Offer",
         "price": "29.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "priceValidUntil": "2026-01-31"
+        "priceValidUntil": "2026-01-31",
+        "seller": {"@id": "https://mirrorflow.app/#organization"}
       },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
-        "reviewCount": "124"
-      }
+        "bestRating": "5",
+        "worstRating": "1",
+        "reviewCount": "127"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": {"@type": "Person", "name": "Carlos M."},
+          "datePublished": "2025-12-15",
+          "reviewBody": currentLang === 'es' 
+            ? "Pasé 3 evaluaciones de Apex en una semana. MirrorFlow replicó todo perfecto en 8 cuentas sin un solo error."
+            : "Passed 3 Apex evaluations in one week. MirrorFlow replicated everything perfectly across 8 accounts.",
+          "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"}
+        },
+        {
+          "@type": "Review",
+          "author": {"@type": "Person", "name": "Juan P."},
+          "datePublished": "2025-12-20",
+          "reviewBody": currentLang === 'es'
+            ? "Recuperé la inversión de $29 en mi primer día operando. La latencia < 15ms es real."
+            : "Recovered the $29 investment on my first trading day. The <15ms latency is real.",
+          "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"}
+        },
+        {
+          "@type": "Review",
+          "author": {"@type": "Person", "name": "Roberto S."},
+          "datePublished": "2025-12-22",
+          "reviewBody": currentLang === 'es'
+            ? "Gestiono $300k en capital fondeado distribuido en 12 cuentas. Este software es el secreto de mi escalabilidad."
+            : "I manage $300k in funded capital across 12 accounts. This software is the secret to my scalability.",
+          "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"}
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": currentLang === 'es' ? "Cómo instalar MirrorFlow en 3 pasos" : "How to install MirrorFlow in 3 steps",
+      "description": currentLang === 'es'
+        ? "Guía rápida para configurar MirrorFlow y empezar a replicar trades de NinjaTrader 8"
+        : "Quick guide to set up MirrorFlow and start replicating NinjaTrader 8 trades",
+      "totalTime": "PT5M",
+      "estimatedCost": {"@type": "MonetaryAmount", "currency": "USD", "value": "29"},
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": currentLang === 'es' ? "Instala el Add-On" : "Install the Add-On",
+          "text": currentLang === 'es'
+            ? "Descarga e instala MirrorFlow en tu NinjaTrader 8 maestro."
+            : "Download and install MirrorFlow on your master NinjaTrader 8."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": currentLang === 'es' ? "Conecta tus Cuentas" : "Connect Your Accounts",
+          "text": currentLang === 'es'
+            ? "Configura las cuentas destino: otras NT8, cTrader o MT5."
+            : "Configure destination accounts: other NT8s, cTrader or MT5."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": currentLang === 'es' ? "¡Opera y Replica!" : "Trade and Replicate!",
+          "text": currentLang === 'es'
+            ? "Ejecuta una operación y observa cómo se replica instantáneamente."
+            : "Execute a trade and watch it replicate instantly."
+        }
+      ]
+    },
+    {
+      "@type": "VideoObject",
+      "name": currentLang === 'es' ? "Tutorial de Instalación MirrorFlow" : "MirrorFlow Installation Tutorial",
+      "description": currentLang === 'es'
+        ? "Aprende a instalar y configurar MirrorFlow en menos de 5 minutos"
+        : "Learn how to install and configure MirrorFlow in less than 5 minutes",
+      "thumbnailUrl": "https://img.youtube.com/vi/UMefCrea1CM/maxresdefault.jpg",
+      "uploadDate": "2025-12-01",
+      "duration": "PT5M",
+      "contentUrl": "https://www.youtube.com/watch?v=UMefCrea1CM",
+      "embedUrl": "https://www.youtube.com/embed/UMefCrea1CM"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "MirrorFlow",
+          "item": "https://mirrorflow.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": currentLang === 'es' ? "Inicio" : "Home",
+          "item": currentLang === 'es' ? "https://mirrorflow.app/" : "https://mirrorflow.app/en/"
+        }
+      ]
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
+      "mainEntity": currentLang === 'es' ? [
         {
           "@type": "Question",
-          "name": "¿Qué tan rápido replica las operaciones?",
+          "name": "¿Qué tan rápido replica las operaciones MirrorFlow?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "La replicación ocurre en milisegundos. Optimizado para minimizar slippage incluso en mercados volátiles."
+            "text": "La replicación ocurre en menos de 15 milisegundos. Optimizado para minimizar slippage incluso en mercados volátiles como el NQ y ES."
           }
         },
         {
           "@type": "Question",
-          "name": "¿Cuántas cuentas puedo conectar?",
+          "name": "¿Cuántas cuentas puedo conectar con MirrorFlow?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sin límite. Replica a tantas cuentas de NinjaTrader 8, cTrader y MetaTrader 5 como necesites."
+            "text": "Sin límite. Replica a tantas cuentas de NinjaTrader 8, cTrader y MetaTrader 5 como necesites. Traders profesionales usan hasta 20+ cuentas simultáneas."
           }
         },
         {
           "@type": "Question",
-          "name": "¿Funciona con cuentas de fondeo?",
+          "name": "¿MirrorFlow funciona con cuentas de fondeo como Apex y FTMO?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sí. Perfecto para Apex, FTMO, Topstep, MyForexFunds y cualquier otra prop firm."
+            "text": "Sí. MirrorFlow es perfecto para Apex Trader Funding, FTMO, Topstep, MyForexFunds, The Funded Trader y cualquier otra prop firm que use NinjaTrader 8, cTrader o MT5."
           }
         },
         {
           "@type": "Question",
-          "name": "¿Necesito VPS o servidor?",
+          "name": "¿Necesito VPS o servidor para usar MirrorFlow?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Funciona directamente en tu computadora donde tienes NinjaTrader 8."
+            "text": "No. MirrorFlow funciona directamente en tu computadora donde tienes NinjaTrader 8. No requiere VPS, servidores externos ni configuraciones complejas."
           }
         },
         {
           "@type": "Question",
-          "name": "¿Qué plataformas son compatibles?",
+          "name": "¿Qué plataformas de trading son compatibles con MirrorFlow?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "NinjaTrader 8 (cuenta maestra), cTrader y MetaTrader 5 (cuentas seguidoras)."
+            "text": "NinjaTrader 8 como cuenta maestra (origen), y cTrader y MetaTrader 5 como cuentas seguidoras (destino). También puedes replicar entre múltiples NinjaTrader 8."
           }
         },
         {
           "@type": "Question",
-          "name": "¿La licencia es realmente vitalicia?",
+          "name": "¿La licencia de MirrorFlow es realmente vitalicia?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sí. Pago único de $29 USD, incluye todas las actualizaciones futuras."
+            "text": "Sí. Un solo pago de $29 USD te da acceso permanente, incluyendo todas las actualizaciones futuras y soporte premium por WhatsApp."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuál es la diferencia entre MirrorFlow y otros trade copiers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MirrorFlow ofrece latencia ultra baja (<15ms), pago único en lugar de suscripción mensual, soporte en español, y la capacidad de conectar NinjaTrader 8 con cTrader y MT5 en una sola herramienta."
+          }
+        }
+      ] : [
+        {
+          "@type": "Question",
+          "name": "How fast does MirrorFlow replicate trades?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Replication happens in less than 15 milliseconds. Optimized to minimize slippage even in volatile markets like NQ and ES."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many accounts can I connect with MirrorFlow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Unlimited. Replicate to as many NinjaTrader 8, cTrader and MetaTrader 5 accounts as you need. Professional traders use 20+ accounts simultaneously."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does MirrorFlow work with funded accounts like Apex and FTMO?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. MirrorFlow is perfect for Apex Trader Funding, FTMO, Topstep, MyForexFunds, The Funded Trader and any other prop firm using NinjaTrader 8, cTrader or MT5."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a VPS or server to use MirrorFlow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. MirrorFlow runs directly on your computer where you have NinjaTrader 8. No VPS, external servers or complex configurations required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What trading platforms are compatible with MirrorFlow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NinjaTrader 8 as master account (source), and cTrader and MetaTrader 5 as follower accounts (destination). You can also replicate between multiple NinjaTrader 8 instances."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the MirrorFlow license really lifetime?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. A single payment of $29 USD gives you permanent access, including all future updates and premium WhatsApp support."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between MirrorFlow and other trade copiers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MirrorFlow offers ultra-low latency (<15ms), one-time payment instead of monthly subscription, multilingual support, and the ability to connect NinjaTrader 8 with cTrader and MT5 in a single tool."
           }
         }
       ]
