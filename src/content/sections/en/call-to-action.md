@@ -6,7 +6,7 @@ enable: true
 fill_button:
   enable: true
   label: "Secure My License - $29 USD"
-  link: https://mpago.li/1Pf9db7
+  link: https://www.paypal.com/ncp/payment/FY69UCSPBXDJE
 outline_button:
   enable: true
   label: "Contact via WhatsApp"

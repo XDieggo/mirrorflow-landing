@@ -14,7 +14,7 @@ MirrorFlow respeta su privacidad. Esta política describe cómo recopilamos y us
 
 ### 1.1 Información de Compra
 - Nombre y email (para entrega de licencia)
-- Información de pago procesada por MercadoPago (no almacenamos datos de tarjeta)
+- Información de pago procesada por PayPal (no almacenamos datos de tarjeta)
 
 ### 1.2 Información Técnica
 - Datos de instalación para activación de licencia
@@ -34,7 +34,7 @@ Usamos su información para:
 ## 3. Compartición de Datos
 
 **No vendemos ni compartimos su información personal** con terceros, excepto:
-- MercadoPago para procesamiento de pagos
+- PayPal para procesamiento de pagos
 - Cuando sea requerido por ley
 
 ## 4. Seguridad
