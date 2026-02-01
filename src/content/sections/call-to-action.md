@@ -1,11 +1,11 @@
 ---
 title: |
   ¿Listo para empezar a <span class='light-text'>replicar tus trades?</span>
-description: Obtén MirrorFlow hoy con un pago único de $29 USD. Licencia vitalicia con actualizaciones incluidas.
+description: Obtén MirrorFlow hoy con un pago único de $49 USD. Licencia vitalicia con actualizaciones incluidas.
 enable: true
 fill_button:
   enable: true
-  label: "Asegurar Mi Licencia - $29 USD"
+  label: "¡Quiero Mi Licencia Ahora! - $49 USD"
   link: https://www.paypal.com/ncp/payment/FY69UCSPBXDJE
 outline_button:
   enable: true

@@ -9,16 +9,12 @@ const is404 = Astro.locals.starlightRoute?.id === "404";
 
 const translations = {
   es: {
-    urgencyBadge: "🔥 Oferta termina el 31 de enero",
-    priceNow: "$29",
-    priceLater: "$49",
-    cta: "Asegurar Mi Licencia"
+    comparison: "⚠️ Otros cobran $49/mes - Tú pagas $49 una sola vez",
+    cta: "¡Quiero Mi Licencia Ahora! - $49 USD"
   },
   en: {
-    urgencyBadge: "🔥 Offer ends January 31",
-    priceNow: "$29",
-    priceLater: "$49",
-    cta: "Secure My License"
+    comparison: "⚠️ Others charge $49/month - You pay $49 once",
+    cta: "I Want My License Now! - $49 USD"
   }
 };
 
@@ -34,23 +30,18 @@ const t = translations[locale as keyof typeof translations] || translations.es;
   {
     !is404 && (
       <div class="mt-12 max-w-4xl">
-        <!-- Urgency Banner -->
-        <div class="urgency-banner">
-          <span class="urgency-text">{t.urgencyBadge}</span>
-          <span class="urgency-prices">
-            <span class="price-now">{t.priceNow}</span>
-            <span class="price-arrow">→</span>
-            <span class="price-later">{t.priceLater}</span>
-          </span>
+        <!-- Competition Comparison Banner -->
+        <div class="comparison-banner">
+          <span>{t.comparison}</span>
         </div>
         
         <!-- CTA Button -->
-        <div class="flex justify-center mt-8">
+        <div class="flex justify-center mt-6">
           <a 
             href="https://www.paypal.com/ncp/payment/FY69UCSPBXDJE"
-            class="cta-hero-btn"
+            class="cta-hero-btn-red"
           >
-            {t.cta} - {t.priceNow} USD
+            {t.cta}
           </a>
         </div>
       </div>
@@ -84,67 +75,34 @@ const t = translations[locale as keyof typeof translations] || translations.es;
       display: block;
     }
     
-    .urgency-banner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1rem 2rem;
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(249, 115, 22, 0.15));
-      border: 1px solid rgba(239, 68, 68, 0.3);
+    .comparison-banner {
+      text-align: center;
+      padding: 0.875rem 1.5rem;
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(249, 115, 22, 0.15));
+      border: 1px solid rgba(234, 179, 8, 0.3);
       border-radius: 9999px;
-      animation: pulse-urgency 2s ease-in-out infinite;
-    }
-    
-    :root[data-theme="light"] .urgency-banner {
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(249, 115, 22, 0.1));
-      border-color: rgba(239, 68, 68, 0.4);
-    }
-    
-    @keyframes pulse-urgency {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
-      }
-      50% {
-        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-      }
-    }
-    
-    .urgency-text {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #ef4444;
+      color: #eab308;
+      margin-bottom: 1rem;
+      animation: banner-pulse 2s ease-in-out infinite;
     }
     
-    :root[data-theme="light"] .urgency-text {
-      color: #dc2626;
+    @keyframes banner-pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.2);
+      }
+      50% {
+        box-shadow: 0 0 20px 4px rgba(234, 179, 8, 0.3), 0 0 0 8px rgba(234, 179, 8, 0.1);
+      }
     }
     
-    .urgency-prices {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    :root[data-theme="light"] .comparison-banner {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(249, 115, 22, 0.1));
+      color: #ca8a04;
     }
     
-    .price-now {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #22c55e;
-    }
-    
-    .price-arrow {
-      font-size: 1.2rem;
-      color: var(--sl-color-gray-3);
-    }
-    
-    .price-later {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--sl-color-gray-4);
-      text-decoration: line-through;
-    }
-    
-    .cta-hero-btn {
+    .cta-hero-btn-red {
       display: inline-block;
       padding: 1rem 2.5rem;
       font-size: 1.25rem;
@@ -155,11 +113,22 @@ const t = translations[locale as keyof typeof translations] || translations.es;
       text-decoration: none;
       transition: all 0.3s ease;
       box-shadow: 0 4px 20px rgba(129, 140, 248, 0.4);
+      animation: pulse-blue 2s ease-in-out infinite;
     }
     
-    .cta-hero-btn:hover {
+    @keyframes pulse-blue {
+      0%, 100% {
+        box-shadow: 0 4px 20px rgba(129, 140, 248, 0.4);
+      }
+      50% {
+        box-shadow: 0 4px 30px rgba(129, 140, 248, 0.6), 0 0 0 8px rgba(129, 140, 248, 0.1);
+      }
+    }
+    
+    .cta-hero-btn-red:hover {
       transform: translateY(-2px) scale(1.02);
       box-shadow: 0 6px 30px rgba(129, 140, 248, 0.5);
+      animation: none;
     }
 
     @media (max-width: 940px) {
@@ -169,18 +138,9 @@ const t = translations[locale as keyof typeof translations] || translations.es;
         letter-spacing: -2px;
       }
       
-      .urgency-banner {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
-      }
-      
-      .urgency-text {
+      .comparison-banner {
         font-size: 0.95rem;
-      }
-      
-      .price-now {
-        font-size: 1.25rem;
+        padding: 0.75rem 1.25rem;
       }
     }
   }

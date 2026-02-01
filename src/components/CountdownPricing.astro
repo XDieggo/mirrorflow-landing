@@ -1,7 +1,7 @@
 ---
 /**
- * Countdown Pricing Section - Creates urgency with countdown to price increase
- * Launch price: $29 until Jan 31, 2026 → $49 after
+ * Pricing Section - Lifetime license pricing
+ * Regular price: $49 USD
  * Full light/dark theme support
  */
 interface Props {
@@ -12,16 +12,12 @@ const { lang = 'es' } = Astro.props;
 
 const translations = {
   es: {
-    title: 'Oferta de Lanzamiento',
-    subtitle: 'Licencia Vitalicia • Pago Único',
-    currentPrice: '$29',
-    futurePrice: '$49',
+    title: 'Licencia Vitalicia',
+    subtitle: 'Pago Único • Sin Suscripciones',
+    currentPrice: '$49',
     currency: 'USD',
     oneTime: 'Pago único',
     lifetime: 'Licencia Vitalicia',
-    afterDate: '⚠️ Después del 31 de enero el precio sube a',
-    hurry: '¡No te quedes fuera!',
-    cta: 'Comprar Ahora',
     securePayment: 'Pago seguro con PayPal',
     features: [
       'Replicación ilimitada de cuentas',
@@ -30,25 +26,15 @@ const translations = {
       'Soporte premium por WhatsApp',
       'Instalación en 5 minutos',
       'Sin suscripciones mensuales'
-    ],
-    countdown: {
-      days: 'Días',
-      hours: 'Horas',
-      mins: 'Min',
-      secs: 'Seg'
-    }
+    ]
   },
   en: {
-    title: 'Launch Price',
-    subtitle: 'Limited time offer',
-    currentPrice: '$29',
-    futurePrice: '$49',
+    title: 'Lifetime License',
+    subtitle: 'One-Time Payment • No Subscriptions',
+    currentPrice: '$49',
     currency: 'USD',
     oneTime: 'One-time payment',
     lifetime: 'Lifetime License',
-    afterDate: '⚠️ After January 31 the price goes up to',
-    hurry: "Don't miss out!",
-    cta: 'Buy Now',
     securePayment: 'Secure payment with PayPal',
     features: [
       'Unlimited account replication',
@@ -57,23 +43,17 @@ const translations = {
       'Premium WhatsApp support',
       '5-minute installation',
       'No monthly subscriptions'
-    ],
-    countdown: {
-      days: 'Days',
-      hours: 'Hours',
-      mins: 'Min',
-      secs: 'Sec'
-    }
+    ]
   }
 };
 
 const t = translations[lang];
+const ctaText = lang === 'es' ? '¡Quiero Mi Licencia Ahora! - $49 USD' : 'I Want My License Now! - $49 USD';
 
-// Format numbers
-const currentPrice = t.currentPrice;
-const futurePrice = t.futurePrice;
-const ctaText = lang === 'es' ? 'Asegurar Mi Licencia' : 'Secure My License';
-const guarantee = lang === 'es' ? 'Garantía de 30 días' : '30-Day Guarantee';
+// Social proof text
+const socialProofText = lang === 'es' 
+  ? 'traders compraron en las últimas 24 horas'
+  : 'traders purchased in the last 24 hours';
 ---
 
 <section id="pricing" class="pricing-section">
@@ -93,45 +73,19 @@ const guarantee = lang === 'es' ? 'Garantía de 30 días' : '30-Day Guarantee';
         <div class="price-display">
           <span class="price-current">{t.currentPrice}</span>
           <div class="price-details">
-            <span class="price-old">{t.futurePrice}</span>
             <span class="price-currency">{t.currency}</span>
           </div>
         </div>
 
         <p class="price-info">{t.oneTime} • {t.lifetime}</p>
 
-        <!-- Urgency Badge -->
-        <div class="urgency-badge">
+        <!-- Social Proof Badge -->
+        <div class="social-proof-badge">
           <span class="pulse-dot">
             <span class="pulse-ring"></span>
             <span class="pulse-core"></span>
           </span>
-          <span>{t.hurry}</span>
-        </div>
-
-        <!-- Countdown Timer -->
-        <div id="countdown-timer" class="countdown-grid">
-          <div class="countdown-item">
-            <span id="days" class="countdown-value">00</span>
-            <span class="countdown-label">{t.countdown.days}</span>
-          </div>
-          <div class="countdown-item">
-            <span id="hours" class="countdown-value">00</span>
-            <span class="countdown-label">{t.countdown.hours}</span>
-          </div>
-          <div class="countdown-item">
-            <span id="minutes" class="countdown-value">00</span>
-            <span class="countdown-label">{t.countdown.mins}</span>
-          </div>
-          <div class="countdown-item">
-            <span id="seconds" class="countdown-value">00</span>
-            <span class="countdown-label">{t.countdown.secs}</span>
-          </div>
-        </div>
-
-        <!-- Enhanced urgency message -->
-        <div class="after-date-warning">
-          <p class="after-date">{t.afterDate} <span class="future-price">{t.futurePrice} {t.currency}</span></p>
+          <span>⚡ <span id="trader-count">12</span> {socialProofText}</span>
         </div>
 
         <!-- Features List -->
@@ -498,11 +452,23 @@ const guarantee = lang === 'es' ? 'Garantía de 30 días' : '30-Day Guarantee';
     text-decoration: none;
     text-align: center;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(129, 140, 248, 0.4);
+    animation: cta-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes cta-pulse {
+    0%, 100% {
+      box-shadow: 0 4px 20px rgba(129, 140, 248, 0.4);
+    }
+    50% {
+      box-shadow: 0 4px 30px rgba(129, 140, 248, 0.6), 0 0 0 8px rgba(129, 140, 248, 0.1);
+    }
   }
   
   .cta-button:hover {
     transform: scale(1.02);
-    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+    box-shadow: 0 10px 30px rgba(129, 140, 248, 0.5);
+    animation: none;
   }
   
   .secure-payment {
@@ -540,43 +506,69 @@ const guarantee = lang === 'es' ? 'Garantía de 30 días' : '30-Day Guarantee';
     height: 1rem;
     color: #22c55e;
   }
+
+  /* Social Proof Badge */
+  .social-proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  
+  :root[data-theme="light"] .social-proof-badge {
+    background: rgba(34, 197, 94, 0.08);
+    color: #16a34a;
+  }
+  
+  .pulse-dot {
+    position: relative;
+    display: inline-flex;
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+  
+  .pulse-ring {
+    position: absolute;
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #22c55e;
+    opacity: 0.75;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  
+  .pulse-core {
+    position: relative;
+    display: inline-flex;
+    border-radius: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: #22c55e;
+  }
+  
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
 </style>
 
 <script is:inline>
+  // Generate random trader count between 10 and 20
   (function() {
-    // Countdown to January 31, 2026 at 23:59:59
-    const endDate = new Date('2026-01-31T23:59:59').getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = endDate - now;
-
-      if (distance < 0) {
-        // Offer expired
-        const timer = document.getElementById('countdown-timer');
-        if (timer) {
-          timer.innerHTML = '<p style="grid-column: span 4; color: #ef4444; font-weight: bold;">¡Oferta expirada!</p>';
-        }
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      const daysEl = document.getElementById('days');
-      const hoursEl = document.getElementById('hours');
-      const minutesEl = document.getElementById('minutes');
-      const secondsEl = document.getElementById('seconds');
-
-      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+    const traderCount = Math.floor(Math.random() * 11) + 10; // 10-20
+    const countElement = document.getElementById('trader-count');
+    if (countElement) {
+      countElement.textContent = traderCount.toString();
     }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
   })();
 </script>

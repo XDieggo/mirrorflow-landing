@@ -20,9 +20,9 @@
   },
   "navigation_button": {
     "enable": true,
-    "label": "Obtener Licencia",
+    "label": "¡Quiero Mi Licencia!",
     "translations": {
-      "en": "Obtain a License"
+      "en": "I Want My License!"
     },
     "link": "https://www.paypal.com/ncp/payment/FY69UCSPBXDJE"
   }
