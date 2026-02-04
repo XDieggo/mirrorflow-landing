@@ -6,7 +6,7 @@ enable: true
 fill_button:
   enable: true
   label: "I Want My License Now! - $49 USD"
-  link: https://payco.link/aeb3cb5f-ab4c-4d49-ad6b-41ed524b7798
+  link: https://www.paypal.com/ncp/payment/FY69UCSPBXDJE
 outline_button:
   enable: true
   label: "Contact via WhatsApp"
