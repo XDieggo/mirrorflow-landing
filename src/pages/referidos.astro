@@ -950,12 +950,13 @@ const { settings } = config;
     </footer>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script is:inline>
     // ========== Supabase Client ==========
     const supabaseUrl = 'https://euxbyvpmofedsfvbdhlj.supabase.co';
     const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1eGJ5dnBtb2ZlZHNmdmJkaGxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzOTUxODEsImV4cCI6MjA4Mzk3MTE4MX0.PVHHg9EBS404as0tHgoEFW0-Q7ZOWev1xLVdfx8GkZM';
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+    const { createClient } = supabase;
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
     // Helper functions
     function getReferralUrl(referralCode) {
@@ -1037,14 +1038,14 @@ const { settings } = config;
     let currentAffiliate = null;
 
     async function init() {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await supabaseClient.auth.getSession();
       if (session) {
         await handleAuth(session.user);
       } else {
         showAuth();
       }
       
-      supabase.auth.onAuthStateChange(async (event, session) => {
+      supabaseClient.auth.onAuthStateChange(async (event, session) => {
         if (event === 'SIGNED_IN' && session) await handleAuth(session.user);
         else if (event === 'SIGNED_OUT') showAuth();
       });
@@ -1056,13 +1057,13 @@ const { settings } = config;
         return;
       }
 
-      let { data: affiliate } = await supabase.from('affiliates').select('*').eq('user_id', user.id).single();
+      let { data: affiliate } = await supabaseClient.from('affiliates').select('*').eq('user_id', user.id).single();
 
       if (!affiliate) {
         // Use custom code if provided, otherwise generate one
         const customCode = user.user_metadata?.customCode;
         const code = customCode || generateReferralCode(user.user_metadata?.name || user.email);
-        const { data } = await supabase.from('affiliates').insert({
+        const { data } = await supabaseClient.from('affiliates').insert({
           user_id: user.id,
           email: user.email,
           name: user.user_metadata?.name || '',
@@ -1102,7 +1103,7 @@ const { settings } = config;
       document.getElementById('stat-pending').textContent = `$${(aff.pending_earnings || 0).toFixed(2)}`;
       document.getElementById('stat-paid').textContent = `$${(aff.paid_earnings || 0).toFixed(2)}`;
 
-      const { data: sales } = await supabase.from('referred_sales').select('*').eq('affiliate_id', aff.id).order('created_at', { ascending: false });
+      const { data: sales } = await supabaseClient.from('referred_sales').select('*').eq('affiliate_id', aff.id).order('created_at', { ascending: false });
       const tbody = document.getElementById('sales-tbody');
       const lang = html.getAttribute('data-lang');
 
@@ -1169,7 +1170,7 @@ const { settings } = config;
 
       // Check if custom code is already taken
       if (customCode) {
-        const { data: existing } = await supabase.from('affiliates').select('id').eq('referral_code', customCode).single();
+        const { data: existing } = await supabaseClient.from('affiliates').select('id').eq('referral_code', customCode).single();
         if (existing) {
           errEl.textContent = lang === 'en' ? 'This referral code is already taken' : 'Este código de referido ya está en uso';
           errEl?.classList.remove('hidden');
@@ -1177,7 +1178,7 @@ const { settings } = config;
         }
       }
 
-      const { error } = await supabase.auth.signUp({
+      const { error } = await supabaseClient.auth.signUp({
         email, password,
         options: { data: { name, phone, customCode }, emailRedirectTo: location.origin + '/referidos' }
       });
@@ -1201,7 +1202,7 @@ const { settings } = config;
       
       errEl?.classList.add('hidden');
 
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) {
         errEl.textContent = error.message;
         errEl?.classList.remove('hidden');
@@ -1216,12 +1217,12 @@ const { settings } = config;
         alert(lang === 'en' ? 'Please enter your email first' : 'Por favor ingresa tu email primero');
         return;
       }
-      const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: location.origin + '/referidos' });
+      const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo: location.origin + '/referidos' });
       alert(error ? error.message : (lang === 'en' ? 'Check your email for reset link' : 'Revisa tu correo para restablecer'));
     });
 
     // Logout
-    logoutBtn?.addEventListener('click', () => supabase.auth.signOut());
+    logoutBtn?.addEventListener('click', () => supabaseClient.auth.signOut());
 
     // Copy link
     document.getElementById('copy-link')?.addEventListener('click', async () => {
@@ -1241,7 +1242,7 @@ const { settings } = config;
       const details = document.getElementById('payout-details').value;
       const lang = html.getAttribute('data-lang');
 
-      const { error } = await supabase.from('payout_requests').insert({
+      const { error } = await supabaseClient.from('payout_requests').insert({
         affiliate_id: currentAffiliate.id,
         requested_amount: currentAffiliate.pending_earnings,
         payout_method: method,
