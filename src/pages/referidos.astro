@@ -950,8 +950,27 @@ const { settings } = config;
     </footer>
   </div>
 
-  <script type="module">
-    import { supabase, getReferralUrl, generateReferralCode } from '/src/lib/supabase.ts';
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // ========== Supabase Client ==========
+    const supabaseUrl = 'https://euxbyvpmofedsfvbdhlj.supabase.co';
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1eGJ5dnBtb2ZlZHNmdmJkaGxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzOTUxODEsImV4cCI6MjA4Mzk3MTE4MX0.PVHHg9EBS404as0tHgoEFW0-Q7ZOWev1xLVdfx8GkZM';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+    // Helper functions
+    function getReferralUrl(referralCode) {
+      return `https://mirrorflow.app/?ref=${referralCode}`;
+    }
+
+    function generateReferralCode(name) {
+      const cleanName = name.toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]/g, '')
+        .slice(0, 8);
+      const randomSuffix = Math.random().toString(36).substring(2, 6);
+      return `${cleanName}${randomSuffix}`.toUpperCase();
+    }
 
     // ========== Theme & Language Switching ==========
     const html = document.documentElement;
