@@ -1,14 +1,14 @@
 ---
 title: |
-  ¿Listo para empezar a <span class='light-text'>replicar tus trades?</span>
-description: Obtén MirrorFlow hoy con un pago único de $49 USD. Licencia vitalicia con actualizaciones incluidas.
+  ¿Listo para empezar a <span class='light-text'>ganar dinero?</span>
+description: Únete al programa de afiliados de MirrorFlow y gana 10% de comisión por cada venta referida.
 enable: true
 fill_button:
   enable: true
-  label: "¡Quiero Mi Licencia Ahora! - $49 USD"
-  link: https://payco.link/aeb3cb5f-ab4c-4d49-ad6b-41ed524b7798
+  label: "¡Quiero Ser Afiliado!"
+  link: /referidos
 outline_button:
-  enable: true
-  label: "Contactar por WhatsApp"
-  link: https://wa.me/573147438447
+  enable: false
+  label: ""
+  link: ""
 ---

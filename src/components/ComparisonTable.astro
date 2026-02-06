@@ -1,0 +1,226 @@
+---
+/**
+ * Competitor Comparison Table Component
+ * Shows MirrorFlow vs competitors to justify value proposition
+ */
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const translations = {
+  es: {
+    title: '¿Por qué MirrorFlow?',
+    subtitle: 'Compara antes de decidir',
+    feature: 'Característica',
+    mirrorflow: 'MirrorFlow',
+    tradecopier: 'Trade Copier Pro',
+    ltc: 'Local Trade Copier',
+    features: [
+      { name: 'Precio', mf: '$49 único', tc: '$49/mes', ltc: '$147/mes' },
+      { name: 'Costo Anual', mf: '$49', tc: '$588', ltc: '$1,764' },
+      { name: 'NinjaTrader 8 → cTrader', mf: '✅', tc: '❌', ltc: '❌' },
+      { name: 'NinjaTrader 8 → MT5', mf: '✅', tc: '✅', ltc: '✅' },
+      { name: 'Latencia', mf: '<15ms', tc: '~50ms', ltc: '~100ms' },
+      { name: 'Cuentas ilimitadas', mf: '✅', tc: '❌', ltc: '❌' },
+      { name: 'Soporte WhatsApp', mf: '✅', tc: '❌', ltc: '❌' },
+      { name: 'Sin suscripción', mf: '✅', tc: '❌', ltc: '❌' }
+    ],
+    savings: 'Ahorras $539+ por año vs la competencia',
+    cta: '🚀 Obtener MirrorFlow - $49 (Pago Único)'
+  },
+  en: {
+    title: 'Why MirrorFlow?',
+    subtitle: 'Compare before you decide',
+    feature: 'Feature',
+    mirrorflow: 'MirrorFlow',
+    tradecopier: 'Trade Copier Pro',
+    ltc: 'Local Trade Copier',
+    features: [
+      { name: 'Price', mf: '$49 one-time', tc: '$49/month', ltc: '$147/month' },
+      { name: 'Annual Cost', mf: '$49', tc: '$588', ltc: '$1,764' },
+      { name: 'NinjaTrader 8 → cTrader', mf: '✅', tc: '❌', ltc: '❌' },
+      { name: 'NinjaTrader 8 → MT5', mf: '✅', tc: '✅', ltc: '✅' },
+      { name: 'Latency', mf: '<15ms', tc: '~50ms', ltc: '~100ms' },
+      { name: 'Unlimited accounts', mf: '✅', tc: '❌', ltc: '❌' },
+      { name: 'WhatsApp Support', mf: '✅', tc: '❌', ltc: '❌' },
+      { name: 'No subscription', mf: '✅', tc: '❌', ltc: '❌' }
+    ],
+    savings: 'Save $539+ per year vs competitors',
+    cta: '🚀 Get MirrorFlow - $49 (One-Time)'
+  }
+};
+
+const t = translations[lang];
+---
+
+<section class="comparison-section" id="comparison">
+  <div class="comparison-container">
+    <div class="table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>{t.feature}</th>
+            <th class="mf-column">{t.mirrorflow}</th>
+            <th>{t.tradecopier}</th>
+            <th>{t.ltc}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {t.features.map((row) => (
+            <tr>
+              <td class="feature-name">{row.name}</td>
+              <td class="mf-value">{row.mf}</td>
+              <td class="competitor-value">{row.tc}</td>
+              <td class="competitor-value">{row.ltc}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="savings-banner">
+      <span>💰 {t.savings}</span>
+    </div>
+    
+    <a href="https://www.paypal.com/ncp/payment/FY69UCSPBXDJE" class="cta-button">
+      {t.cta}
+    </a>
+  </div>
+</section>
+
+<style>
+  .comparison-section {
+    padding: 0 1rem 3rem 1rem;
+  }
+  
+  .comparison-container {
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+  
+  .comparison-table {
+    width: 100%;
+    max-width: 765px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 1rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  }
+  
+  .comparison-table th:first-child,
+  .comparison-table td:first-child {
+    text-align: left;
+    padding-left: 2rem;
+  }
+  
+  .comparison-table th {
+    background: rgba(15, 23, 42, 0.8);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--sl-color-gray-2);
+  }
+  
+  .mf-column {
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.2), rgba(129, 140, 248, 0.2)) !important;
+    color: #38bdf8 !important;
+  }
+  
+  .feature-name {
+    text-align: left;
+    font-weight: 500;
+    color: var(--sl-color-white);
+  }
+  
+  .mf-value {
+    color: #22c55e;
+    font-weight: 600;
+    background: rgba(34, 197, 94, 0.05);
+  }
+  
+  .competitor-value {
+    color: var(--sl-color-gray-4);
+    font-size: 0.875rem;
+  }
+  
+  .savings-banner {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.15));
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 9999px;
+    color: #22c55e;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(129, 140, 248, 0.4);
+    animation: pulse-cta 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-cta {
+    0%, 100% { box-shadow: 0 4px 20px rgba(129, 140, 248, 0.4); }
+    50% { box-shadow: 0 4px 30px rgba(129, 140, 248, 0.6), 0 0 0 8px rgba(129, 140, 248, 0.1); }
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    animation: none;
+    box-shadow: 0 6px 30px rgba(129, 140, 248, 0.5);
+  }
+  
+  :root[data-theme="light"] .comparison-table {
+    background: rgba(248, 250, 252, 0.8);
+  }
+  
+  :root[data-theme="light"] .comparison-table th {
+    background: rgba(226, 232, 240, 0.8);
+    color: #334155;
+  }
+  
+  :root[data-theme="light"] .feature-name {
+    color: #1e293b;
+  }
+  
+  :root[data-theme="light"] h2 {
+    color: #1e293b;
+  }
+  
+  @media (max-width: 640px) {
+    .comparison-table th,
+    .comparison-table td {
+      padding: 0.625rem 0.5rem;
+      font-size: 0.75rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>

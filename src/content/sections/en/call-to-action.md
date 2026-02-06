@@ -1,14 +1,14 @@
 ---
 title: |
-  Ready to start <span class='light-text'>replicating your trades?</span>
-description: Get MirrorFlow today with a one-time payment of $49 USD. Lifetime license with updates included.
+  Ready to start <span class='light-text'>earning money?</span>
+description: Join the MirrorFlow affiliate program and earn 10% commission on every referred sale.
 enable: true
 fill_button:
   enable: true
-  label: "I Want My License Now! - $49 USD"
-  link: https://payco.link/aeb3cb5f-ab4c-4d49-ad6b-41ed524b7798
+  label: "Become an Affiliate!"
+  link: /referidos?lang=en
 outline_button:
-  enable: true
-  label: "Contact via WhatsApp"
-  link: https://wa.me/573147438447
+  enable: false
+  label: ""
+  link: ""
 ---

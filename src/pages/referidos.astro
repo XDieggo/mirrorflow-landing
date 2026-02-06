@@ -1,0 +1,1239 @@
+---
+/**
+ * MirrorFlow Affiliate Portal
+ * Standalone page with client-side language/theme switching
+ */
+import config from "@/config/config.json";
+import ImageMod from "../components/ImageMod.astro";
+
+const { settings } = config;
+---
+
+<!DOCTYPE html>
+<html lang="es" data-theme="dark" data-lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Afiliados | MirrorFlow</title>
+  <meta name="description" content="Únete al programa de afiliados de MirrorFlow y gana 10% de comisión por cada venta." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ========== CSS Variables ========== */
+    :root {
+      --color-bg: #0f172a;
+      --color-bg-secondary: #1e293b;
+      --color-text: #e2e8f0;
+      --color-text-secondary: #94a3b8;
+      --color-primary: #3b82f6;
+      --color-accent: #8b5cf6;
+      --color-success: #22c55e;
+      --color-danger: #ef4444;
+      --card-bg: rgba(30, 41, 59, 0.6);
+      --card-border: rgba(148, 163, 184, 0.15);
+      --input-bg: rgba(15, 23, 42, 0.6);
+      --gradient: linear-gradient(135deg, #38bdf8, #818cf8);
+    }
+
+    [data-theme="light"] {
+      --color-bg: #f8fafc;
+      --color-bg-secondary: #e2e8f0;
+      --color-text: #1e293b;
+      --color-text-secondary: #64748b;
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --card-border: rgba(148, 163, 184, 0.25);
+      --input-bg: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Background images toggle */
+    .bg-dark { display: block; }
+    .bg-light { display: none; }
+    [data-theme="light"] .bg-dark { display: none; }
+    [data-theme="light"] .bg-light { display: block; }
+
+    /* Language toggle */
+    .lang-en { display: none !important; }
+    .lang-es { display: inline !important; }
+    [data-lang="en"] .lang-en { display: inline !important; }
+    [data-lang="en"] .lang-es { display: none !important; }
+
+    /* ========== Reset & Base ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .hidden { display: none !important; }
+
+    /* ========== Layout ========== */
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+
+    /* ========== Background ========== */
+    .hero-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ========== Header ========== */
+    .portal-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      gap: 1rem;
+    }
+
+    /* Logo */
+    .logo-link {
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-mirror { color: var(--color-text); }
+    .logo-flow {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Controls */
+    .navbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .lang-switch {
+      display: flex;
+      background: var(--card-bg);
+      border-radius: 9999px;
+      padding: 4px;
+      border: 1px solid var(--card-border);
+    }
+
+    .lang-btn {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: transparent;
+      border: none;
+      border-radius: 9999px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover { color: var(--color-text); }
+    .lang-btn.active {
+      background: var(--gradient);
+      color: white;
+    }
+
+    .theme-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover { background: var(--color-bg-secondary); }
+    .theme-btn .sun { display: none; }
+    .theme-btn .moon { display: block; }
+    [data-theme="light"] .theme-btn .sun { display: block; }
+    [data-theme="light"] .theme-btn .moon { display: none; }
+
+    .logout-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-danger);
+      background: color-mix(in srgb, var(--color-danger) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-danger) 30%, transparent);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover {
+      background: color-mix(in srgb, var(--color-danger) 20%, transparent);
+    }
+
+    /* ========== Main Content ========== */
+    .portal-main {
+      flex: 1;
+      padding: 3rem 1.5rem;
+    }
+
+    /* ========== Auth Section ========== */
+    .auth-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+    }
+
+    .auth-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .auth-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    /* Benefits Panel */
+    .benefits-panel { padding: 1rem 0; }
+
+    .benefits-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    .benefits-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .benefit-item {
+      padding: 0.75rem 0;
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .how-it-works h3 {
+      font-size: 1.125rem;
+      margin-bottom: 1rem;
+    }
+
+    .steps { display: flex; flex-direction: column; gap: 1rem; }
+
+    .step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .step-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .step-content { display: flex; flex-direction: column; }
+    .step-content span { color: var(--color-text-secondary); font-size: 0.875rem; }
+
+    /* Forms */
+    .form-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    .form-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-subtitle {
+      color: var(--color-text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .auth-form { display: flex; flex-direction: column; gap: 1rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .form-group label {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      background: var(--input-bg);
+      color: var(--color-text);
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+
+    .form-group input::placeholder { color: var(--color-text-secondary); }
+
+    .error-msg {
+      background: color-mix(in srgb, var(--color-danger) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-danger) 30%, transparent);
+      color: #fca5a5;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+    }
+
+    .success-msg {
+      background: color-mix(in srgb, var(--color-success) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-success) 30%, transparent);
+      color: var(--color-success);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+    }
+
+    .submit-btn {
+      background: var(--gradient);
+      color: white;
+      border: none;
+      padding: 0.875rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px color-mix(in srgb, var(--color-primary) 40%, transparent);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-switch {
+      margin-top: 1.5rem;
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .form-switch button {
+      background: none;
+      border: none;
+      color: var(--color-primary);
+      cursor: pointer;
+      font-weight: 600;
+      margin-left: 0.25rem;
+    }
+
+    .link-btn {
+      background: none;
+      border: none;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+
+    .link-btn:hover { color: var(--color-primary); }
+
+    /* ========== Verify Section ========== */
+    .verify-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+    }
+
+    .verify-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 3rem;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .verify-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .verify-card h2 { color: var(--color-success); margin-bottom: 1rem; }
+    .verify-card p { color: var(--color-text-secondary); }
+
+    /* ========== Dashboard Section ========== */
+    .dashboard-section { animation: fadeIn 0.3s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dashboard-title { font-size: 1.75rem; margin-bottom: 2rem; }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .referral-input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .referral-input-group input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      background: var(--input-bg);
+      color: var(--color-primary);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .copy-btn {
+      background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+      color: var(--color-primary);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover { background: color-mix(in srgb, var(--color-primary) 25%, transparent); }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-success);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* Table */
+    .table-wrap { overflow-x: auto; }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .data-table th {
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    .empty-row td {
+      text-align: center;
+      color: var(--color-text-secondary);
+      padding: 2rem;
+    }
+
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .status-pending { background: color-mix(in srgb, #fbbf24 10%, transparent); color: #fbbf24; }
+    .status-confirmed { background: color-mix(in srgb, var(--color-success) 10%, transparent); color: var(--color-success); }
+
+    /* Payout Form */
+    .payout-row {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .payout-row { grid-template-columns: 1fr; }
+    }
+
+    .payout-note {
+      color: var(--color-text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Back Link */
+    .back-home {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .back-home a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-home a:hover { text-decoration: underline; }
+
+    /* Footer Enhanced */
+    .footer-enhanced {
+      margin-top: 2rem;
+    }
+
+    .footer-bar {
+      border-top: 1px solid var(--card-border);
+      padding: 1.5rem 0;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .copyright {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    .legal-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .legal-links a {
+      font-size: 0.875rem;
+      color: var(--color-text);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .legal-links a:hover {
+      color: var(--color-primary);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--color-text-secondary) 15%, transparent);
+      color: var(--color-text);
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      background: var(--gradient);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .legal-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- Background -->
+    <div class="hero-bg">
+      <ImageMod
+        src="/src/assets/hero-bg-light.png"
+        alt="Background"
+        class="bg-light"
+        width={1920}
+        height={856}
+        loading="eager"
+      />
+      <ImageMod
+        src="/src/assets/hero-bg-dark.png"
+        alt="Background"
+        class="bg-dark"
+        width={1920}
+        height={820}
+        loading="eager"
+      />
+    </div>
+
+    <!-- Header -->
+    <header class="portal-header">
+      <nav class="navbar container">
+        <a href="/" class="logo-link">
+          <span class="logo-mirror">Mirror</span><span class="logo-flow">Flow</span>
+        </a>
+        <div class="navbar-controls">
+          <div class="lang-switch">
+            <button type="button" class="lang-btn active" data-lang="es">ES</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+          </div>
+          <button type="button" class="theme-btn" id="theme-toggle">
+            <span class="sun">☀️</span>
+            <span class="moon">🌙</span>
+          </button>
+          <button id="logout-btn" class="logout-btn hidden">
+            <span class="lang-es">Cerrar sesión</span>
+            <span class="lang-en">Sign out</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="portal-main container">
+      <!-- Auth Section -->
+      <section id="auth-section" class="auth-section">
+        <div class="auth-container">
+          <!-- Benefits -->
+          <div class="benefits-panel">
+            <h2 class="benefits-title">
+              <span class="lang-es">Gana el 10% de comisión por cada venta referida ($4.90 USD por licencia)</span>
+              <span class="lang-en">Earn 10% commission on every referred sale ($4.90 USD per license)</span>
+            </h2>
+            <ul class="benefits-list">
+              <li class="benefit-item"><span class="lang-es">💰 10% de comisión por cada venta</span><span class="lang-en">💰 10% commission per sale</span></li>
+              <li class="benefit-item"><span class="lang-es">🔗 Link de referido personalizado</span><span class="lang-en">🔗 Personalized referral link</span></li>
+              <li class="benefit-item"><span class="lang-es">📊 Dashboard en tiempo real</span><span class="lang-en">📊 Real-time dashboard</span></li>
+              <li class="benefit-item"><span class="lang-es">💸 Retiros desde $10 USD</span><span class="lang-en">💸 Withdrawals from $10 USD</span></li>
+            </ul>
+            
+            <div class="how-it-works">
+              <h3><span class="lang-es">Cómo Funciona</span><span class="lang-en">How It Works</span></h3>
+              <div class="steps">
+                <div class="step">
+                  <div class="step-icon">1</div>
+                  <div class="step-content">
+                    <strong><span class="lang-es">Regístrate</span><span class="lang-en">Register</span></strong>
+                    <span><span class="lang-es">Crea tu cuenta gratis en 30 segundos</span><span class="lang-en">Create your free account in 30 seconds</span></span>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-icon">2</div>
+                  <div class="step-content">
+                    <strong><span class="lang-es">Comparte</span><span class="lang-en">Share</span></strong>
+                    <span><span class="lang-es">Usa tu link único en redes y comunidades</span><span class="lang-en">Use your unique link on social media</span></span>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-icon">3</div>
+                  <div class="step-content">
+                    <strong><span class="lang-es">Gana</span><span class="lang-en">Earn</span></strong>
+                    <span><span class="lang-es">Recibe $4.90 por cada venta</span><span class="lang-en">Receive $4.90 for each sale</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Forms -->
+          <div class="forms-panel">
+            <!-- Register Form -->
+            <div id="register-form-container" class="form-card">
+              <h2><span class="lang-es">Únete al Programa de Afiliados</span><span class="lang-en">Join the Affiliate Program</span></h2>
+              <form id="register-form" class="auth-form">
+                <div class="form-group">
+                  <label><span class="lang-es">Nombre completo</span><span class="lang-en">Full name</span></label>
+                  <input type="text" id="reg-name" required placeholder="Juan Pérez" />
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" id="reg-email" required placeholder="tu@email.com" />
+                </div>
+                <div class="form-group">
+                  <label><span class="lang-es">Celular (WhatsApp)</span><span class="lang-en">Phone (WhatsApp)</span></label>
+                  <input type="tel" id="reg-phone" required placeholder="+57 314 744 8447" />
+                </div>
+                <div class="form-group">
+                  <label><span class="lang-es">Contraseña</span><span class="lang-en">Password</span></label>
+                  <input type="password" id="reg-password" required minlength="6" placeholder="••••••••" />
+                </div>
+                <div class="form-group">
+                  <label><span class="lang-es">Confirmar contraseña</span><span class="lang-en">Confirm password</span></label>
+                  <input type="password" id="reg-confirm" required minlength="6" placeholder="••••••••" />
+                </div>
+                <div class="form-group">
+                  <label><span class="lang-es">Código de referido personalizado <small>(opcional)</small></span><span class="lang-en">Custom referral code <small>(optional)</small></span></label>
+                  <input type="text" id="reg-code" pattern="[A-Za-z0-9]{4,15}" placeholder="ej: JUAN2025" style="text-transform: uppercase;" />
+                  <small style="color: var(--color-text-secondary); font-size: 0.75rem;"><span class="lang-es">Solo letras y números, 4-15 caracteres</span><span class="lang-en">Letters and numbers only, 4-15 characters</span></small>
+                </div>
+                <div id="register-error" class="error-msg hidden"></div>
+                <div id="register-success" class="success-msg hidden"></div>
+                <button type="submit" class="submit-btn">
+                  <span class="lang-es">Crear mi cuenta de afiliado</span>
+                  <span class="lang-en">Create my affiliate account</span>
+                </button>
+              </form>
+              <p class="form-switch">
+                <span class="lang-es">¿Ya tienes cuenta?</span>
+                <span class="lang-en">Already have an account?</span>
+                <button type="button" id="show-login"><span class="lang-es">Iniciar sesión</span><span class="lang-en">Sign in</span></button>
+              </p>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form-container" class="form-card hidden">
+              <h2><span class="lang-es">Acceder a mi cuenta</span><span class="lang-en">Access my account</span></h2>
+              <p class="form-subtitle"><span class="lang-es">Ingresa con tu email y contraseña</span><span class="lang-en">Login with your email and password</span></p>
+              <form id="login-form" class="auth-form">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" id="login-email" required placeholder="tu@email.com" />
+                </div>
+                <div class="form-group">
+                  <label><span class="lang-es">Contraseña</span><span class="lang-en">Password</span></label>
+                  <input type="password" id="login-password" required placeholder="••••••••" />
+                </div>
+                <div id="login-error" class="error-msg hidden"></div>
+                <button type="submit" class="submit-btn">
+                  <span class="lang-es">Iniciar sesión</span>
+                  <span class="lang-en">Sign in</span>
+                </button>
+              </form>
+              <button type="button" id="forgot-password" class="link-btn">
+                <span class="lang-es">¿Olvidaste tu contraseña?</span>
+                <span class="lang-en">Forgot your password?</span>
+              </button>
+              <p class="form-switch">
+                <span class="lang-es">¿No tienes cuenta?</span>
+                <span class="lang-en">Don't have an account?</span>
+                <button type="button" id="show-register"><span class="lang-es">Registrarme</span><span class="lang-en">Register</span></button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Verify Section -->
+      <section id="verify-section" class="verify-section hidden">
+        <div class="verify-card">
+          <div class="verify-icon">📧</div>
+          <h2><span class="lang-es">¡Registro exitoso!</span><span class="lang-en">Registration successful!</span></h2>
+          <p><span class="lang-es">Revisa tu correo para verificar tu cuenta.</span><span class="lang-en">Check your email to verify your account.</span></p>
+        </div>
+      </section>
+
+      <!-- Dashboard Section -->
+      <section id="dashboard-section" class="dashboard-section hidden">
+        <h2 class="dashboard-title"><span class="lang-es">Mi Panel de Afiliado</span><span class="lang-en">My Affiliate Dashboard</span></h2>
+        
+        <div class="card">
+          <h3><span class="lang-es">Tu link de referido</span><span class="lang-en">Your referral link</span></h3>
+          <div class="referral-input-group">
+            <input type="text" id="referral-link" readonly />
+            <button id="copy-link" class="copy-btn"><span class="lang-es">Copiar</span><span class="lang-en">Copy</span></button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-value" id="stat-total">$0.00</span>
+            <span class="stat-label"><span class="lang-es">Ganancias totales</span><span class="lang-en">Total earnings</span></span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-pending">$0.00</span>
+            <span class="stat-label"><span class="lang-es">Pendiente de pago</span><span class="lang-en">Pending payout</span></span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-paid">$0.00</span>
+            <span class="stat-label"><span class="lang-es">Ya pagado</span><span class="lang-en">Already paid</span></span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-sales">0</span>
+            <span class="stat-label"><span class="lang-es">Ventas referidas</span><span class="lang-en">Referred sales</span></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3><span class="lang-es">Historial de Ventas</span><span class="lang-en">Sales History</span></h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="lang-es">Fecha</span><span class="lang-en">Date</span></th>
+                  <th><span class="lang-es">Comprador</span><span class="lang-en">Buyer</span></th>
+                  <th><span class="lang-es">Monto</span><span class="lang-en">Amount</span></th>
+                  <th><span class="lang-es">Comisión</span><span class="lang-en">Commission</span></th>
+                  <th><span class="lang-es">Estado</span><span class="lang-en">Status</span></th>
+                </tr>
+              </thead>
+              <tbody id="sales-tbody">
+                <tr class="empty-row">
+                  <td colspan="5"><span class="lang-es">Aún no tienes ventas referidas</span><span class="lang-en">No referred sales yet</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3><span class="lang-es">Solicitar Pago</span><span class="lang-en">Request Payout</span></h3>
+          <form id="payout-form">
+            <div class="payout-row">
+              <div class="form-group">
+                <label><span class="lang-es">Método de pago</span><span class="lang-en">Payment method</span></label>
+                <select id="payout-method" required>
+                  <option value="paypal">PayPal</option>
+                  <option value="bank">Transferencia / Bank</option>
+                  <option value="crypto">Crypto</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label><span class="lang-es">Email de PayPal</span><span class="lang-en">PayPal email</span></label>
+                <input type="text" id="payout-details" required placeholder="tu@paypal.com" />
+              </div>
+            </div>
+            <p class="payout-note"><span class="lang-es">Monto mínimo: $10 USD</span><span class="lang-en">Minimum amount: $10 USD</span></p>
+            <button type="submit" class="submit-btn" id="payout-btn" disabled>
+              <span class="lang-es">Solicitar retiro</span>
+              <span class="lang-en">Request withdrawal</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <div class="back-home">
+        <a href="/"><span class="lang-es">&larr; Volver al inicio</span><span class="lang-en">&larr; Back to home</span></a>
+      </div>
+    </main>
+
+    <footer class="footer-enhanced">
+      <div class="footer-bar">
+        <div class="footer-content container">
+          <!-- Copyright -->
+          <p class="copyright">© 2026 MirrorFlow. <span class="lang-es">Todos los derechos reservados.</span><span class="lang-en">All rights reserved.</span></p>
+          
+          <!-- Legal Links -->
+          <nav class="legal-links">
+            <a href="/privacy-policy"><span class="lang-es">Política de Privacidad</span><span class="lang-en">Privacy Policy</span></a>
+            <a href="/terms-conditions"><span class="lang-es">Términos y Condiciones</span><span class="lang-en">Terms and Conditions</span></a>
+            <a href="/referidos"><span class="lang-es">Programa de Afiliados</span><span class="lang-en">Affiliate Program</span></a>
+          </nav>
+          
+          <!-- Social Icons -->
+          <div class="social-icons">
+            <a href="https://www.instagram.com/Replicador_MirrorFlow/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61577387714129" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@replicador_mirrorflow" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@Replicador_MirrorFlow" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module">
+    import { supabase, getReferralUrl, generateReferralCode } from '/src/lib/supabase.ts';
+
+    // ========== Theme & Language Switching ==========
+    const html = document.documentElement;
+    const themeBtn = document.getElementById('theme-toggle');
+    const langBtns = document.querySelectorAll('.lang-btn');
+
+    // Initialize theme
+    const savedTheme = localStorage.getItem('starlight-theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    themeBtn?.addEventListener('click', () => {
+      const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('starlight-theme', newTheme);
+    });
+
+    // Initialize language - check if user came from /en/ page or has Starlight preference
+    function getInitialLang() {
+      // 1. Check if already set for affiliate page
+      const affiliateLang = localStorage.getItem('affiliate-lang');
+      if (affiliateLang) return affiliateLang;
+
+      // 2. Check if user came from /en/ URL (referrer detection)
+      const referrer = document.referrer;
+      if (referrer && referrer.includes('/en/')) return 'en';
+
+      // 3. Check Starlight's language preference (stored as part of the URL path)
+      const starlightLang = localStorage.getItem('starlight-lang');
+      if (starlightLang === 'en') return 'en';
+
+      // 4. Check URL for ?lang=en parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('lang') === 'en') return 'en';
+
+      // 5. Default to Spanish
+      return 'es';
+    }
+
+    const savedLang = getInitialLang();
+    localStorage.setItem('affiliate-lang', savedLang); // Save for future visits
+    html.setAttribute('data-lang', savedLang);
+    langBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === savedLang));
+
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.dataset.lang;
+        html.setAttribute('data-lang', lang);
+        localStorage.setItem('affiliate-lang', lang);
+        langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      });
+    });
+
+    // ========== Auth Logic ==========
+    const authSection = document.getElementById('auth-section');
+    const verifySection = document.getElementById('verify-section');
+    const dashboardSection = document.getElementById('dashboard-section');
+    const logoutBtn = document.getElementById('logout-btn');
+    
+    const registerContainer = document.getElementById('register-form-container');
+    const loginContainer = document.getElementById('login-form-container');
+    const registerForm = document.getElementById('register-form');
+    const loginForm = document.getElementById('login-form');
+    
+    let currentAffiliate = null;
+
+    async function init() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        await handleAuth(session.user);
+      } else {
+        showAuth();
+      }
+      
+      supabase.auth.onAuthStateChange(async (event, session) => {
+        if (event === 'SIGNED_IN' && session) await handleAuth(session.user);
+        else if (event === 'SIGNED_OUT') showAuth();
+      });
+    }
+
+    async function handleAuth(user) {
+      if (!user.email_confirmed_at) {
+        showVerify();
+        return;
+      }
+
+      let { data: affiliate } = await supabase.from('affiliates').select('*').eq('user_id', user.id).single();
+
+      if (!affiliate) {
+        // Use custom code if provided, otherwise generate one
+        const customCode = user.user_metadata?.customCode;
+        const code = customCode || generateReferralCode(user.user_metadata?.name || user.email);
+        const { data } = await supabase.from('affiliates').insert({
+          user_id: user.id,
+          email: user.email,
+          name: user.user_metadata?.name || '',
+          phone: user.user_metadata?.phone || '',
+          referral_code: code,
+          is_verified: true
+        }).select().single();
+        affiliate = data;
+      }
+
+      currentAffiliate = affiliate;
+      showDashboard(affiliate);
+    }
+
+    function showAuth() {
+      authSection?.classList.remove('hidden');
+      verifySection?.classList.add('hidden');
+      dashboardSection?.classList.add('hidden');
+      logoutBtn?.classList.add('hidden');
+    }
+
+    function showVerify() {
+      authSection?.classList.add('hidden');
+      verifySection?.classList.remove('hidden');
+      dashboardSection?.classList.add('hidden');
+      logoutBtn?.classList.remove('hidden');
+    }
+
+    async function showDashboard(aff) {
+      authSection?.classList.add('hidden');
+      verifySection?.classList.add('hidden');
+      dashboardSection?.classList.remove('hidden');
+      logoutBtn?.classList.remove('hidden');
+
+      document.getElementById('referral-link').value = getReferralUrl(aff.referral_code);
+      document.getElementById('stat-total').textContent = `$${(aff.total_earnings || 0).toFixed(2)}`;
+      document.getElementById('stat-pending').textContent = `$${(aff.pending_earnings || 0).toFixed(2)}`;
+      document.getElementById('stat-paid').textContent = `$${(aff.paid_earnings || 0).toFixed(2)}`;
+
+      const { data: sales } = await supabase.from('referred_sales').select('*').eq('affiliate_id', aff.id).order('created_at', { ascending: false });
+      const tbody = document.getElementById('sales-tbody');
+      const lang = html.getAttribute('data-lang');
+
+      if (!sales?.length) {
+        const noSales = lang === 'en' ? 'No referred sales yet' : 'Aún no tienes ventas referidas';
+        tbody.innerHTML = `<tr class="empty-row"><td colspan="5">${noSales}</td></tr>`;
+        document.getElementById('stat-sales').textContent = '0';
+      } else {
+        document.getElementById('stat-sales').textContent = sales.length;
+        tbody.innerHTML = sales.map(s => `
+          <tr>
+            <td>${new Date(s.created_at).toLocaleDateString()}</td>
+            <td>${s.buyer_email}</td>
+            <td>$${s.sale_amount.toFixed(2)}</td>
+            <td>$${s.commission_amount.toFixed(2)}</td>
+            <td><span class="status-badge status-${s.payment_status}">${s.payment_status}</span></td>
+          </tr>
+        `).join('');
+      }
+
+      document.getElementById('payout-btn').disabled = (aff.pending_earnings || 0) < 10;
+    }
+
+    // Form toggles
+    document.getElementById('show-login')?.addEventListener('click', () => {
+      registerContainer?.classList.add('hidden');
+      loginContainer?.classList.remove('hidden');
+    });
+
+    document.getElementById('show-register')?.addEventListener('click', () => {
+      loginContainer?.classList.add('hidden');
+      registerContainer?.classList.remove('hidden');
+    });
+
+    // Register
+    registerForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value;
+      const email = document.getElementById('reg-email').value;
+      const phone = document.getElementById('reg-phone').value;
+      const password = document.getElementById('reg-password').value;
+      const confirm = document.getElementById('reg-confirm').value;
+      const customCode = document.getElementById('reg-code').value.toUpperCase().trim();
+      
+      const errEl = document.getElementById('register-error');
+      const succEl = document.getElementById('register-success');
+      const lang = html.getAttribute('data-lang');
+
+      errEl?.classList.add('hidden');
+      succEl?.classList.add('hidden');
+
+      if (password !== confirm) {
+        errEl.textContent = lang === 'en' ? 'Passwords do not match' : 'Las contraseñas no coinciden';
+        errEl?.classList.remove('hidden');
+        return;
+      }
+
+      // Validate custom code if provided
+      if (customCode && !/^[A-Z0-9]{4,15}$/.test(customCode)) {
+        errEl.textContent = lang === 'en' ? 'Invalid referral code (4-15 alphanumeric characters)' : 'Código de referido inválido (4-15 caracteres alfanuméricos)';
+        errEl?.classList.remove('hidden');
+        return;
+      }
+
+      // Check if custom code is already taken
+      if (customCode) {
+        const { data: existing } = await supabase.from('affiliates').select('id').eq('referral_code', customCode).single();
+        if (existing) {
+          errEl.textContent = lang === 'en' ? 'This referral code is already taken' : 'Este código de referido ya está en uso';
+          errEl?.classList.remove('hidden');
+          return;
+        }
+      }
+
+      const { error } = await supabase.auth.signUp({
+        email, password,
+        options: { data: { name, phone, customCode }, emailRedirectTo: location.origin + '/referidos' }
+      });
+
+      if (error) {
+        errEl.textContent = error.message;
+        errEl?.classList.remove('hidden');
+      } else {
+        succEl.textContent = lang === 'en' ? 'Registration successful! Check your email.' : '¡Registro exitoso! Revisa tu correo.';
+        succEl?.classList.remove('hidden');
+        registerForm.reset();
+      }
+    });
+
+    // Login
+    loginForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const errEl = document.getElementById('login-error');
+      
+      errEl?.classList.add('hidden');
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        errEl.textContent = error.message;
+        errEl?.classList.remove('hidden');
+      }
+    });
+
+    // Forgot password
+    document.getElementById('forgot-password')?.addEventListener('click', async () => {
+      const email = document.getElementById('login-email').value;
+      const lang = html.getAttribute('data-lang');
+      if (!email) {
+        alert(lang === 'en' ? 'Please enter your email first' : 'Por favor ingresa tu email primero');
+        return;
+      }
+      const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: location.origin + '/referidos' });
+      alert(error ? error.message : (lang === 'en' ? 'Check your email for reset link' : 'Revisa tu correo para restablecer'));
+    });
+
+    // Logout
+    logoutBtn?.addEventListener('click', () => supabase.auth.signOut());
+
+    // Copy link
+    document.getElementById('copy-link')?.addEventListener('click', async () => {
+      const input = document.getElementById('referral-link');
+      await navigator.clipboard.writeText(input.value);
+      const btn = document.getElementById('copy-link');
+      const lang = html.getAttribute('data-lang');
+      btn.innerHTML = lang === 'en' ? 'Copied!' : '¡Copiado!';
+      setTimeout(() => { btn.innerHTML = `<span class="lang-es">Copiar</span><span class="lang-en">Copy</span>`; }, 2000);
+    });
+
+    // Payout
+    document.getElementById('payout-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!currentAffiliate) return;
+      const method = document.getElementById('payout-method').value;
+      const details = document.getElementById('payout-details').value;
+      const lang = html.getAttribute('data-lang');
+
+      const { error } = await supabase.from('payout_requests').insert({
+        affiliate_id: currentAffiliate.id,
+        requested_amount: currentAffiliate.pending_earnings,
+        payout_method: method,
+        payout_details: { account: details }
+      });
+
+      alert(error ? error.message : (lang === 'en' ? 'Request sent!' : '¡Solicitud enviada!'));
+      if (!error) location.reload();
+    });
+
+    init();
+  </script>
+</body>
+</html>

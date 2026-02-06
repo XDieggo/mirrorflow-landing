@@ -19,6 +19,8 @@ const translations = {
     oneTime: 'Pago único',
     lifetime: 'Licencia Vitalicia',
     securePayment: 'Pago seguro con PayPal',
+    savings: 'Ahorras $539+ vs suscripciones anuales',
+    comparison: 'LocalTradeCopier cobra $49/mes = $588/año',
     features: [
       'Replicación ilimitada de cuentas',
       'Conexión a cTrader y MT5',
@@ -36,6 +38,8 @@ const translations = {
     oneTime: 'One-time payment',
     lifetime: 'Lifetime License',
     securePayment: 'Secure payment with PayPal',
+    savings: 'Save $539+ vs annual subscriptions',
+    comparison: 'LocalTradeCopier charges $49/month = $588/year',
     features: [
       'Unlimited account replication',
       'Connection to cTrader and MT5',
@@ -48,7 +52,7 @@ const translations = {
 };
 
 const t = translations[lang];
-const ctaText = lang === 'es' ? '¡Quiero Mi Licencia Ahora! - $49 USD' : 'I Want My License Now! - $49 USD';
+const ctaText = lang === 'es' ? '🚀 Obtener MirrorFlow - $49 (Pago Único)' : '🚀 Get MirrorFlow - $49 (One-Time)';
 
 // Social proof text
 const socialProofText = lang === 'es' 
@@ -100,8 +104,18 @@ const socialProofText = lang === 'es'
           ))}
         </ul>
 
+        <!-- Savings Badge -->
+        <div class="savings-badge">
+          <span>💰 {t.savings}</span>
+        </div>
+        
+        <!-- Competitor Comparison -->
+        <div class="comparison-note">
+          <span>📊 {t.comparison}</span>
+        </div>
+
         <!-- CTA Button -->
-        <a href="https://payco.link/aeb3cb5f-ab4c-4d49-ad6b-41ed524b7798" class="cta-button">
+        <a href="https://www.paypal.com/ncp/payment/FY69UCSPBXDJE" class="cta-button">
           {ctaText}
         </a>
 
@@ -440,6 +454,34 @@ const socialProofText = lang === 'es'
     flex-shrink: 0;
   }
   
+  /* Savings Badge */
+  .savings-badge {
+    text-align: center;
+    padding: 0.625rem 1rem;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.15));
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #22c55e;
+    margin-bottom: 0.5rem;
+  }
+  
+  :root[data-theme="light"] .savings-badge {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+    color: #16a34a;
+  }
+  
+  /* Comparison Note */
+  .comparison-note {
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-4);
+    margin-bottom: 1.5rem;
+  }
+  
+
   .cta-button {
     display: block;
     width: 100%;

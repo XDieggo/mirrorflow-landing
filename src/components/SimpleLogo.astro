@@ -1,0 +1,51 @@
+---
+/**
+ * Simple Logo component for non-Starlight pages
+ * Does not depend on locals.starlightRoute
+ */
+---
+
+<a href="/" class="navbar-brand inline-block">
+  <span class="logo-split">
+    <span class="logo-mirror">Mirror</span><span class="logo-flow">Flow</span>
+  </span>
+</a>
+
+<style>
+  .navbar-brand {
+    text-decoration: none !important;
+  }
+  
+  .navbar-brand:hover {
+    text-decoration: none !important;
+  }
+  
+  .logo-split {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-decoration: none !important;
+  }
+  
+  .logo-mirror {
+    color: var(--sl-color-text, #f8fafc);
+  }
+  
+  [data-theme="light"] .logo-mirror {
+    color: #1e293b;
+  }
+  
+  .logo-flow {
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  [data-theme="light"] .logo-flow {
+    background: linear-gradient(135deg, #0284c7, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

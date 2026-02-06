@@ -1,11 +1,11 @@
 ---
 title: MirrorFlow - Trade Copier for NinjaTrader 8
-description: Copy your trades from NinjaTrader 8 to cTrader and MT5 instantly. The ultimate trade copier for prop firm traders. Lifetime license $29 USD.
+description: Copy your trades from NinjaTrader 8 to multiple prop firm accounts, cTrader and MetaTrader 5 instantly. The ultimate trade copier for prop firm traders. Lifetime license $49 USD.
 template: splash
 hero:
   title: |
-    Tired of Trading <span class="light-text">Account by Account?</span>
-  tagline: MirrorFlow instantly replicates your NinjaTrader 8 entries to multiple funding accounts, cTrader, and MetaTrader 5. One Trade. Infinite Accounts.
+    Replicate Your Trades to <span class="light-text">+10 Accounts in &lt;15ms</span>
+  tagline: Used by +2,000 prop firm traders. MirrorFlow instantly replicates your NinjaTrader 8 entries to multiple prop firm accounts, cTrader and MetaTrader 5.
 ---
 
 import Section from "~/components/Section.astro";
@@ -16,26 +16,39 @@ import CommandCenter from "~/components/CommandCenter.astro";
 import CountdownPricing from "~/components/CountdownPricing.astro";
 import Testimonials from "~/components/Testimonials.astro";
 import WhatsAppButton from "~/components/WhatsAppButton.astro";
+import ComparisonTable from "~/components/ComparisonTable.astro";
+import TargetAudience from "~/components/TargetAudience.astro";
+import HeroTabs from "~/components/HeroTabs.astro";
+import HeroTabsItem from "~/components/HeroTabsItem.astro";
+import AccordionContainer from "~/components/AccordionContainer.astro";
+import Accordion from "~/components/Accordion.astro";
 
-<Section title="Why Choose <span class='light-text'>MirrorFlow?</span>" description="Stop losing money and time trading manually on multiple accounts.">
+{/* 1. TESTIMONIALS - Early social proof */}
+<Testimonials lang="en" />
+
+{/* 2. WHY MIRRORFLOW? - Features + Comparison unified */}
+<Section title="Why Choose <span class='light-text'>MirrorFlow?</span>" description="Stop losing money and time. Compare before you decide.">
 
 <FeaturesCarousel lang="en" />
 
 </Section>
 
-import TargetAudience from "~/components/TargetAudience.astro";
+<ComparisonTable lang="en" />
 
+{/* 4. PRICING - Purchase decision */}
+<CountdownPricing lang="en" />
+
+{/* 5. COMMAND CENTER - Product preview */}
+<CommandCenter lang="en" />
+
+{/* 6. TARGET AUDIENCE - Specific use cases */}
 <Section title="Who is <span class='light-text'>MirrorFlow</span> for?" description="Designed for serious traders who want to scale their results.">
 
 <TargetAudience lang="en" />
 
 </Section>
 
-<CommandCenter lang="en" />
-
-import HeroTabs from "~/components/HeroTabs.astro";
-import HeroTabsItem from "~/components/HeroTabsItem.astro";
-
+{/* 7. STEPS - How to install (for committed buyers) */}
 <Section
   title="Set Up MirrorFlow <span class='light-text'>in 3 Simple Steps</span>"
   description="Quick installation. No technical knowledge needed. Start replicating in minutes."
@@ -72,13 +85,7 @@ import HeroTabsItem from "~/components/HeroTabsItem.astro";
   </div>
 </Section>
 
-<Testimonials lang="en" />
-
-<CountdownPricing lang="en" />
-
-import AccordionContainer from "~/components/AccordionContainer.astro";
-import Accordion from "~/components/Accordion.astro";
-
+{/* 8. FAQ - Handle remaining objections */}
 <Section
   title="Frequently Asked <span class='light-text'>Questions</span>"
   description="Answers to common questions before buying."
@@ -119,7 +126,7 @@ import Accordion from "~/components/Accordion.astro";
 />
 <Accordion
   question="Does it work with prop firm accounts?"
-  answer="Yes. Perfect for Apex, FTMO, Topstep, MyForexFunds and any other prop firm."
+  answer="Yes. Perfect for Apex, Bulenox, MyFundedFutures, Take Profit Trader, Emerge Profit and any other prop firm."
   type="basic"
 />
 
@@ -141,7 +148,7 @@ import Accordion from "~/components/Accordion.astro";
 
 <Accordion
   question="Is the license really lifetime?"
-  answer="Yes. One-time payment of $29 USD until January 31, includes all future updates."
+  answer="Yes. One-time payment of $49 USD, includes all future updates."
   type="help"
 />
 <Accordion

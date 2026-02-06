@@ -45,11 +45,11 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://mirrorflow.app');
 <link rel="canonical" href={canonicalURL} />
 
 <!-- SEO Meta Tags -->
-<meta name="robots" content="index, follow" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="author" content="MirrorFlow" />
 <meta name="keywords" content={currentLang === 'es' 
-  ? "replicador de trading, replicador de trades, replicador para ninjatrader 8, replicador para metatrader 5, replicador para ctrader, replicador cuentas de fondeo, trade copier, copy trading, copiador de operaciones, prop firms, apex, ftmo, topstep, myfundedfutures, bulenox"
-  : "trade copier, trade replication, ninjatrader 8 copier, ctrader copier, metatrader 5 copier, mt5 trade copier, funded accounts, prop firms, copy trading, apex, ftmo, topstep"} />
+  ? "replicador de trading, replicador de trades, copiador de trades, replicador para ninjatrader 8, replicador para metatrader 5, replicador para mt5, replicador para ctrader, replicador cuentas de fondeo, trade copier, copy trading, copiador de operaciones, copiar operaciones automaticamente, sincronizador de cuentas trading, espejo de trading, mirror trading, prop firms, apex, bulenox, emerge profit, myfundedfutures, take profit trader, fondeo de cuentas, cuentas fondeadas, software replicador de futuros, replicador de ordenes, clonar operaciones, duplicar trades"
+  : "trade copier, trade replication, trade replicator, ninjatrader 8 copier, ninjatrader trade copier, ctrader copier, ctrader trade copier, metatrader 5 copier, mt5 trade copier, funded accounts, prop firm trade copier, copy trading software, trade mirroring, mirror trading, account cloner, order replicator, apex copier, bulenox copier, emerge profit copier, myfundedfutures copier, take profit trader copier, funded account copier, trade duplicator, multi-account trading, trade synchronizer"} />
 
 <!-- Open Graph / Facebook / WhatsApp -->
 <meta property="og:type" content="website" />
@@ -247,10 +247,10 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://mirrorflow.app');
         },
         {
           "@type": "Question",
-          "name": "¿MirrorFlow funciona con cuentas de fondeo como Apex y FTMO?",
+          "name": "¿MirrorFlow funciona con cuentas de fondeo como Apex y Bulenox?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sí. MirrorFlow es perfecto para Apex Trader Funding, FTMO, Topstep, MyFundedFutures, Alpha Futures, Tradeify, FundedNext, Bulenox, AquaFutures, Take Profit Trader, The Funded Trader y cualquier otra prop firm que use NinjaTrader 8, cTrader o MT5."
+            "text": "Sí. MirrorFlow es perfecto para Apex, Bulenox, MyFundedFutures, Take Profit Trader, Emerge Profit, Alpha Futures, Tradeify, FundedNext, AquaFutures, The Funded Trader y cualquier otra prop firm que use NinjaTrader 8, cTrader o MT5."
           }
         },
         {
@@ -304,10 +304,10 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://mirrorflow.app');
         },
         {
           "@type": "Question",
-          "name": "Does MirrorFlow work with funded accounts like Apex and FTMO?",
+          "name": "Does MirrorFlow work with funded accounts like Apex and Bulenox?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. MirrorFlow is perfect for Apex Trader Funding, FTMO, Topstep, MyFundedFutures, Alpha Futures, Tradeify, FundedNext, Bulenox, AquaFutures, Take Profit Trader, The Funded Trader and any other prop firm using NinjaTrader 8, cTrader or MT5."
+            "text": "Yes. MirrorFlow is perfect for Apex, Bulenox, MyFundedFutures, Take Profit Trader, Emerge Profit, Alpha Futures, Tradeify, FundedNext, AquaFutures, The Funded Trader and any other prop firm using NinjaTrader 8, cTrader or MT5."
           }
         },
         {

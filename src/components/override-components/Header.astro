@@ -24,12 +24,12 @@ const { settings, navigation_button } = config;
     <!-- Theme Switch -->
     {settings.theme_switcher && <ThemeSwitch className="" />}
 
-    <!-- Buy Button -->
+    <!-- Navigation Button -->
     {
       navigation_button.enable && (
         <a
           class="btn btn-outline-primary hidden! md:inline-block!"
-          href={navigation_button.link}
+          href={locale === 'en' ? `${navigation_button.link}?lang=en` : navigation_button.link}
         >
           {navigation_button.translations
             ? // @ts-ignore
@@ -59,3 +59,4 @@ const { settings, navigation_button } = config;
     }
   };
 </script>
+

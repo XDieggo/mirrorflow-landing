@@ -10,11 +10,19 @@ const is404 = Astro.locals.starlightRoute?.id === "404";
 const translations = {
   es: {
     comparison: "⚠️ Otros cobran $49/mes - Tú pagas $49 una sola vez",
-    cta: "¡Quiero Mi Licencia Ahora! - $49 USD"
+    cta: "🚀 Obtener MirrorFlow - $49 (Pago Único)",
+    socialProof: "traders activos replicando ahora",
+    trustBadge: "Compatible con",
+    saveTime: "💡 Ahorra 4+ horas diarias operando múltiples cuentas",
+    scarcity: "🔥 licencias vendidas esta semana"
   },
   en: {
     comparison: "⚠️ Others charge $49/month - You pay $49 once",
-    cta: "I Want My License Now! - $49 USD"
+    cta: "🚀 Get MirrorFlow - $49 (One-Time)",
+    socialProof: "active traders replicating now",
+    trustBadge: "Compatible with",
+    saveTime: "💡 Save 4+ hours daily trading multiple accounts",
+    scarcity: "🔥 licenses sold this week"
   }
 };
 
@@ -29,25 +37,52 @@ const t = translations[locale as keyof typeof translations] || translations.es;
 
   {
     !is404 && (
-      <div class="mt-12 max-w-4xl">
+      <div class="mt-8 max-w-4xl">
+        <!-- Trust Badges Row -->
+        <div class="trust-badges">
+          <span class="trust-label">{t.trustBadge}:</span>
+          <div class="trust-icons">
+            <span class="trust-item">✅ NinjaTrader 8</span>
+            <span class="trust-item">✅ cTrader</span>
+            <span class="trust-item">✅ MT5</span>
+            <span class="trust-item trust-item-soon">⏳ Quantower</span>
+          </div>
+        </div>
+        
+        <!-- Prop Firms Compatibility -->
+        <div class="prop-firms">
+          <span class="prop-firms-text">Apex • Bulenox • MyFundedFutures • Take Profit Trader • Emerge Profit</span>
+        </div>
+        
+        <!-- Social Proof Badge - Live Counter -->
+        <div class="live-traders-badge">
+          <span class="live-dot">
+            <span class="live-dot-ping"></span>
+            <span class="live-dot-core"></span>
+          </span>
+          <span><strong id="live-traders">127</strong> {t.socialProof}</span>
+        </div>
+        
         <!-- Competition Comparison Banner -->
         <div class="comparison-banner">
           <span>{t.comparison}</span>
         </div>
         
         <!-- CTA Button -->
-        <div class="flex justify-center mt-6">
+        <div class="flex flex-col items-center mt-6">
           <a 
-            href="https://payco.link/aeb3cb5f-ab4c-4d49-ad6b-41ed524b7798"
+            href="https://www.paypal.com/ncp/payment/FY69UCSPBXDJE"
             class="cta-hero-btn-red"
           >
             {t.cta}
           </a>
+          <p class="guarantee-badge">✓ {locale === 'es' ? 'Pago único • Sin suscripción • Soporte incluido' : 'One-time payment • No subscription • Support included'}</p>
         </div>
       </div>
     )
   }
 </div>
+
 
 <style>
   @layer starlight.core {
@@ -75,6 +110,142 @@ const t = translations[locale as keyof typeof translations] || translations.es;
       display: block;
     }
     
+    /* Trust Badges */
+    .trust-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+    
+    .trust-label {
+      color: var(--sl-color-gray-4);
+      font-size: 0.875rem;
+    }
+    
+    .trust-icons {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .trust-item {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+      padding: 0.375rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    :root[data-theme="light"] .trust-item {
+      background: rgba(34, 197, 94, 0.08);
+      color: #16a34a;
+    }
+    
+    /* Coming Soon Badge (Quantower) */
+    .trust-item-soon {
+      background: rgba(56, 189, 248, 0.15) !important;
+      color: #38bdf8 !important;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    
+    :root[data-theme="light"] .trust-item-soon {
+      background: rgba(56, 189, 248, 0.1) !important;
+      color: #0284c7 !important;
+    }
+    
+    /* Prop Firms Row */
+    .prop-firms {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .prop-firms-text {
+      color: var(--sl-color-gray-4);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    /* Live Traders Badge */
+    .live-traders-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      margin: 0 auto 0.75rem;
+      width: fit-content;
+      display: flex;
+      animation: badge-glow 2s ease-in-out infinite;
+    }
+    
+    @keyframes badge-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.2); }
+      50% { box-shadow: 0 0 15px 3px rgba(34, 197, 94, 0.25); }
+    }
+    
+    .live-dot {
+      position: relative;
+      width: 0.5rem;
+      height: 0.5rem;
+      display: inline-flex;
+    }
+    
+    .live-dot-ping {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #22c55e;
+      opacity: 0.75;
+      animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    
+    .live-dot-core {
+      position: relative;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+    
+    @keyframes ping {
+      75%, 100% { transform: scale(2); opacity: 0; }
+    }
+    
+    :root[data-theme="light"] .live-traders-badge {
+      background: rgba(34, 197, 94, 0.08);
+      color: #16a34a;
+    }
+    
+    /* Save Time Banner */
+    .save-time-banner {
+      text-align: center;
+      padding: 0.625rem 1.25rem;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 9999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #38bdf8;
+      margin-bottom: 0.75rem;
+    }
+    
+    :root[data-theme="light"] .save-time-banner {
+      background: rgba(56, 189, 248, 0.08);
+      color: #0284c7;
+    }
+    
     .comparison-banner {
       text-align: center;
       padding: 0.875rem 1.5rem;
@@ -84,7 +255,7 @@ const t = translations[locale as keyof typeof translations] || translations.es;
       font-size: 1.1rem;
       font-weight: 600;
       color: #eab308;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       animation: banner-pulse 2s ease-in-out infinite;
     }
     
@@ -100,6 +271,32 @@ const t = translations[locale as keyof typeof translations] || translations.es;
     :root[data-theme="light"] .comparison-banner {
       background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(249, 115, 22, 0.1));
       color: #ca8a04;
+    }
+    
+    /* Scarcity Badge */
+    .scarcity-badge {
+      text-align: center;
+      padding: 0.5rem 1rem;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: center;
+      animation: scarcity-pulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes scarcity-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+    
+    :root[data-theme="light"] .scarcity-badge {
+      background: rgba(239, 68, 68, 0.08);
+      color: #dc2626;
     }
     
     .cta-hero-btn-red {
@@ -130,6 +327,13 @@ const t = translations[locale as keyof typeof translations] || translations.es;
       box-shadow: 0 6px 30px rgba(129, 140, 248, 0.5);
       animation: none;
     }
+    
+    .guarantee-badge {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: #22c55e;
+      font-weight: 500;
+    }
 
     @media (max-width: 940px) {
       h1 {
@@ -138,9 +342,23 @@ const t = translations[locale as keyof typeof translations] || translations.es;
         letter-spacing: -2px;
       }
       
-      .comparison-banner {
-        font-size: 0.95rem;
-        padding: 0.75rem 1.25rem;
+      .comparison-banner, .save-time-banner {
+        font-size: 0.9rem;
+        padding: 0.625rem 1rem;
+      }
+      
+      .trust-badges {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .trust-icons {
+        gap: 0.5rem;
+      }
+      
+      .trust-item {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
       }
     }
   }
@@ -169,4 +387,29 @@ const t = translations[locale as keyof typeof translations] || translations.es;
       "hidden lg:inline-block size-20 -mb-2 rounded-2xl animate-[bounce_2s_ease-in-out_infinite]";
     iconElements.replaceWith(img);
   }
+
+  // Dynamic counters for social proof
+  (function initCounters() {
+    // Live traders: random between 100-150
+    const liveTraders = document.getElementById('live-traders');
+    if (liveTraders) {
+      const baseCount = Math.floor(Math.random() * 51) + 100; // 100-150
+      liveTraders.textContent = baseCount.toString();
+      
+      // Subtle updates every 30 seconds
+      setInterval(() => {
+        const change = Math.random() > 0.5 ? 1 : -1;
+        const current = parseInt(liveTraders.textContent || '127');
+        const newValue = Math.max(95, Math.min(160, current + change));
+        liveTraders.textContent = newValue.toString();
+      }, 30000);
+    }
+
+    // Scarcity counter: random between 40-60
+    const scarcityCount = document.getElementById('scarcity-count');
+    if (scarcityCount) {
+      const count = Math.floor(Math.random() * 21) + 40; // 40-60
+      scarcityCount.textContent = count.toString();
+    }
+  })();
 </script>

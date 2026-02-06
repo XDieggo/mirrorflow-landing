@@ -1,0 +1,738 @@
+---
+/**
+ * MirrorFlow Admin Panel
+ * Secure admin dashboard for managing affiliates, sales, and payouts
+ */
+import config from "@/config/config.json";
+import ImageMod from "../components/ImageMod.astro";
+
+const { settings } = config;
+---
+
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | MirrorFlow</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #0f172a;
+      --color-bg-secondary: #1e293b;
+      --color-text: #e2e8f0;
+      --color-text-secondary: #94a3b8;
+      --color-primary: #3b82f6;
+      --color-accent: #8b5cf6;
+      --color-success: #22c55e;
+      --color-warning: #f59e0b;
+      --color-danger: #ef4444;
+      --card-bg: rgba(30, 41, 59, 0.8);
+      --card-border: rgba(148, 163, 184, 0.2);
+      --input-bg: rgba(15, 23, 42, 0.6);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .page-wrapper {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Background Gradient */
+    .bg-gradient {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(56, 189, 248, 0.15), transparent),
+        radial-gradient(ellipse 80% 50% at 80% 20%, rgba(139, 92, 246, 0.1), transparent),
+        radial-gradient(ellipse 50% 30% at 20% 80%, rgba(59, 130, 246, 0.08), transparent);
+    }
+
+    .hidden { display: none !important; }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Header */
+    .admin-header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--card-border);
+      padding: 1rem 0;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo { font-size: 1.5rem; font-weight: 800; }
+    .logo span { color: var(--color-primary); }
+
+    .admin-badge {
+      background: var(--color-accent);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .header-actions { display: flex; gap: 1rem; align-items: center; }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: var(--color-primary); color: white; }
+    .btn-danger { background: var(--color-danger); color: white; }
+    .btn-success { background: var(--color-success); color: white; }
+    .btn-warning { background: var(--color-warning); color: black; }
+
+    /* Login Section */
+    .login-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+    }
+
+    .login-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-card h2 { margin-bottom: 1.5rem; text-align: center; }
+
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      background: var(--input-bg);
+      color: var(--color-text);
+      font-size: 1rem;
+    }
+
+    .error-msg {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    /* Dashboard */
+    .admin-main { padding: 2rem 0; }
+
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 0.5rem;
+    }
+
+    .tab {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: none;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      transition: all 0.2s;
+    }
+
+    .tab:hover { color: var(--color-text); }
+    .tab.active { background: var(--color-primary); color: white; }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .stat-value { font-size: 2rem; font-weight: 700; }
+    .stat-label { color: var(--color-text-secondary); }
+
+    /* Tables */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 { font-size: 1.25rem; }
+
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    th {
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-success { background: rgba(34, 197, 94, 0.15); color: var(--color-success); }
+    .badge-warning { background: rgba(245, 158, 11, 0.15); color: var(--color-warning); }
+    .badge-danger { background: rgba(239, 68, 68, 0.15); color: var(--color-danger); }
+    .badge-info { background: rgba(59, 130, 246, 0.15); color: var(--color-primary); }
+
+    .action-btns { display: flex; gap: 0.5rem; }
+    .action-btn {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      font-weight: 600;
+    }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* Back Link */
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    /* Footer Enhanced */
+    .footer-enhanced {
+      margin-top: auto;
+    }
+
+    .footer-bar {
+      border-top: 1px solid var(--card-border);
+      padding: 1.5rem 0;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .copyright {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    .legal-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .legal-links a {
+      font-size: 0.875rem;
+      color: var(--color-text);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .legal-links a:hover {
+      color: var(--color-primary);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--color-text-secondary) 15%, transparent);
+      color: var(--color-text);
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .legal-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="bg-gradient"></div>
+  <!-- Login Section -->
+  <section id="login-section" class="login-section">
+    <div class="login-card">
+      <h2>🔐 Admin Login</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="login-email" required placeholder="admin@mirrorflow.app" />
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="login-password" required placeholder="••••••••" />
+        </div>
+        <div id="login-error" class="error-msg hidden"></div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Ingresar</button>
+      </form>
+      <a href="/referidos" class="back-link">← Volver al portal de afiliados</a>
+    </div>
+  </section>
+
+  <!-- Admin Dashboard -->
+  <div id="admin-dashboard" class="hidden">
+    <header class="admin-header">
+      <div class="container header-content">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <div class="logo">Mirror<span>Flow</span></div>
+          <span class="admin-badge">ADMIN</span>
+        </div>
+        <div class="header-actions">
+          <span id="admin-email"></span>
+          <button id="logout-btn" class="btn btn-danger">Cerrar sesión</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-main container">
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="stat-affiliates">0</div>
+          <div class="stat-label">Afiliados activos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-sales">$0</div>
+          <div class="stat-label">Ventas totales</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-commissions">$0</div>
+          <div class="stat-label">Comisiones generadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-pending-payouts">0</div>
+          <div class="stat-label">Pagos pendientes</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" data-tab="affiliates">👥 Afiliados</button>
+        <button class="tab" data-tab="sales">💰 Ventas</button>
+        <button class="tab" data-tab="payouts">💳 Solicitudes de Pago</button>
+      </div>
+
+      <!-- Affiliates Tab -->
+      <div id="tab-affiliates" class="tab-content active">
+        <div class="card">
+          <div class="card-header">
+            <h3>Lista de Afiliados</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Código</th>
+                  <th>Teléfono</th>
+                  <th>Ganancias</th>
+                  <th>Pendiente</th>
+                  <th>Pagado</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="affiliates-tbody">
+                <tr><td colspan="9" class="loading">Cargando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sales Tab -->
+      <div id="tab-sales" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <h3>Ventas Referidas</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Afiliado</th>
+                  <th>Comprador</th>
+                  <th>Monto Venta</th>
+                  <th>Comisión</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="sales-tbody">
+                <tr><td colspan="7" class="loading">Cargando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payouts Tab -->
+      <div id="tab-payouts" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <h3>Solicitudes de Pago</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Afiliado</th>
+                  <th>Monto</th>
+                  <th>Método</th>
+                  <th>Detalles</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="payouts-tbody">
+                <tr><td colspan="7" class="loading">Cargando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-enhanced">
+      <div class="footer-bar">
+        <div class="footer-content container">
+          <p class="copyright">© 2026 MirrorFlow. Todos los derechos reservados.</p>
+          <nav class="legal-links">
+            <a href="/privacy-policy">Política de Privacidad</a>
+            <a href="/terms-conditions">Términos y Condiciones</a>
+            <a href="/referidos">Programa de Afiliados</a>
+          </nav>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/Replicador_MirrorFlow/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61577387714129" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@replicador_mirrorflow" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@Replicador_MirrorFlow" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module">
+    import { supabase } from '/src/lib/supabase.ts';
+
+    const loginSection = document.getElementById('login-section');
+    const dashboard = document.getElementById('admin-dashboard');
+    const loginForm = document.getElementById('login-form');
+    const loginError = document.getElementById('login-error');
+
+    let currentAdmin = null;
+
+    async function init() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        await checkAdminAndLoad(session.user);
+      }
+    }
+
+    async function checkAdminAndLoad(user) {
+      // Check if user is admin
+      const { data: affiliate } = await supabase
+        .from('affiliates')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('is_admin', true)
+        .single();
+
+      if (!affiliate) {
+        loginError.textContent = 'No tienes permisos de administrador';
+        loginError.classList.remove('hidden');
+        await supabase.auth.signOut();
+        return;
+      }
+
+      currentAdmin = affiliate;
+      document.getElementById('admin-email').textContent = user.email;
+      loginSection.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      await loadDashboard();
+    }
+
+    loginForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginError.classList.add('hidden');
+
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      
+      if (error) {
+        loginError.textContent = error.message;
+        loginError.classList.remove('hidden');
+        return;
+      }
+
+      await checkAdminAndLoad(data.user);
+    });
+
+    document.getElementById('logout-btn')?.addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      location.reload();
+    });
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+      });
+    });
+
+    async function loadDashboard() {
+      // Load affiliates
+      const { data: affiliates } = await supabase.from('affiliates').select('*').order('created_at', { ascending: false });
+      
+      // Load sales
+      const { data: sales } = await supabase.from('referred_sales').select('*, affiliates(name, email)').order('created_at', { ascending: false });
+      
+      // Load payouts
+      const { data: payouts } = await supabase.from('payout_requests').select('*, affiliates(name, email)').order('created_at', { ascending: false });
+
+      // Update stats
+      document.getElementById('stat-affiliates').textContent = affiliates?.length || 0;
+      
+      const totalSales = sales?.reduce((sum, s) => sum + (s.sale_amount || 0), 0) || 0;
+      document.getElementById('stat-sales').textContent = `$${totalSales.toFixed(2)}`;
+      
+      const totalCommissions = sales?.reduce((sum, s) => sum + (s.commission_amount || 0), 0) || 0;
+      document.getElementById('stat-commissions').textContent = `$${totalCommissions.toFixed(2)}`;
+      
+      const pendingPayouts = payouts?.filter(p => p.status === 'pending').length || 0;
+      document.getElementById('stat-pending-payouts').textContent = pendingPayouts;
+
+      // Render affiliates table
+      const affTbody = document.getElementById('affiliates-tbody');
+      if (!affiliates?.length) {
+        affTbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">No hay afiliados registrados</td></tr>';
+      } else {
+        affTbody.innerHTML = affiliates.map(a => `
+          <tr>
+            <td>${a.name || '-'}</td>
+            <td>${a.email}</td>
+            <td><code>${a.referral_code}</code></td>
+            <td>${a.phone || '-'}</td>
+            <td>$${(a.total_earnings || 0).toFixed(2)}</td>
+            <td>$${(a.pending_earnings || 0).toFixed(2)}</td>
+            <td>$${(a.paid_earnings || 0).toFixed(2)}</td>
+            <td><span class="badge ${a.is_active ? 'badge-success' : 'badge-danger'}">${a.is_active ? 'Activo' : 'Inactivo'}</span></td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn btn-warning" onclick="toggleAdmin('${a.id}', ${!a.is_admin})">${a.is_admin ? 'Quitar Admin' : 'Hacer Admin'}</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Render sales table
+      const salesTbody = document.getElementById('sales-tbody');
+      if (!sales?.length) {
+        salesTbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No hay ventas registradas</td></tr>';
+      } else {
+        salesTbody.innerHTML = sales.map(s => `
+          <tr>
+            <td>${new Date(s.created_at).toLocaleDateString()}</td>
+            <td>${s.affiliates?.name || s.affiliates?.email || '-'}</td>
+            <td>${s.buyer_email}</td>
+            <td>$${s.sale_amount.toFixed(2)}</td>
+            <td>$${s.commission_amount.toFixed(2)}</td>
+            <td><span class="badge badge-${s.payment_status === 'confirmed' ? 'success' : 'warning'}">${s.payment_status}</span></td>
+            <td>
+              <div class="action-btns">
+                ${s.payment_status === 'pending' ? `<button class="action-btn btn-success" onclick="confirmSale('${s.id}')">Confirmar</button>` : ''}
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Render payouts table
+      const payoutsTbody = document.getElementById('payouts-tbody');
+      if (!payouts?.length) {
+        payoutsTbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No hay solicitudes de pago</td></tr>';
+      } else {
+        payoutsTbody.innerHTML = payouts.map(p => `
+          <tr>
+            <td>${new Date(p.created_at).toLocaleDateString()}</td>
+            <td>${p.affiliates?.name || p.affiliates?.email || '-'}</td>
+            <td>$${p.requested_amount.toFixed(2)}</td>
+            <td>${p.payout_method}</td>
+            <td><code>${JSON.stringify(p.payout_details)}</code></td>
+            <td><span class="badge badge-${p.status === 'completed' ? 'success' : p.status === 'pending' ? 'warning' : 'info'}">${p.status}</span></td>
+            <td>
+              <div class="action-btns">
+                ${p.status === 'pending' ? `
+                  <button class="action-btn btn-success" onclick="processPayout('${p.id}', 'completed')">Aprobar</button>
+                  <button class="action-btn btn-danger" onclick="processPayout('${p.id}', 'rejected')">Rechazar</button>
+                ` : ''}
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // Global functions for actions
+    window.toggleAdmin = async (affiliateId, makeAdmin) => {
+      const { error } = await supabase.from('affiliates').update({ is_admin: makeAdmin }).eq('id', affiliateId);
+      if (error) alert('Error: ' + error.message);
+      else await loadDashboard();
+    };
+
+    window.confirmSale = async (saleId) => {
+      const { error } = await supabase.from('referred_sales').update({ payment_status: 'confirmed', confirmed_at: new Date().toISOString() }).eq('id', saleId);
+      if (error) alert('Error: ' + error.message);
+      else await loadDashboard();
+    };
+
+    window.processPayout = async (payoutId, status) => {
+      const { data: payout } = await supabase.from('payout_requests').select('*, affiliates(*)').eq('id', payoutId).single();
+      
+      if (status === 'completed' && payout) {
+        // Update affiliate's earnings
+        const newPending = (payout.affiliates.pending_earnings || 0) - payout.requested_amount;
+        const newPaid = (payout.affiliates.paid_earnings || 0) + payout.requested_amount;
+        await supabase.from('affiliates').update({
+          pending_earnings: Math.max(0, newPending),
+          paid_earnings: newPaid
+        }).eq('id', payout.affiliate_id);
+      }
+
+      const { error } = await supabase.from('payout_requests').update({ 
+        status, 
+        processed_at: new Date().toISOString() 
+      }).eq('id', payoutId);
+      
+      if (error) alert('Error: ' + error.message);
+      else await loadDashboard();
+    };
+
+    init();
+  </script>
+</body>
+</html>

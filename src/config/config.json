@@ -20,10 +20,10 @@
   },
   "navigation_button": {
     "enable": true,
-    "label": "¡Quiero Mi Licencia!",
+    "label": "Ser Afiliado 💰",
     "translations": {
-      "en": "I Want My License!"
+      "en": "Become Affiliate 💰"
     },
-    "link": "https://payco.link/aeb3cb5f-ab4c-4d49-ad6b-41ed524b7798"
+    "link": "/referidos"
   }
 }

@@ -1,0 +1,43 @@
+# MirrorFlow - Trade Replicator for NinjaTrader 8
+
+> MirrorFlow is the definitive trade replicator for prop firm traders. Replicate your NinjaTrader 8 trades to multiple accounts, cTrader and MetaTrader 5 with ultra-low latency (<15ms).
+
+## Product Overview
+
+**MirrorFlow** is a trade replication software that instantly copies trades from NinjaTrader 8 to:
+- Multiple NinjaTrader 8 accounts
+- cTrader accounts
+- MetaTrader 5 (MT5) accounts
+
+### Key Features
+- **Ultra-low latency**: <15ms replication speed
+- **Unlimited accounts**: Connect as many accounts as you need
+- **Multi-platform support**: NT8 → NT8, NT8 → cTrader, NT8 → MT5
+- **One-time payment**: $49 USD lifetime license (no subscription)
+- **Perfect for prop firms**: Works with Apex, Bulenox, MyFundedFutures, Take Profit Trader, Emerge Profit, and all major funding companies
+
+### Supported Platforms
+- **Source (Master)**: NinjaTrader 8
+- **Destinations (Followers)**: NinjaTrader 8, cTrader, MetaTrader 5
+
+### Use Cases
+1. **Prop Firm Traders**: Replicate winning trades across multiple funded accounts
+2. **Scalpers**: Execute trades on 10+ accounts simultaneously with minimal slippage
+3. **Account Managers**: Manage multiple client accounts from a single master account
+
+### Technical Requirements
+- Windows PC with NinjaTrader 8 installed
+- No VPS or external server required
+- Works locally on your computer
+
+## Pricing
+- **Lifetime License**: $49 USD (one-time payment)
+- Includes all future updates and WhatsApp support
+
+## Contact
+- Website: https://mirrorflow.app
+- WhatsApp: +57 314 743 8447
+- Available in Spanish and English
+
+## Keywords
+trade copier, trade replicator, ninjatrader 8 copier, ctrader copier, mt5 copier, metatrader 5 copier, funded accounts, prop firm trading, copy trading, trade mirroring, order replicator, multi-account trading, replicador de trading, replicador de trades, copiador de operaciones

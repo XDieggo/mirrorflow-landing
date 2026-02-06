@@ -1,0 +1,168 @@
+---
+/**
+ * Simple Language & Theme Switch for standalone pages (non-Starlight)
+ * Uses localStorage for persistence, no page reload required
+ */
+interface Props {
+  currentLocale?: string;
+}
+
+const { currentLocale = 'es' } = Astro.props;
+---
+
+<div class="controls-bar">
+  <!-- Language Switch -->
+  <div class="language-switch" id="lang-switch">
+    <button 
+      type="button"
+      class="lang-option active" 
+      data-lang="es"
+      aria-label="Español"
+    >
+      ES
+    </button>
+    <button 
+      type="button"
+      class="lang-option" 
+      data-lang="en"
+      aria-label="English"
+    >
+      EN
+    </button>
+  </div>
+
+  <!-- Theme Switch -->
+  <button 
+    type="button" 
+    class="theme-toggle" 
+    id="theme-toggle"
+    aria-label="Toggle theme"
+  >
+    <span class="sun-icon">☀️</span>
+    <span class="moon-icon">🌙</span>
+  </button>
+</div>
+
+<script>
+  // Language switching
+  const langSwitch = document.getElementById('lang-switch');
+  const langButtons = langSwitch?.querySelectorAll('.lang-option');
+  
+  function setLanguage(lang: string) {
+    localStorage.setItem('affiliate-lang', lang);
+    document.documentElement.setAttribute('data-lang', lang);
+    
+    // Update active state
+    langButtons?.forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    // Dispatch custom event for page to react
+    window.dispatchEvent(new CustomEvent('languageChange', { detail: { lang } }));
+  }
+
+  // Initialize language
+  const savedLang = localStorage.getItem('affiliate-lang') || 'es';
+  setLanguage(savedLang);
+
+  langButtons?.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-lang');
+      if (lang) setLanguage(lang);
+    });
+  });
+
+  // Theme switching
+  const themeToggle = document.getElementById('theme-toggle');
+  
+  function setTheme(theme: string) {
+    localStorage.setItem('starlight-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+
+  // Initialize theme
+  const savedTheme = localStorage.getItem('starlight-theme') || 
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  setTheme(savedTheme);
+
+  themeToggle?.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+</script>
+
+<style>
+  .controls-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Language Switch */
+  .language-switch {
+    display: flex;
+    align-items: center;
+    background: color-mix(in srgb, var(--sl-color-text) 10%, transparent);
+    border-radius: 9999px;
+    padding: 4px;
+    gap: 2px;
+  }
+  
+  .lang-option {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--sl-color-text-secondary, #94a3b8);
+    background: transparent;
+    border: none;
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .lang-option:hover {
+    color: var(--sl-color-text, #e2e8f0);
+  }
+  
+  .lang-option.active {
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    color: white;
+    box-shadow: 0 2px 8px rgba(129, 140, 248, 0.3);
+  }
+
+  /* Theme Switch */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: color-mix(in srgb, var(--sl-color-text) 10%, transparent);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+  }
+
+  .theme-toggle:hover {
+    background: color-mix(in srgb, var(--sl-color-text) 20%, transparent);
+  }
+
+  .sun-icon {
+    display: none;
+  }
+
+  .moon-icon {
+    display: block;
+  }
+
+  [data-theme="dark"] .sun-icon {
+    display: block;
+  }
+
+  [data-theme="dark"] .moon-icon {
+    display: none;
+  }
+</style>

@@ -1,0 +1,106 @@
+---
+/**
+ * Sticky Mobile CTA Component
+ * Shows a fixed CTA button on mobile devices when scrolling
+ */
+const locale = Astro.currentLocale || 'es';
+
+const translations = {
+  es: {
+    cta: '🚀 Obtener MirrorFlow - $49',
+    guarantee: '✓ Pago único • Garantía 30 días'
+  },
+  en: {
+    cta: '🚀 Get MirrorFlow - $49',
+    guarantee: '✓ One-time • 30-day guarantee'
+  }
+};
+
+const t = translations[locale as keyof typeof translations] || translations.es;
+---
+
+<div class="sticky-mobile-cta" id="sticky-cta">
+  <a href="https://www.paypal.com/ncp/payment/FY69UCSPBXDJE" class="sticky-cta-button">
+    {t.cta}
+  </a>
+  <span class="sticky-guarantee">{t.guarantee}</span>
+</div>
+
+<style>
+  .sticky-mobile-cta {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 0.75rem 1rem;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    text-align: center;
+    flex-direction: column;
+    gap: 0.25rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .sticky-mobile-cta.visible {
+    transform: translateY(0);
+  }
+  
+  .sticky-cta-button {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(129, 140, 248, 0.4);
+  }
+  
+  .sticky-guarantee {
+    font-size: 0.75rem;
+    color: #22c55e;
+    font-weight: 500;
+  }
+  
+  @media (max-width: 768px) {
+    .sticky-mobile-cta {
+      display: flex;
+    }
+  }
+  
+  :root[data-theme="light"] .sticky-mobile-cta {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(203, 213, 225, 0.5);
+  }
+</style>
+
+<script>
+  const stickyCta = document.getElementById('sticky-cta');
+  const heroSection = document.querySelector('.hero');
+  
+  if (stickyCta && heroSection) {
+    let lastScrollY = 0;
+    
+    const checkVisibility = () => {
+      const heroBottom = heroSection.getBoundingClientRect().bottom;
+      const scrollingDown = window.scrollY > lastScrollY;
+      lastScrollY = window.scrollY;
+      
+      // Show after scrolling past hero
+      if (heroBottom < 100 && scrollingDown) {
+        stickyCta.classList.add('visible');
+      } else if (window.scrollY < 300) {
+        stickyCta.classList.remove('visible');
+      }
+    };
+    
+    window.addEventListener('scroll', checkVisibility, { passive: true });
+  }
+</script>

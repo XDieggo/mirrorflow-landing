@@ -1,11 +1,11 @@
 ---
 title: "MirrorFlow: Replicador de Trades para NinjaTrader 8, cTrader y MT5"
-description: "Replica tus trades de NinjaTrader 8 a cTrader y MetaTrader 5 al instante. El copiador de operaciones definitivo para traders de cuentas de fondeo. ¡Licencia vitalicia $29 USD!"
+description: "Replica tus trades de NinjaTrader 8 a multiples cuentas de fondeo, cTrader y MetaTrader 5 al instante. El replicador de operaciones definitivo para traders de cuentas de fondeo. ¡Licencia vitalicia $49 USD!"
 template: splash
 hero:
   title: |
-    ¿Cansado de Operar <span class="light-text">Cuenta por Cuenta?</span>
-  tagline: MirrorFlow replica tus entradas de NinjaTrader 8 a múltiples cuentas de fondeo, cTrader y MetaTrader 5 instantáneamente. Un Trade. Infinitas Cuentas.
+    Replica Tus Trades a <span class="light-text">+10 Cuentas en &lt;15ms</span>
+  tagline: Usado por +2,000 traders de fondeo. MirrorFlow replica tus entradas de NinjaTrader 8 a múltiples cuentas de fondeo, cTrader y MetaTrader 5 instantáneamente.
 ---
 
 import Section from "~/components/Section.astro";
@@ -16,26 +16,39 @@ import CommandCenter from "~/components/CommandCenter.astro";
 import CountdownPricing from "~/components/CountdownPricing.astro";
 import Testimonials from "~/components/Testimonials.astro";
 import WhatsAppButton from "~/components/WhatsAppButton.astro";
+import ComparisonTable from "~/components/ComparisonTable.astro";
+import TargetAudience from "~/components/TargetAudience.astro";
+import HeroTabs from "~/components/HeroTabs.astro";
+import HeroTabsItem from "~/components/HeroTabsItem.astro";
+import AccordionContainer from "~/components/AccordionContainer.astro";
+import Accordion from "~/components/Accordion.astro";
 
-<Section title="¿Por qué elegir <span class='light-text'>MirrorFlow?</span>" description="Deja de Perder Dinero y Tiempo al operar manualmente múltiples cuentas es lento, estresante y propenso a errores.">
+{/* 1. TESTIMONIOS - Social proof temprano */}
+<Testimonials lang="es" />
+
+{/* 2. ¿POR QUÉ MIRRORFLOW? - Features + Comparativa unificados */}
+<Section title="¿Por qué elegir <span class='light-text'>MirrorFlow?</span>" description="Deja de perder dinero y tiempo. Compara antes de decidir.">
 
 <FeaturesCarousel lang="es" />
 
 </Section>
 
-import TargetAudience from "~/components/TargetAudience.astro";
+<ComparisonTable lang="es" />
 
+{/* 4. PRICING - Decisión de compra */}
+<CountdownPricing lang="es" />
+
+{/* 5. COMMAND CENTER - Vista previa del producto */}
+<CommandCenter lang="es" />
+
+{/* 6. TARGET AUDIENCE - Casos de uso específicos */}
 <Section title="¿Para quién es <span class='light-text'>MirrorFlow?</span>" description="Diseñado para traders serios que quieren escalar sus resultados.">
 
 <TargetAudience lang="es" />
 
 </Section>
 
-<CommandCenter lang="es" />
-
-import HeroTabs from "~/components/HeroTabs.astro";
-import HeroTabsItem from "~/components/HeroTabsItem.astro";
-
+{/* 7. PASOS - Cómo instalar (para compradores decididos) */}
 <Section
   title="Configura MirrorFlow <span class='light-text'>en 3 simples pasos</span>"
   description="Instalación rápida. Sin conocimientos técnicos. Empieza a replicar en minutos."
@@ -72,13 +85,7 @@ import HeroTabsItem from "~/components/HeroTabsItem.astro";
   </div>
 </Section>
 
-<Testimonials lang="es" />
-
-<CountdownPricing lang="es" />
-
-import AccordionContainer from "~/components/AccordionContainer.astro";
-import Accordion from "~/components/Accordion.astro";
-
+{/* 8. FAQ - Maneja objeciones restantes */}
 <Section
   title="Preguntas <span class='light-text'>Frecuentes</span>"
   description="Respuestas a las dudas más comunes antes de comprar."
@@ -119,7 +126,7 @@ import Accordion from "~/components/Accordion.astro";
 />
 <Accordion
   question="¿Funciona con cuentas de fondeo (prop firms)?"
-  answer="Sí. Perfecto para Apex, FTMO, Topstep, MyForexFunds y cualquier otra prop firm."
+  answer="Sí. Perfecto para Apex, Bulenox, MyFundedFutures, Take Profit Trader, Emerge Profit y cualquier otra prop firm."
   type="basic"
 />
 
@@ -141,7 +148,7 @@ import Accordion from "~/components/Accordion.astro";
 
 <Accordion
   question="¿La licencia es realmente vitalicia?"
-  answer="Sí. Pago único de $29 USD hasta el 31 de enero, incluye todas las actualizaciones futuras."
+  answer="Sí. Pago único de $49 USD, incluye todas las actualizaciones futuras."
   type="help"
 />
 <Accordion
