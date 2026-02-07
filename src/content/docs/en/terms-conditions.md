@@ -48,6 +48,22 @@ We do not guarantee uninterrupted operation. External factors (internet connecti
 
 Software updates are included at no additional cost for the lifetime of the product.
 
+## 5.1 Affiliate Program
+
+### 5.1.1 Participation
+The affiliate program is available to registered users. By participating, you agree to:
+- Promote MirrorFlow ethically and truthfully
+- Not use spam or misleading advertising techniques
+- Not make self-referrals (purchases with your own code)
+
+### 5.1.2 Commissions
+- 10% commission on each confirmed referred sale
+- Commissions accumulate as "pending" until reaching the minimum withdrawal ($20 USD)
+- Payments are processed through PayPal within 7 business days after request
+
+### 5.1.3 Termination
+We reserve the right to cancel affiliate accounts that violate these terms or engage in fraudulent activities. Pending commissions from accounts canceled for fraud will be forfeited.
+
 ## 6. Modifications
 
 We reserve the right to modify these terms. Changes will be communicated by email.

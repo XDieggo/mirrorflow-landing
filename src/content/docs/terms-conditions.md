@@ -48,6 +48,22 @@ No garantizamos funcionamiento ininterrumpido. Factores externos (conexión a in
 
 Las actualizaciones del software están incluidas sin costo adicional durante la vida útil del producto.
 
+## 5.1 Programa de Afiliados
+
+### 5.1.1 Participación
+El programa de afiliados está disponible para usuarios registrados. Al participar, usted acepta:
+- Promocionar MirrorFlow de manera ética y veraz
+- No usar técnicas de spam o publicidad engañosa
+- No realizar auto-referidos (compras con su propio código)
+
+### 5.1.2 Comisiones
+- Comisión del 10% por cada venta referida confirmada
+- Las comisiones se acumulan como "pendientes" hasta alcanzar el mínimo de retiro ($20 USD)
+- Los pagos se procesan a través de PayPal dentro de 7 días hábiles tras solicitud
+
+### 5.1.3 Cancelación
+Nos reservamos el derecho de cancelar cuentas de afiliados que violen estos términos o incurran en actividades fraudulentas. Las comisiones pendientes de cuentas canceladas por fraude serán confiscadas.
+
 ## 6. Modificaciones
 
 Nos reservamos el derecho de modificar estos términos. Los cambios serán comunicados por email.

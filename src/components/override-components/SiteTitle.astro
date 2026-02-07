@@ -31,6 +31,7 @@ const useTextLogo = logo_text && logo_text.trim() !== '';
   {
     useTextLogo ? (
       <span class="logo-split">
+        <img src="/mirrorflow-logo.png" alt="MirrorFlow" class="logo-img" />
         <span class="logo-mirror">Mirror</span><span class="logo-flow">Flow</span>
       </span>
     ) : src || srcDarkmode || logo || logo_darkmode ? (
@@ -79,10 +80,18 @@ const useTextLogo = logo_text && logo_text.trim() !== '';
   }
   
   .logo-split {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: -0.02em;
     text-decoration: none !important;
+  }
+  
+  .logo-img {
+    height: 32px;
+    width: auto;
   }
   
   .logo-mirror {

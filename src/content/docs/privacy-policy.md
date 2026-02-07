@@ -37,6 +37,14 @@ Usamos su información para:
 - PayPal para procesamiento de pagos
 - Cuando sea requerido por ley
 
+## 3.1 Programa de Afiliados
+
+Si participa en nuestro programa de afiliados:
+- Recopilamos su nombre, email y método de pago preferido (PayPal)
+- Almacenamos su código de referido único y estadísticas de ventas referidas
+- Los pagos de comisiones se procesan a través de PayPal
+- No compartimos sus datos de afiliado con terceros
+
 ## 4. Seguridad
 
 Implementamos medidas de seguridad para proteger su información:

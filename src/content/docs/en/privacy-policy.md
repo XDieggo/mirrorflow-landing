@@ -37,6 +37,14 @@ We use your information to:
 - PayPal for payment processing
 - When required by law
 
+## 3.1 Affiliate Program
+
+If you participate in our affiliate program:
+- We collect your name, email and preferred payment method (PayPal)
+- We store your unique referral code and referred sales statistics
+- Commission payments are processed through PayPal
+- We do not share your affiliate data with third parties
+
 ## 4. Security
 
 We implement security measures to protect your information:
