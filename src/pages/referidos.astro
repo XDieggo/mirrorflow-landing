@@ -583,6 +583,18 @@ const { settings } = config;
       margin-bottom: 1rem;
     }
 
+    .paypal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(135deg, #003087, #009cde);
+      color: white;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
     /* Back Link */
     .back-home {
       text-align: center;
@@ -910,18 +922,17 @@ const { settings } = config;
             <div class="payout-row">
               <div class="form-group">
                 <label><span class="lang-es">Método de pago</span><span class="lang-en">Payment method</span></label>
-                <select id="payout-method" required>
-                  <option value="paypal">PayPal</option>
-                  <option value="bank">Transferencia / Bank</option>
-                  <option value="crypto">Crypto</option>
-                </select>
+                <div class="paypal-badge">
+                  <span>💳 PayPal</span>
+                </div>
+                <input type="hidden" id="payout-method" value="paypal" />
               </div>
               <div class="form-group">
                 <label><span class="lang-es">Email de PayPal</span><span class="lang-en">PayPal email</span></label>
                 <input type="text" id="payout-details" required placeholder="tu@paypal.com" />
               </div>
             </div>
-            <p class="payout-note"><span class="lang-es">Monto mínimo: $10 USD</span><span class="lang-en">Minimum amount: $10 USD</span></p>
+            <p class="payout-note"><span class="lang-es">Monto mínimo: $20 USD</span><span class="lang-en">Minimum amount: $20 USD</span></p>
             <button type="submit" class="submit-btn" id="payout-btn" disabled>
               <span class="lang-es">Solicitar retiro</span>
               <span class="lang-en">Request withdrawal</span>
