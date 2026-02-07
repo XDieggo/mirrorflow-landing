@@ -1,0 +1,686 @@
+---
+/**
+ * MirrorFlow Payment Confirmation Page
+ * Receives PayPal redirect with optional referral tracking
+ */
+import config from "@/config/config.json";
+import ImageMod from "../components/ImageMod.astro";
+
+const { settings } = config;
+---
+
+<!DOCTYPE html>
+<html lang="es" data-theme="dark" data-lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡Pago Confirmado! | MirrorFlow</title>
+  <meta name="description" content="Tu pago ha sido recibido. En menos de 24 horas recibirás tu licencia de MirrorFlow." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ========== CSS Variables ========== */
+    :root {
+      --color-bg: #0f172a;
+      --color-bg-secondary: #1e293b;
+      --color-text: #e2e8f0;
+      --color-text-secondary: #94a3b8;
+      --color-primary: #3b82f6;
+      --color-accent: #8b5cf6;
+      --color-success: #22c55e;
+      --color-danger: #ef4444;
+      --card-bg: rgba(30, 41, 59, 0.6);
+      --card-border: rgba(148, 163, 184, 0.15);
+      --gradient: linear-gradient(135deg, #38bdf8, #818cf8);
+    }
+
+    [data-theme="light"] {
+      --color-bg: #f8fafc;
+      --color-bg-secondary: #e2e8f0;
+      --color-text: #1e293b;
+      --color-text-secondary: #64748b;
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --card-border: rgba(148, 163, 184, 0.25);
+    }
+
+    /* Language toggle */
+    .lang-en { display: none !important; }
+    .lang-es { display: inline !important; }
+    [data-lang="en"] .lang-en { display: inline !important; }
+    [data-lang="en"] .lang-es { display: none !important; }
+
+    /* ========== Reset & Base ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .hidden { display: none !important; }
+
+    /* ========== Layout ========== */
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+
+    /* ========== Background Gradient ========== */
+    .bg-gradient {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(56, 189, 248, 0.15), transparent),
+        radial-gradient(ellipse 80% 50% at 80% 20%, rgba(139, 92, 246, 0.1), transparent),
+        radial-gradient(ellipse 50% 30% at 20% 80%, rgba(59, 130, 246, 0.08), transparent);
+    }
+
+    /* ========== Header ========== */
+    .header {
+      padding: 1.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 0.25rem;
+      background: var(--card-bg);
+      padding: 0.25rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--card-border);
+    }
+
+    .lang-btn {
+      padding: 0.25rem 0.75rem;
+      border: none;
+      background: transparent;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--color-text);
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    /* ========== Main Content ========== */
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+
+    .confirmation-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 1.5rem;
+      padding: 3rem;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .success-icon {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      font-size: 3rem;
+      color: white;
+      animation: pulse-success 2s infinite;
+    }
+
+    @keyframes pulse-success {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 0 20px rgba(34, 197, 94, 0);
+      }
+    }
+
+    .confirmation-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .confirmation-subtitle {
+      font-size: 1.125rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    /* ========== Timeline ========== */
+    .timeline {
+      text-align: left;
+      margin: 2rem 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none;
+    }
+
+    .timeline-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--color-bg);
+      border: 2px solid var(--color-success);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .timeline-icon.pending {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .timeline-content h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-content p {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* ========== Info Box ========== */
+    .info-box {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .info-box h4 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-primary);
+    }
+
+    .info-box p {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+    }
+
+    .info-box a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .info-box a:hover {
+      text-decoration: underline;
+    }
+
+    /* ========== Buttons ========== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--color-text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    /* ========== Referral Success Message ========== */
+    .referral-notice {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .referral-notice.hidden {
+      display: none !important;
+    }
+
+    .referral-notice-icon {
+      font-size: 1.5rem;
+    }
+
+    .referral-notice-text {
+      font-size: 0.875rem;
+      color: var(--color-success);
+    }
+
+    /* ========== Footer ========== */
+    .footer {
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .footer a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: var(--color-primary);
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 640px) {
+      .confirmation-card {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+      }
+
+      .confirmation-title {
+        font-size: 1.5rem;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="bg-gradient"></div>
+
+    <!-- Header -->
+    <header class="header container">
+      <a href="/" class="logo">MirrorFlow</a>
+      <div class="header-controls">
+        <div class="lang-switch">
+          <button class="lang-btn active" data-lang="es">ES</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="confirmation-card">
+        <div class="success-icon">✓</div>
+        
+        <h1 class="confirmation-title">
+          <span class="lang-es">¡Pago Recibido Exitosamente!</span>
+          <span class="lang-en">Payment Received Successfully!</span>
+        </h1>
+        
+        <p class="confirmation-subtitle">
+          <span class="lang-es">Gracias por confiar en MirrorFlow. Tu licencia está en camino.</span>
+          <span class="lang-en">Thank you for choosing MirrorFlow. Your license is on the way.</span>
+        </p>
+
+        <!-- Timeline -->
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-icon">✓</div>
+            <div class="timeline-content">
+              <h4>
+                <span class="lang-es">Pago Confirmado</span>
+                <span class="lang-en">Payment Confirmed</span>
+              </h4>
+              <p>
+                <span class="lang-es">Hemos recibido tu pago correctamente</span>
+                <span class="lang-en">We have received your payment successfully</span>
+              </p>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-icon pending">⏳</div>
+            <div class="timeline-content">
+              <h4>
+                <span class="lang-es">Procesando Licencia</span>
+                <span class="lang-en">Processing License</span>
+              </h4>
+              <p>
+                <span class="lang-es">Estamos generando tu licencia personalizada</span>
+                <span class="lang-en">We are generating your personalized license</span>
+              </p>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-icon pending">📧</div>
+            <div class="timeline-content">
+              <h4>
+                <span class="lang-es">Envío por Email (Menos de 24h)</span>
+                <span class="lang-en">Email Delivery (Under 24h)</span>
+              </h4>
+              <p>
+                <span class="lang-es">Recibirás tu licencia y archivos de instalación en tu correo</span>
+                <span class="lang-en">You will receive your license and installation files via email</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+          <h4>
+            <span>ℹ️</span>
+            <span class="lang-es">¿Tienes dudas?</span>
+            <span class="lang-en">Have questions?</span>
+          </h4>
+          <p>
+            <span class="lang-es">
+              Si no recibes tu licencia en 24 horas o tienes alguna pregunta, 
+              contáctanos por <a href="https://wa.me/573001234567" target="_blank">WhatsApp</a> 
+              o escríbenos a <a href="mailto:soporte@mirrorflow.app">soporte@mirrorflow.app</a>
+            </span>
+            <span class="lang-en">
+              If you don't receive your license within 24 hours or have any questions,
+              contact us via <a href="https://wa.me/573001234567" target="_blank">WhatsApp</a>
+              or email us at <a href="mailto:soporte@mirrorflow.app">soporte@mirrorflow.app</a>
+            </span>
+          </p>
+        </div>
+
+        <!-- Referral Notice (shown if referred) -->
+        <div class="referral-notice hidden" id="referral-notice">
+          <span class="referral-notice-icon">🎉</span>
+          <span class="referral-notice-text">
+            <span class="lang-es">¡Compraste a través de un afiliado! Tu referido será notificado.</span>
+            <span class="lang-en">You purchased through an affiliate! Your referrer will be notified.</span>
+          </span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btn-group">
+          <a href="/" class="btn btn-primary">
+            <span class="lang-es">Volver a Inicio</span>
+            <span class="lang-en">Back to Home</span>
+          </a>
+          <a href="/referidos" class="btn btn-secondary">
+            <span class="lang-es">💰 Ser Afiliado</span>
+            <span class="lang-en">💰 Become Affiliate</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer container">
+      <p>
+        <span class="lang-es">© 2024 MirrorFlow. Todos los derechos reservados.</span>
+        <span class="lang-en">© 2024 MirrorFlow. All rights reserved.</span>
+      </p>
+    </footer>
+  </div>
+
+  <!-- Supabase CDN -->
+  <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script is:inline>
+    // ========== Supabase Client ==========
+    const supabaseUrl = 'https://euxbyvpmofedsfvbdhlj.supabase.co';
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1eGJ5dnBtb2ZlZHNmdmJkaGxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzOTUxODEsImV4cCI6MjA4Mzk3MTE4MX0.PVHHg9EBS404as0tHgoEFW0-Q7ZOWev1xLVdfx8GkZM';
+    const { createClient } = supabase;
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+    // ========== Theme & Language Switching ==========
+    const html = document.documentElement;
+    const themeBtn = document.getElementById('theme-toggle');
+    const langBtns = document.querySelectorAll('.lang-btn');
+
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+    themeBtn.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+
+    // Initialize language
+    const savedLang = localStorage.getItem('lang') || 'es';
+    html.setAttribute('data-lang', savedLang);
+    langBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === savedLang);
+    });
+
+    // Theme toggle
+    themeBtn?.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      themeBtn.textContent = next === 'dark' ? '🌙' : '☀️';
+    });
+
+    // Language buttons
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.dataset.lang;
+        html.setAttribute('data-lang', lang);
+        localStorage.setItem('lang', lang);
+        langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      });
+    });
+
+    // ========== Referral Tracking ==========
+    async function processReferral() {
+      // Get URL parameters
+      const params = new URLSearchParams(window.location.search);
+      const refCode = params.get('ref') || localStorage.getItem('mirrorflow_ref');
+      const buyerEmail = params.get('email') || params.get('payer_email') || '';
+      const amount = parseFloat(params.get('amount') || params.get('payment_gross') || '49');
+
+      // If no referral code, check localStorage (might have been saved earlier)
+      if (!refCode) {
+        console.log('No referral code found');
+        return;
+      }
+
+      console.log('Processing referral:', { refCode, buyerEmail, amount });
+
+      try {
+        // Find affiliate by referral code
+        const { data: affiliate, error: affError } = await supabaseClient
+          .from('affiliates')
+          .select('id, email, name')
+          .eq('referral_code', refCode.toUpperCase())
+          .single();
+
+        if (affError || !affiliate) {
+          console.log('Affiliate not found for code:', refCode);
+          return;
+        }
+
+        console.log('Found affiliate:', affiliate);
+
+        // Calculate commission (10%)
+        const commissionRate = 0.10;
+        const commission = amount * commissionRate;
+
+        // Check if this sale was already recorded (prevent duplicates)
+        const { data: existingSale } = await supabaseClient
+          .from('referred_sales')
+          .select('id')
+          .eq('affiliate_id', affiliate.id)
+          .eq('buyer_email', buyerEmail)
+          .single();
+
+        if (existingSale) {
+          console.log('Sale already recorded');
+          document.getElementById('referral-notice').classList.remove('hidden');
+          return;
+        }
+
+        // Record the sale
+        const { error: saleError } = await supabaseClient
+          .from('referred_sales')
+          .insert({
+            affiliate_id: affiliate.id,
+            buyer_email: buyerEmail || 'unknown@paypal.com',
+            sale_amount: amount,
+            commission_amount: commission,
+            payment_status: 'pending'
+          });
+
+        if (saleError) {
+          console.error('Error recording sale:', saleError);
+          return;
+        }
+
+        // Update affiliate pending earnings
+        const { error: updateError } = await supabaseClient.rpc('add_pending_earnings', {
+          p_affiliate_id: affiliate.id,
+          p_amount: commission
+        });
+
+        // If RPC doesn't exist, update directly
+        if (updateError) {
+          await supabaseClient
+            .from('affiliates')
+            .update({ 
+              pending_earnings: supabaseClient.raw(`pending_earnings + ${commission}`),
+              total_earnings: supabaseClient.raw(`total_earnings + ${commission}`)
+            })
+            .eq('id', affiliate.id);
+        }
+
+        console.log('Sale recorded successfully!');
+        
+        // Show referral notice
+        document.getElementById('referral-notice').classList.remove('hidden');
+
+        // Clear the stored ref code
+        localStorage.removeItem('mirrorflow_ref');
+
+      } catch (err) {
+        console.error('Error processing referral:', err);
+      }
+    }
+
+    // Run on page load
+    processReferral();
+  </script>
+</body>
+</html>
