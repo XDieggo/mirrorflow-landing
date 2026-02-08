@@ -530,8 +530,13 @@ const { settings } = config;
     </footer>
   </div>
 
-  <script type="module">
-    import { supabase } from '/src/lib/supabase.ts';
+  <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script is:inline>
+    // ========== Supabase Client ==========
+    const supabaseUrl = 'https://euxbyvpmofedsfvbdhlj.supabase.co';
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1eGJ5dnBtb2ZlZHNmdmJkaGxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzOTUxODEsImV4cCI6MjA4Mzk3MTE4MX0.PVHHg9EBS404as0tHgoEFW0-Q7ZOWev1xLVdfx8GkZM';
+    const { createClient } = supabase;
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
     const loginSection = document.getElementById('login-section');
     const dashboard = document.getElementById('admin-dashboard');
@@ -541,7 +546,7 @@ const { settings } = config;
     let currentAdmin = null;
 
     async function init() {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await supabaseClient.auth.getSession();
       if (session) {
         await checkAdminAndLoad(session.user);
       }
@@ -549,7 +554,7 @@ const { settings } = config;
 
     async function checkAdminAndLoad(user) {
       // Check if user is admin
-      const { data: affiliate } = await supabase
+      const { data: affiliate } = await supabaseClient
         .from('affiliates')
         .select('*')
         .eq('user_id', user.id)
@@ -559,7 +564,7 @@ const { settings } = config;
       if (!affiliate) {
         loginError.textContent = 'No tienes permisos de administrador';
         loginError.classList.remove('hidden');
-        await supabase.auth.signOut();
+        await supabaseClient.auth.signOut();
         return;
       }
 
@@ -577,7 +582,7 @@ const { settings } = config;
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
 
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
       
       if (error) {
         loginError.textContent = error.message;
@@ -589,7 +594,7 @@ const { settings } = config;
     });
 
     document.getElementById('logout-btn')?.addEventListener('click', async () => {
-      await supabase.auth.signOut();
+      await supabaseClient.auth.signOut();
       location.reload();
     });
 
@@ -605,13 +610,13 @@ const { settings } = config;
 
     async function loadDashboard() {
       // Load affiliates
-      const { data: affiliates } = await supabase.from('affiliates').select('*').order('created_at', { ascending: false });
+      const { data: affiliates } = await supabaseClient.from('affiliates').select('*').order('created_at', { ascending: false });
       
       // Load sales
-      const { data: sales } = await supabase.from('referred_sales').select('*, affiliates(name, email)').order('created_at', { ascending: false });
+      const { data: sales } = await supabaseClient.from('referred_sales').select('*, affiliates(name, email)').order('created_at', { ascending: false });
       
       // Load payouts
-      const { data: payouts } = await supabase.from('payout_requests').select('*, affiliates(name, email)').order('created_at', { ascending: false });
+      const { data: payouts } = await supabaseClient.from('payout_requests').select('*, affiliates(name, email)').order('created_at', { ascending: false });
 
       // Update stats
       document.getElementById('stat-affiliates').textContent = affiliates?.length || 0;
@@ -699,31 +704,31 @@ const { settings } = config;
 
     // Global functions for actions
     window.toggleAdmin = async (affiliateId, makeAdmin) => {
-      const { error } = await supabase.from('affiliates').update({ is_admin: makeAdmin }).eq('id', affiliateId);
+      const { error } = await supabaseClient.from('affiliates').update({ is_admin: makeAdmin }).eq('id', affiliateId);
       if (error) alert('Error: ' + error.message);
       else await loadDashboard();
     };
 
     window.confirmSale = async (saleId) => {
-      const { error } = await supabase.from('referred_sales').update({ payment_status: 'confirmed', confirmed_at: new Date().toISOString() }).eq('id', saleId);
+      const { error } = await supabaseClient.from('referred_sales').update({ payment_status: 'confirmed', confirmed_at: new Date().toISOString() }).eq('id', saleId);
       if (error) alert('Error: ' + error.message);
       else await loadDashboard();
     };
 
     window.processPayout = async (payoutId, status) => {
-      const { data: payout } = await supabase.from('payout_requests').select('*, affiliates(*)').eq('id', payoutId).single();
+      const { data: payout } = await supabaseClient.from('payout_requests').select('*, affiliates(*)').eq('id', payoutId).single();
       
       if (status === 'completed' && payout) {
         // Update affiliate's earnings
         const newPending = (payout.affiliates.pending_earnings || 0) - payout.requested_amount;
         const newPaid = (payout.affiliates.paid_earnings || 0) + payout.requested_amount;
-        await supabase.from('affiliates').update({
+        await supabaseClient.from('affiliates').update({
           pending_earnings: Math.max(0, newPending),
           paid_earnings: newPaid
         }).eq('id', payout.affiliate_id);
       }
 
-      const { error } = await supabase.from('payout_requests').update({ 
+      const { error } = await supabaseClient.from('payout_requests').update({ 
         status, 
         processed_at: new Date().toISOString() 
       }).eq('id', payoutId);
