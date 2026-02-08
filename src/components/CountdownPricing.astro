@@ -16,14 +16,14 @@ const translations = {
     subtitle: 'Pago Único • Sin Suscripciones',
     currentPrice: '$49',
     currency: 'USD',
-    oneTime: 'Pago único',
-    lifetime: 'Licencia Vitalicia',
     securePayment: 'Pago seguro con PayPal',
     savings: 'Ahorras $539+ vs suscripciones anuales',
     comparison: 'LocalTradeCopier cobra $49/mes = $588/año',
     features: [
-      'Replicación ilimitada de cuentas',
-      'Conexión a cTrader y MT5',
+      'Replicación ilimitada de cuentas en NinjaTrader',
+      'Replicación ilimitada de cuentas hacia Metatrader',
+      'Replicación ilimitada de cuentas hacia cTrader',
+      'Pago único - Licencia Vitalicia',
       'Actualizaciones de por vida',
       'Soporte premium por WhatsApp',
       'Instalación en 5 minutos',
@@ -35,14 +35,14 @@ const translations = {
     subtitle: 'One-Time Payment • No Subscriptions',
     currentPrice: '$49',
     currency: 'USD',
-    oneTime: 'One-time payment',
-    lifetime: 'Lifetime License',
     securePayment: 'Secure payment with PayPal',
     savings: 'Save $539+ vs annual subscriptions',
     comparison: 'LocalTradeCopier charges $49/month = $588/year',
     features: [
-      'Unlimited account replication',
-      'Connection to cTrader and MT5',
+      'Unlimited account replication in NinjaTrader',
+      'Unlimited account replication to Metatrader',
+      'Unlimited account replication to cTrader',
+      'One-time payment - Lifetime License',
       'Lifetime updates',
       'Premium WhatsApp support',
       '5-minute installation',
@@ -53,12 +53,6 @@ const translations = {
 
 const t = translations[lang];
 const ctaText = lang === 'es' ? '🚀 Obtener MirrorFlow - $49 (Pago Único)' : '🚀 Get MirrorFlow - $49 (One-Time)';
-
-// Social proof text
-const socialProofText = lang === 'es' 
-  ? 'traders compraron en las últimas 24 horas'
-  : 'traders purchased in the last 24 hours';
----
 
 <section id="pricing" class="pricing-section">
   <div class="pricing-container">
