@@ -1199,7 +1199,12 @@ const { settings } = config;
 
       // Check if custom code is already taken
       if (customCode) {
-        const { data: existing } = await supabaseClient.from('affiliates').select('id').eq('referral_code', customCode).single();
+        const { data: existing, error: checkError } = await supabaseClient
+          .from('affiliates')
+          .select('id')
+          .eq('referral_code', customCode)
+          .maybeSingle();
+        
         if (existing) {
           errEl.textContent = lang === 'en' ? 'This referral code is already taken' : 'Este código de referido ya está en uso';
           errEl?.classList.remove('hidden');
