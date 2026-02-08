@@ -29,7 +29,7 @@ const logoConfig = logo && logo.trim() !== '' ? {
 export default defineConfig({
   site: "https://mirrorflow.app",
   image: {
-    service: { entrypoint: "astro/assets/services/noop" },
+    service: { entrypoint: "astro/assets/services/sharp" },
   },
   integrations: [
     starlight({

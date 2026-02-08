@@ -5,7 +5,10 @@
         "primary": "#D76D77",
         "body": "#0d0d0d",
         "light": "#f6f6f6",
-        "dark": "#151515"
+        "dark": "#151515",
+        "accent": "#818cf8",
+        "success": "#22c55e",
+        "warning": "#f59e0b"
       },
       "text_color": {
         "text": "#999999"
